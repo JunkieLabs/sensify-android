@@ -6,23 +6,14 @@
 <!--    </style>-->
 
     <!-- Base application theme. -->
-    <style name="Theme.SensifyAndroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-    </style>
 
-    <style name="Theme.SensifyAndroid.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-    </style>
+    <style name="Theme.SensifyAndroid" parent="Theme.Material3.DayNight.NoActionBar" />
 
-    <style name="Theme.SensifyAndroid.Splash" parent="Theme.SensifyAndroid.NoActionBar">
+    <style name="Theme.SensifyAndroid.Splash">
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:windowBackground">@drawable/splash_screen_background</item>
         <item name="android:navigationBarColor">@color/background_color</item>
 
     </style>
 
-    <style name="Theme.SensifyAndroid.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.SensifyAndroid.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
