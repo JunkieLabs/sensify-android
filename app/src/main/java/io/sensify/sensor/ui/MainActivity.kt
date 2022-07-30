@@ -3,23 +3,12 @@ package io.sensify.sensor.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import io.sensify.sensor.ui.labs.viewpager.Pager
-import io.sensify.sensor.ui.labs.viewpager.Screens.ViewPagerPages
-import io.sensify.sensor.ui.labs.viewpager.Screens.HomeScreenAppBar
+import io.sensify.sensor.ui.labs.utils.Sensors.ProximitySensor
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
 import io.sensify.sensor.ui.theme.SensifyAndroidTheme
 
@@ -37,6 +26,7 @@ class MainActivity : ComponentActivity() {
 //                    Greeting("Android")
 //                    ViewPagerPages(name = "Android")
                     ViewPagerSlider()
+                    ProximitySensor()
 
                 }
             }
