@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import io.sensify.sensor.ui.Screens.LabListScreen
+import io.sensify.sensor.ui.screens.LabListScreen
 import io.sensify.sensor.ui.labs.viewpager.Screens.ViewPagerPages
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
 

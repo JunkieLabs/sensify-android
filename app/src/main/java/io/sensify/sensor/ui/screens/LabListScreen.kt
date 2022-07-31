@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.Screens
+package io.sensify.sensor.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
