@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.sensify.sensor.ui.labs.Screens.HomeScreenHeader2
 import io.sensify.sensor.ui.screens.LabListScreen
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
 
@@ -25,6 +26,10 @@ fun NavigationGraph(){
 
         composable(route = ScreenUrls.ViewPagerScreen.route){
             ViewPagerSlider()
+        }
+
+        composable(route = ScreenUrls.HomeScreen.route){
+            HomeScreenHeader2()
         }
     }
 }

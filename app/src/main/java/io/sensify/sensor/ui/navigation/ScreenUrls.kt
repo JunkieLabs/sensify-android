@@ -7,6 +7,7 @@ package io.sensify.sensor.ui.navigation
 sealed class ScreenUrls(val route: String){
     object LabListScreen: ScreenUrls("lab_list_screen")
     object ViewPagerScreen: ScreenUrls("view_pager_screen")
+    object HomeScreen: ScreenUrls("Home_screen")
 
     fun withArgs(vararg args: String): String {
         return buildString {

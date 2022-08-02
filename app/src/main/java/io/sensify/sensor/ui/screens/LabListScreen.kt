@@ -70,7 +70,7 @@ fun LabListScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { },
+            onClick = { navController.navigate(ScreenUrls.HomeScreen.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)

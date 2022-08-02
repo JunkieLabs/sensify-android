@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.labs.viewpager.Screens
+package io.sensify.sensor.ui.labs.Screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -30,6 +30,7 @@ val darkGrey = Color(0xFF444444)
 val backgroundColor = Color(0xFF05150E)
 val backgroundColorVariant = Color(0xFF081B12)
 val headerCardColor = Color(0x1ADA66B2)
+val activeSensorCardBackground = Color(0x1D17FF58)
 
 
 
