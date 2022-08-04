@@ -30,3 +30,9 @@
 # circle Image
 
 - https://howiezuo.medium.com/building-a-design-system-implementation-using-jetpack-compose-part2-d965880292b0
+
+# compose side effect
+- https://developer.android.com/jetpack/compose/side-effects
+
+# compose 
+- https://github.com/Farhandroid/AndroidCleanArchitecture
