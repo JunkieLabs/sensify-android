@@ -7,6 +7,7 @@ import androidx.navigation.compose.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.ui.labs.root.LabsPage
 import io.sensify.sensor.ui.labs.sensors.LabsSensorsPage
+import io.sensify.sensor.ui.labs.styles.LabsStylesPage
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
 
 /**
@@ -26,6 +27,6 @@ fun NavGraphBuilder.labsGraph(navController: NavController){
         composable(NavDirectionsLabs.Root.route) { LabsPage(navController) }
         composable(NavDirectionsLabs.Sensors.route) { LabsSensorsPage(navController) }
         composable(NavDirectionsLabs.ViewPager.route) { ViewPagerSlider() }
-        composable(NavDirectionsLabs.Styles.route) { LabsSensorsPage(navController) }
+        composable(NavDirectionsLabs.Styles.route) { LabsStylesPage(navController) }
     }
 }
