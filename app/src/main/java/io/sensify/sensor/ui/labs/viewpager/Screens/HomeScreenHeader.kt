@@ -46,8 +46,7 @@ fun HomeScreenHeader(modifier: Modifier = Modifier){
             start = 30.dp,
             end = 30.dp,
         )
-        .background(Color(0xB200752F)),
-    containerColor = Color.Transparent) {
+        .background(Color(0xB200752F))) {
         Row(modifier = modifier
             .padding(all = 6.dp),
             verticalAlignment = Alignment.CenterVertically
