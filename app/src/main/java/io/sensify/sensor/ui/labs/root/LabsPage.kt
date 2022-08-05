@@ -90,8 +90,7 @@ fun LabsPage(navController: NavController) {
         ) {
             Text(text = "View Pager")
         }
-        Divider(color = Color.White, thickness = JlResDimens.dp1)
-
+       
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = {
