@@ -3,6 +3,8 @@ package io.sensify.sensor.ui.resource.values
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Shapes
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -10,6 +12,17 @@ import androidx.compose.ui.unit.dp
  * Created by Niraj on 05-08-2022.
  */
 object JlResShapes {
+
+    object Common{
+
+        val shapes = Shapes(
+            small = RoundedCornerShape(8.dp),
+            medium = RoundedCornerShape(12.dp),
+            large = RoundedCornerShape(24.dp)
+        )
+    }
+
+
 
     object Space{
         val H18 = Modifier.height(JlResDimens.dp18)

@@ -38,3 +38,11 @@
 - https://github.com/Farhandroid/AndroidCleanArchitecture
 
 - https://keheira.com/nested-navigation-in-jetpack-compose/
+
+# styling
+
+- https://github.com/enginebai/MovieHunt/tree/v2/app/src/main/java/com/enginebai/moviehunt
+
+  <!-- shapes -->
+- https://foso.github.io/Jetpack-Compose-Playground/cookbook/how_to_create_custom_shape/
+- https://juliensalvi.medium.com/custom-shape-with-jetpack-compose-1cb48a991d42
