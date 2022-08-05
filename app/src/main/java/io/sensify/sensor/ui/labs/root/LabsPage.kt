@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
+import io.sensify.sensor.ui.resource.values.JlResDimens
 
 /**
  * Created by Niraj on 04-08-2022.
@@ -28,81 +29,84 @@ fun LabsPage(navController: NavController) {
     ) {
 
         Spacer(modifier = Modifier.height(20.dp))
-        Divider(color = Color.White, thickness = 1.dp)
+        Divider(color = Color.White, thickness = JlResDimens.dp1)
         Text(
             text = "Core", modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
                 .padding(0.dp),
             fontSize = 16.sp
         )
-        Divider(color = Color.White, thickness = 1.dp)
+        Divider(color = Color.White, thickness = JlResDimens.dp1)
 
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = { },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
             Text(text = "Home")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = { },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
             Text(text = "Launcher")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = {
                 navController.navigate(NavDirectionsLabs.Sensors.route)
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
             Text(text = "Sensors")
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Divider(color = Color.White, thickness = 1.dp)
+        Spacer(modifier = Modifier.height(JlResDimens.dp20))
+        Divider(color = Color.White, thickness = JlResDimens.dp1)
         Text(
             text = "Others", modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
                 .padding(0.dp),
             fontSize = 16.sp
         )
-        Divider(color = Color.White, thickness = 1.dp)
-        Spacer(modifier = Modifier.height(16.dp))
+        Divider(color = Color.White, thickness = JlResDimens.dp1)
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = {
                 navController.navigate(NavDirectionsLabs.ViewPager.route)
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
             Text(text = "View Pager")
         }
-        Divider(color = Color.White, thickness = 1.dp)
+        Divider(color = Color.White, thickness = JlResDimens.dp1)
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = {
                 navController.navigate(NavDirectionsLabs.Styles.route)
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
             Text(text = "Styles")
         }
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+        Divider(color = Color.White, thickness = JlResDimens.dp1)
 
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
 
     }
 }
