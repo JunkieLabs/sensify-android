@@ -20,6 +20,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.ui.labs.utils.Sensors.ProximitySensor
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
 import io.sensify.sensor.ui.navigation.NavigationGraph
+import io.sensify.sensor.ui.resource.themes.SensifyM3Theme
 import io.sensify.sensor.ui.theme.SensifyAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SensifyAndroidTheme {
+            SensifyM3Theme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

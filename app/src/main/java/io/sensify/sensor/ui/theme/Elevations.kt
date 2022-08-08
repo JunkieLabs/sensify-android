@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 /**
  * Created by Manish Kumar on 11/07/22.
  */
+@Deprecated("not in use")
 @Immutable
 data class Elevations(
     val Backdrop: Dp = 8.dp,

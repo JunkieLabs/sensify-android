@@ -6,6 +6,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.toArgb
 
+@Deprecated("replaced with resource/values/JlResColors")
+
+
 val gray800 = Color(0xCC333333)
 val gray900 = Color(0xff333333)
 val rust300 = Color(0xFFE1AFAF)
