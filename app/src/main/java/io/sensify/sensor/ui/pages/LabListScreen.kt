@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.screens
+package io.sensify.sensor.ui.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import io.sensify.sensor.ui.navigation.ScreenUrls
+import io.sensify.sensor.ui.navigation.PageDestinations
 
 /**
  * Created by Manish Kumar on 30/07/22.
@@ -230,7 +230,7 @@ fun LabListScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController.navigate(ScreenUrls.ViewPagerScreen.route) },
+            onClick = { navController.navigate(PageDestinations.ViewPagerScreen.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
