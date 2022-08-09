@@ -5,8 +5,9 @@ package io.sensify.sensor.ui.navigation
  */
 
 sealed class PageDestinations(val route: String){
-    object LabListScreen: PageDestinations("lab_list_screen")
-    object ViewPagerScreen: PageDestinations("view_pager_screen")
+    object LabPage: PageDestinations("lab_list_screen")
+    object ViewPagerPage: PageDestinations("view_pager_screen")
+    object HomePage: PageDestinations("home_page")
 
     fun withArgs(vararg args: String): String {
         return buildString {

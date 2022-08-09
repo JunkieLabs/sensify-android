@@ -60,7 +60,7 @@ fun LabListScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { },
+            onClick = {  },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
@@ -70,7 +70,7 @@ fun LabListScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController.navigate(ScreenUrls.HomeScreen.route) },
+            onClick = { navController.navigate(PageDestinations.HomePage.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
@@ -120,7 +120,7 @@ fun LabListScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { },
+            onClick = {  },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
@@ -230,7 +230,7 @@ fun LabListScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController.navigate(PageDestinations.ViewPagerScreen.route) },
+            onClick = { navController.navigate(PageDestinations.ViewPagerPage.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)

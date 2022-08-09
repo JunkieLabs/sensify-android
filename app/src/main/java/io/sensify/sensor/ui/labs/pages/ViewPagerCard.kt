@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.labs.Screens
+package io.sensify.sensor.ui.labs.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
