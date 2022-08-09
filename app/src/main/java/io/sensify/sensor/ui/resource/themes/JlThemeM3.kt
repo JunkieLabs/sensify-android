@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import io.sensify.sensor.ui.resource.values.JlResColors
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
@@ -21,10 +22,10 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
  */
 object JlThemeM3 {
 
-    val md_theme_light_primary = Color(0xFF984065)
-    val md_theme_light_onPrimary = Color(0xFFffffff)
-    val md_theme_light_primaryContainer = Color(0xFFffd8e5)
-    val md_theme_light_onPrimaryContainer = Color(0xFF3e001f)
+    val md_theme_light_primary = JLThemeBase.colorPrimary
+    val md_theme_light_onPrimary = JlResColors.white
+    val md_theme_light_primaryContainer = JLThemeBase.colorPrimary90
+    val md_theme_light_onPrimaryContainer = JLThemeBase.colorPrimary10
     val md_theme_light_secondary = Color(0xFF735760)
     val md_theme_light_onSecondary = Color(0xFFffffff)
     val md_theme_light_secondaryContainer = Color(0xFFffd8e3)
@@ -48,10 +49,10 @@ object JlThemeM3 {
     val md_theme_light_inverseSurface = Color(0xFF352f30)
     val md_theme_light_inversePrimary = Color(0xFFffb0cd)
 
-    val md_theme_dark_primary = Color(0xFFffb0cd)
-    val md_theme_dark_onPrimary = Color(0xFF5d1136)
-    val md_theme_dark_primaryContainer = Color(0xFF7a294d)
-    val md_theme_dark_onPrimaryContainer = Color(0xFFffd8e5)
+    val md_theme_dark_primary = JLThemeBase.colorPrimary
+    val md_theme_dark_onPrimary = JlResColors.white
+    val md_theme_dark_primaryContainer = JLThemeBase.colorPrimary40
+    val md_theme_dark_onPrimaryContainer = JLThemeBase.colorPrimary90
     val md_theme_dark_secondary = Color(0xFFe1bdc7)
     val md_theme_dark_onSecondary = Color(0xFF422932)
     val md_theme_dark_secondaryContainer = Color(0xFF5a3f48)

@@ -36,6 +36,36 @@ object JlResColors {
 
 
 
+
+    val SensifyGreen = Color(0xFF1ADA66)
+    val SensifyGreen10 = Color(0xFF00230e)
+    val SensifyGreen20 = Color(0xFF005120)
+    val SensifyGreen30 = Color(0xFF00752F)
+    val SensifyGreen40 = Color(0xFF14ae51)
+    val SensifyGreen50 = Color(0xFF1ADA66)
+    val SensifyGreen60 = Color(0xFF13ED6A)
+    val SensifyGreen70 = Color(0xFF45FF90)
+    val SensifyGreen80 = Color(0xFF7cffb1)
+    val SensifyGreen90 = Color(0xFFa2ffc7)
+    val SensifyGreen95 = Color(0xFFc7ffdd)
+    val SensifyGreen99 = Color(0xFFecfff3)
+
+
+    val SensifyYellow = Color(0xFFFFCA10)
+    val SensifyYellow10 = Color(0xFF4c3c04)
+    val SensifyYellow20 = Color(0xFF7f6508)
+    val SensifyYellow30 = Color(0xFFb28d0b)
+    val SensifyYellow40 = Color(0xFFe5b50e)
+    val SensifyYellow50 = Color(0xFFffca10)
+    val SensifyYellow60 = Color(0xFFffcf27)
+    val SensifyYellow70 = Color(0xFFffd957)
+    val SensifyYellow80 = Color(0xFFffe487)
+    val SensifyYellow90 = Color(0xFFffefb7)
+    val SensifyYellow95 = Color(0xFFfff4cf)
+    val SensifyYellow99 = Color(0xFFfff9e7)
+
+
+
     val NoteYellow = Color(0xFFFFF389)
     val NotePink = Color(0xFFE2648C)
     val NoteRed = Color(0xFFE76A6A)
