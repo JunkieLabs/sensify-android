@@ -67,6 +67,7 @@ private val DarkColorScheme = darkColorScheme(
     inversePrimary = md_theme_dark_inversePrimary,
 )
 
+@Deprecated("replaced with resource/themes/JlThemeM3")
 @Composable
 fun SensifyAndroidTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

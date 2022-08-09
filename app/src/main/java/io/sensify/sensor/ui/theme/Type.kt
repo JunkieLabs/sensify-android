@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
 
 
+@Deprecated("not in use")
 private val Roboto = FontFamily(
     Font(R.font.roboto_regular),
 )
@@ -26,6 +27,7 @@ private val Jost = FontFamily(
 )
 
 
+@Deprecated("not in use")
 val Typography = Typography(
 
     headlineSmall = TextStyle(

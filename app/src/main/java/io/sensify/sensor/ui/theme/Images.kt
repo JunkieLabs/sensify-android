@@ -7,6 +7,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 /**
  * Images that can vary by theme.
  */
+@Deprecated("not in use")
 @Immutable
 data class Images(@DrawableRes val lockupLogo: Int)
 

@@ -19,6 +19,7 @@ import io.sensify.sensor.ui.navigation.PageDestinations
  * Created by Manish Kumar on 30/07/22.
  */
 
+@Deprecated("replaced with labs/sensors")
 @Composable
 fun LabListScreen(navController: NavController) {
 
