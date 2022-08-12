@@ -1,12 +1,15 @@
 package io.sensify.sensor.ui.domains.permissions
 
+import android.Manifest
 import android.os.Build
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.debugInspectorInfo
-import androidx.compose.ui.unit.Dp
+import android.util.Log
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 /**
  * Created by Niraj on 11-08-2022.
@@ -15,22 +18,113 @@ class PermissionsManager {
 }
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun RememberPermissionManager(query: PermissionsQuery) {
+fun RememberPermissionManager(
+    query: PermissionsRequest,
+    callbackResult: (isGranted: Boolean) -> Unit = {}
+): MutablePermissionState {
+
+    Log.d("RememberPermissionManager: ", "query.getPermissionsList(): ${query.getPermissionsList()}")
+
+    var multiplePermissionsState =
+        if (query.getPermissionsList().size <= 0) {
+            null
+        } else {
+            rememberMultiplePermissionsState(
+//        listOf(
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.CAMERA,
+//        )
+                query.getPermissionsList(),
+                onPermissionsResult = {
+                    if (it.containsValue(false)) {
+                        callbackResult.invoke(false)
+                    } else {
+                        callbackResult.invoke(true)
+                    }
+
+                }
+            )
+        }
+
+
+    val permissionsState = remember(query, multiplePermissionsState) {
+        MutablePermissionState(query, multiplePermissionsState)
+    }
+
+
+    val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current;
+
+//    multiplePermissionsState,
+    DisposableEffect(lifecycleOwner) {
+//        multiplePermissionsState.launcher = launcher
+
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_START) {
+//                currentOnStart()
+                Log.d("RememberPermissionManager: ", "on_start")
+            } else if (event == Lifecycle.Event.ON_STOP) {
+//                currentOnStop()
+                Log.d("RememberPermissionManager: ", "on_stop")
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+
+//            multiplePermissionsState.launcher = null
+        }
+    }
+
+    if (query.shouldRunAtStart()) {
+        LaunchedEffect(true) {
+            Log.d("RememberPermissionManager: ", "shouldRunAtStart")
+            if (!permissionsState.isGranted) {
+                Log.d("RememberPermissionManager: ", "shouldRunAtStart 2")
+                permissionsState.requestManually()
+
+            }
+
+        }
+
+    }
+
+    /*if (multiplePermissionsState != null) {
+        if (multiplePermissionsState.allPermissionsGranted) {
+
+        }
+        when (multiplePermissionsState.allPermissionsGranted) {
+
+
+            else -> {}
+        }
+    }*/
+
+    return permissionsState
+
 
 }
 
-interface PermissionsQuery {
+interface PermissionsRequest {
     fun getPurposeList(): List<Int>
-    abstract fun then(latest: PermissionsQuery): PermissionsQuery
     fun getPermissionsList(): List<String>
+    fun shouldRunAtStart(): Boolean
+
+    fun _runCondition(): Int?
+
+    fun then(latest: PermissionsRequest): PermissionsRequest
 
     //    fun then(): PermissionsQuery
-    companion object : PermissionsQuery {
+    companion object : PermissionsRequest {
         const val PURPOSE_DETAIL = 101
 
         //        const val FOR_LIST = 10
         const val PURPOSE_SENSOR_STEP_COUNTER = 201
+
+        internal const val RUN_AT_START = 1
+        internal const val RUN_MANUALLY = 2
+
 
         /*val PERMISSIONS_MAP =
             mutableMapOf<Int, Array<String>>(
@@ -48,16 +142,18 @@ interface PermissionsQuery {
 */
 
 
-
         internal fun permissionsFor(purpose: Int): MutableList<String> {
             var permissions = mutableListOf<String>()
-            when(purpose){
+            when (purpose) {
                 PURPOSE_DETAIL -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        permissions.add(android.Manifest.permission.HIGH_SAMPLING_RATE_SENSORS)
+                        permissions.add(
+                            android.Manifest.permission.HIGH_SAMPLING_RATE_SENSORS
+                        )
                     }
+                    permissions.add(android.Manifest.permission.CAMERA)
                 }
-                PURPOSE_SENSOR_STEP_COUNTER ->{
+                PURPOSE_SENSOR_STEP_COUNTER -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         android.Manifest.permission.ACTIVITY_RECOGNITION
                     }
@@ -74,8 +170,8 @@ interface PermissionsQuery {
         }
 
         //        override
-        override fun then(latest: PermissionsQuery): PermissionsQuery {
-            return this
+        override fun then(latest: PermissionsRequest): PermissionsRequest {
+            return PermissionsRequestDelegate(null).then(latest)
         }
 
         override fun getPermissionsList(): List<String> {
@@ -83,16 +179,39 @@ interface PermissionsQuery {
             return listOf()
         }
 
+        override fun shouldRunAtStart(): Boolean {
+            return true
+        }
+
+        override fun _runCondition(): Int? {
+            return null
+        }
+
     }
 }
 
-class PermissionsQueryDelegate(var purpose: Int) : PermissionsQuery {
+class PermissionsRequestDelegate(var purpose: Int?, var runAtStart: Boolean? = null) :
+    PermissionsRequest {
 
     var mPurposeList = mutableListOf<Int>()
     var mPermissions = mutableListOf<String>()
 
+    var mRunCondition: Int? = null
+
     init {
-        mPurposeList = mutableListOf(purpose)
+
+        if (runAtStart != null) {
+            if (runAtStart!!) {
+                mRunCondition = PermissionsRequest.RUN_AT_START
+            } else {
+                mRunCondition = PermissionsRequest.RUN_MANUALLY
+            }
+        }
+        if (purpose != null) {
+            mPurposeList = mutableListOf(purpose!!)
+            Log.d("PermissionsRequestDelegate: ", "init $purpose")
+
+        }
     }
 
     override fun getPurposeList(): List<Int> {
@@ -100,7 +219,7 @@ class PermissionsQueryDelegate(var purpose: Int) : PermissionsQuery {
     }
 
 
-    override fun then(latest: PermissionsQuery): PermissionsQuery {
+    override fun then(latest: PermissionsRequest): PermissionsRequest {
         updateValues(latest)
         return this
 
@@ -110,7 +229,9 @@ class PermissionsQueryDelegate(var purpose: Int) : PermissionsQuery {
         var permissions = mutableListOf<String>()
 
         mPurposeList.forEach { it1 ->
-            var itemPermissions = PermissionsQuery.permissionsFor(it1)
+            Log.d("PermissionsRequestDelegate: ", "getPermissionsList $it1")
+
+            var itemPermissions = PermissionsRequest.permissionsFor(it1)
             itemPermissions.forEach { permission ->
                 var applyFor = permissions.firstOrNull { it == permission }
                 if (applyFor == null) {
@@ -124,7 +245,21 @@ class PermissionsQueryDelegate(var purpose: Int) : PermissionsQuery {
 
     }
 
-    internal fun updateValues(latest: PermissionsQuery) {
+    override fun shouldRunAtStart(): Boolean {
+        return true
+    }
+
+    override fun _runCondition(): Int? {
+        return mRunCondition
+    }
+
+
+    private fun updateValues(latest: PermissionsRequest) {
+
+        var runCondition = latest._runCondition()
+        if (runCondition != null) {
+            this.mRunCondition = runCondition
+        }
 
         var purpose = latest.getPurposeList()
         purpose.forEach { it1 ->
@@ -139,32 +274,15 @@ class PermissionsQueryDelegate(var purpose: Int) : PermissionsQuery {
 }
 
 @Stable
-fun PermissionsQuery.forPurpose(purpose: Int) = this.then(
-    PermissionsQueryDelegate(purpose)
+fun PermissionsRequest.forPurpose(purpose: Int) = this.then(
+    PermissionsRequestDelegate(purpose)
+)
+
+@Stable
+fun PermissionsRequest.runAtStart(shouldRun: Boolean) = this.then(
+    PermissionsRequestDelegate(null, shouldRun)
 )
 
 
-//{
-////    this.addApplyFor(value)
-//   var applyFor =  this.mApplyFor.firstOrNull { it == value }
-//
-//    if(applyFor == null){
-//        this.mApplyFor.add(value)
-//    }
-//
-//}
-//
-//fun IPermissionsQuery.asw(value: Int) = this
-
-/*@Stable
-fun PermissionsQuery.applyFor(value: Int) {
-//    this.addApplyFor(value)
-    var applyFor =  this.mApplyFor.firstOrNull { it == value }
-
-    if(applyFor == null){
-        this.mApplyFor.add(value)
-    }
-
-}*/
 
 

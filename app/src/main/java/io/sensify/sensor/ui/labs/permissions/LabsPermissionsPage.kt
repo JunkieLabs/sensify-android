@@ -1,5 +1,6 @@
 package io.sensify.sensor.ui.labs.permissions
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,6 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.*
+import io.sensify.sensor.ui.domains.permissions.PermissionsRequest
+import io.sensify.sensor.ui.domains.permissions.RememberPermissionManager
+import io.sensify.sensor.ui.domains.permissions.forPurpose
+import io.sensify.sensor.ui.domains.permissions.runAtStart
 
 /**
  * Created by Niraj on 11-08-2022.
@@ -26,10 +31,22 @@ fun LabsPermissionsPage(navController: NavController) {
 //   TODO undo this part rememberPermissionState(permission = )
 
 
-
 //    PermissionsQuery.
-    val cameraPermissionState = featureThatRequiresCameraPermission()
-    requestMultiplePermissionsSample()
+//    val cameraPermissionState = featureThatRequiresCameraPermission()
+//    requestMultiplePermissionsSample()
+
+    val permissionManager = RememberPermissionManager(
+        PermissionsRequest.forPurpose(PermissionsRequest.PURPOSE_DETAIL).runAtStart(true),
+        callbackResult = {
+            Log.d("LabsPermissionsPage: ", "permissionManager $it")
+
+        }
+    )
+    if (permissionManager.isGranted) {
+        Text("Camera permission Granted")
+    } else {
+        Text("Camera permission Not Granted")
+    }
 
 //    PermissionsQuery.asw
 
@@ -38,6 +55,8 @@ fun LabsPermissionsPage(navController: NavController) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
+
+        Spacer(modifier = Modifier.height(20.dp))
 
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -54,7 +73,7 @@ fun LabsPermissionsPage(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                      cameraPermissionState.launchPermissionRequest()
+//                      cameraPermissionState.launchPermissionRequest()
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,9 +94,10 @@ private fun featureThatRequiresCameraPermission(): PermissionState {
 
 
     // Camera permission state
-    val cameraPermissionState : PermissionState  = rememberPermissionState(
+    val cameraPermissionState: PermissionState = rememberPermissionState(
         android.Manifest.permission.CAMERA
     )
+
 
     when (cameraPermissionState.status) {
         // If the camera permission is granted, then show screen with the feature enabled
@@ -109,7 +129,6 @@ private fun featureThatRequiresCameraPermission(): PermissionState {
 }
 
 
-
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun requestMultiplePermissionsSample() {
@@ -122,7 +141,6 @@ private fun requestMultiplePermissionsSample() {
     MultipleSample(multiplePermissionsState)
 
 }
-
 
 
 @OptIn(ExperimentalPermissionsApi::class)
