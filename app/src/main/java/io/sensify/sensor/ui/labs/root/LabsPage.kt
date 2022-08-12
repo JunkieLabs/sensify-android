@@ -102,6 +102,18 @@ fun LabsPage(navController: NavController) {
         ) {
             Text(text = "Styles")
         }
+
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+        Button(
+            onClick = {
+                navController.navigate(NavDirectionsLabs.Permissions.route)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
+        ) {
+            Text(text = "permissions")
+        }
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Divider(color = Color.White, thickness = JlResDimens.dp1)
 
