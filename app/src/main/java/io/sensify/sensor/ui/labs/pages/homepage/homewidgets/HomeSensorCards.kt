@@ -31,13 +31,13 @@ import io.sensify.sensor.R
  * Created by Manish Kumar on 08/08/22.
  */
 
-
+@Preview(showBackground=true, backgroundColor = 0xFF041B11)
 @Composable
 fun HomeSensorCard(
-    sensorName: String,
-    sensorValue: String,
-    sensorUnit: String,
-    sensorIcon: Int,
+    sensorName: String = "Magnatic Field",
+    sensorValue: String = "9.7",
+    sensorUnit: String = "m/s\u2008",
+    sensorIcon: Int = R.drawable.ic_sensor_gravity,
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -141,9 +141,6 @@ fun GyroscopeCard() {
             containerColor = Color(0x1D17FF58)
         ),
         modifier = Modifier
-            .width(128.dp)
-            .height(128.dp)
-
     ) {
         Column(modifier = Modifier) {
             Box(
@@ -197,7 +194,7 @@ fun GyroscopeCard() {
                     )
                 }
 
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.width(58.dp))
 
                 Box(
                     contentAlignment = Alignment.BottomEnd,

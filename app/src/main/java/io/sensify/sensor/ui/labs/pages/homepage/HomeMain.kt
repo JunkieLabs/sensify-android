@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
+import io.sensify.sensor.ui.labs.models.SensorCardModel
 import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomePageHeader
 import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomeSensorCard
 
@@ -28,13 +30,9 @@ import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomeSensorCard
  * Created by Manish Kumar on 09/08/22.
  */
 
-@Preview(showBackground=true, backgroundColor = 0xFF041B11)
-@Composable
-fun HomePage(
-    modifier: Modifier = Modifier
-){
 
-    val numberOfItemsByRow = LocalConfiguration.current.screenWidthDp / 200
+@Composable
+fun HomePage(){
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -49,7 +47,7 @@ fun HomePage(
 
             // AppBar
             Row( verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(32.dp)) {
 
@@ -69,12 +67,17 @@ fun HomePage(
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight(400),
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                 )
 
             }
 
-            HomePageHeader()
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 32.dp, end = 32.dp)
+            ) {
+                HomePageHeader()
+            }
 
             Spacer(modifier = Modifier.height(350.dp))
 
@@ -284,21 +287,109 @@ fun HomePage(
                 }
             }
 
-//            LazyColumn(modifier = modifier) {
-//
-//                items(items = trendingGameList.chunked(numberOfItemsByRow)) { rowItems ->
-//                    Row(
-//                        horizontalArrangement = Arrangement.spacedBy(14.dp),
-//                        modifier = Modifier.padding(horizontal = 16.dp),
-//                    ) {
-//                        for (game in rowItems) {
-//                            GameCard(game = game, onClick = { }, modifier = Modifier.weight(1F))
-//                        }
-//                    }
-//                    Spacer(Modifier.height(14.dp))
-//                }
-//            }
         }
     }
 
+}
+
+@Preview(showBackground=true, backgroundColor = 0xFF041B11)
+@Composable
+fun HomePage2(modifier: Modifier = Modifier){
+
+    val sensorList = listOf(
+        SensorCardModel("Gyroscope", "rpm", "340", R.drawable.ic_sensor_gyroscope),
+        SensorCardModel("Gravity", "m/s\u00B2", "340", R.drawable.ic_sensor_gravity),
+        SensorCardModel("Brightness", "cd", "340", R.drawable.ic_sensor_brightness),
+        SensorCardModel("Magnetic Field", "amp/m", "340", R.drawable.ic_sensor_magnet),
+        SensorCardModel("Temperature", "\u2103", "340", R.drawable.ic_sensor_temprature),
+        SensorCardModel("Proximity", "cm", "340", R.drawable.ic_sensor_proximity),
+        SensorCardModel("Pressure", "mbar", "340", R.drawable.ic_sensor_pressure),
+        SensorCardModel("Humidity", "%", "340", R.drawable.ic_sensor_humidity),
+        SensorCardModel("Rotation", "unknown", "340", R.drawable.ic_sensor_rotation),
+        SensorCardModel("Acceleration", "m/s²", "340", R.drawable.ic_sensor_linear_acceleration),
+        SensorCardModel("Compass", "Unknown", "340", R.drawable.ic_sensor_compass),
+
+    )
+
+    Column(modifier = Modifier) {
+        // AppBar
+        Row( verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(32.dp)) {
+            Image(
+                painterResource(id = R.drawable.pic_sensify_logo),
+                modifier = Modifier
+                    .width(30.dp)
+                    .height(37.dp),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds
+            )
+
+            Text(
+                text = "Sensify",
+                color = Color.Red,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight(400),
+                modifier = modifier.fillMaxWidth(),
+            )
+
+        }
+
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()){
+            item{
+                HomePageHeader()
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(350.dp))
+            }
+
+            item{
+                Box(
+                    modifier = Modifier
+                        .padding(bottom = 11.dp)
+                ) {
+                    Text(
+                        text = "Available Sensors",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
+            }
+
+            items(sensorList.windowed(2, 2, false)){ item ->
+                Row(modifier = Modifier
+                    .padding(start = 32.dp, end = 32.dp)
+                ) {
+                    Box(modifier = Modifier
+
+                        .weight(1f)
+                    ) {
+                        HomeSensorCard(
+                            sensorName = item[0].sensorName,
+                            sensorValue = item[0].sensorValue,
+                            sensorUnit = item[0].sensorUnit,
+                            sensorIcon = item[0].sensorIcon
+                        )
+
+                    }
+
+                    Box(modifier = Modifier
+                        .weight(1f)
+                    ) {
+
+                        HomeSensorCard(
+                            sensorName = item[1].sensorName,
+                            sensorValue = item[1].sensorValue,
+                            sensorUnit = item[1].sensorUnit,
+                            sensorIcon = item[1].sensorIcon
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
