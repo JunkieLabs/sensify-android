@@ -46,3 +46,16 @@
   <!-- shapes -->
 - https://foso.github.io/Jetpack-Compose-Playground/cookbook/how_to_create_custom_shape/
 - https://juliensalvi.medium.com/custom-shape-with-jetpack-compose-1cb48a991d42
+
+
+# permission
+
+- https://towardsdev.com/jetpack-compose-runtime-permissions-erselan-khan-75f60800b28f
+
+<!-- rate limiting -->
+- https://developer.android.com/guide/topics/sensors/sensors_overview#sensors-rate-limiting
+
+<!-- motion stepcounter -->
+- https://developer.android.com/guide/topics/sensors/sensors_motion#sensors-motion-stepcounter
+
+
