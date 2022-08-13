@@ -31,6 +31,6 @@ fun NavGraphBuilder.labsGraph(navController: NavController){
         composable(NavDirectionsLabs.Sensors.route) { LabsSensorsPage(navController) }
         composable(NavDirectionsLabs.ViewPager.route) { ViewPagerSlider() }
         composable(NavDirectionsLabs.Styles.route) { LabsStylesPage(navController) }
-        composable(NavDirectionsLabs.HomePage.route) { HomePage() }
+        composable(NavDirectionsLabs.HomePage.route) { HomePage2() }
     }
 }

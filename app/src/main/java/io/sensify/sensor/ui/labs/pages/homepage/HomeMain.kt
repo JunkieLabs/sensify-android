@@ -300,7 +300,7 @@ fun HomePage2(modifier: Modifier = Modifier){
         SensorCardModel("Gyroscope", "rpm", "340", R.drawable.ic_sensor_gyroscope),
         SensorCardModel("Gravity", "m/s\u00B2", "340", R.drawable.ic_sensor_gravity),
         SensorCardModel("Brightness", "cd", "340", R.drawable.ic_sensor_brightness),
-        SensorCardModel("Magnetic Field", "amp/m", "340", R.drawable.ic_sensor_magnet),
+        SensorCardModel("Magnetic Field sjkhsjkdfksajhdkfsjhfiuoerauihr wnehrkjhdsjkfheiuwhfjewhfiuodshyfuiheuiwhf", "amp/m", "340", R.drawable.ic_sensor_magnet),
         SensorCardModel("Temperature", "\u2103", "340", R.drawable.ic_sensor_temprature),
         SensorCardModel("Proximity", "cm", "340", R.drawable.ic_sensor_proximity),
         SensorCardModel("Pressure", "mbar", "340", R.drawable.ic_sensor_pressure),
@@ -311,7 +311,10 @@ fun HomePage2(modifier: Modifier = Modifier){
 
     )
 
-    Column(modifier = Modifier) {
+    Column(modifier = Modifier
+        .background(Color(0xFF041B11))
+        .padding(start = 32.dp, end = 32.dp)
+    ) {
         // AppBar
         Row( verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
@@ -338,15 +341,20 @@ fun HomePage2(modifier: Modifier = Modifier){
         }
 
         LazyColumn(modifier = Modifier
-            .fillMaxSize()){
+            .fillMaxSize()
+            .padding(bottom = 32.dp)){
+
+            // Header
             item{
                 HomePageHeader()
             }
 
+            // Plotting area
             item {
                 Spacer(modifier = Modifier.height(350.dp))
             }
 
+            // Available Sensors
             item{
                 Box(
                     modifier = Modifier
@@ -360,33 +368,28 @@ fun HomePage2(modifier: Modifier = Modifier){
                 }
             }
 
-            items(sensorList.windowed(2, 2, false)){ item ->
+            // Sensor's card grid
+            items(sensorList.windowed(2, 2, true)){ item ->
                 Row(modifier = Modifier
-                    .padding(start = 32.dp, end = 32.dp)
+                    .fillMaxWidth()
+
                 ) {
-                    Box(modifier = Modifier
 
-                        .weight(1f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = item[0].sensorName,
-                            sensorValue = item[0].sensorValue,
-                            sensorUnit = item[0].sensorUnit,
-                            sensorIcon = item[0].sensorIcon
-                        )
+                    item.forEach {
+                        Box(modifier = Modifier
+                            .fillParentMaxWidth(0.5f)
+                            .padding(bottom = 8.dp)
 
-                    }
+                        ) {
+                            HomeSensorCard(
+                                sensorName = it.sensorName,
+                                sensorValue = it.sensorValue,
+                                sensorUnit = it.sensorUnit,
+                                sensorIcon = it.sensorIcon
+                            )
 
-                    Box(modifier = Modifier
-                        .weight(1f)
-                    ) {
-
-                        HomeSensorCard(
-                            sensorName = item[1].sensorName,
-                            sensorValue = item[1].sensorValue,
-                            sensorUnit = item[1].sensorUnit,
-                            sensorIcon = item[1].sensorIcon
-                        )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
                     }
                 }
             }

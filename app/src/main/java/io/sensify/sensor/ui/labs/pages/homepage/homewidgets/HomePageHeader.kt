@@ -17,8 +17,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
 
 /**
@@ -97,6 +99,7 @@ fun HomePageHeader(){
                     )
 
             ) {
+
                 Box(
                     modifier = Modifier
                         .blur(4.dp, BlurredEdgeTreatment(RoundedCornerShape(19.dp)))
@@ -104,6 +107,7 @@ fun HomePageHeader(){
                 Text(
                     text = "4 Active",
                     color = Color(0xFFFFFFFF),
+                    fontSize = 16.sp,
                     modifier = Modifier
                         .padding(
                             start = 13.dp,
@@ -149,7 +153,10 @@ fun HomePageHeader(){
 
             Text(
                 text = "Gyroscope",
-                color = Color.White
+                color = Color.White,
+                fontSize = 12.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Spacer(modifier = Modifier.width(22.dp))
@@ -159,6 +166,7 @@ fun HomePageHeader(){
                 contentDescription = "slide to left",
                 colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
             )
+            Spacer(modifier = Modifier.width(12.dp))
         }
 
     }

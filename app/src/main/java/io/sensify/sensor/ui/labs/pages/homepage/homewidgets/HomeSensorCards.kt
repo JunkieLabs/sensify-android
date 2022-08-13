@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +35,7 @@ import io.sensify.sensor.R
 @Preview(showBackground=true, backgroundColor = 0xFF041B11)
 @Composable
 fun HomeSensorCard(
-    sensorName: String = "Magnatic Field",
+    sensorName: String = "Magnatic Field klsdajlksdajlkjsdakjlkdsajfl;eijisdcjkldsfjkljlkdsjfkjsaedfkdsfjlkjdsf",
     sensorValue: String = "9.7",
     sensorUnit: String = "m/s\u2008",
     sensorIcon: Int = R.drawable.ic_sensor_gravity,
@@ -44,6 +45,7 @@ fun HomeSensorCard(
             containerColor = Color(0x1D17FF58)
         ),
         modifier = Modifier
+            .fillMaxWidth()
 
     ) {
         Column(modifier = Modifier) {
@@ -76,13 +78,17 @@ fun HomeSensorCard(
                 color = Color.White,
                 fontSize = 16.sp,
                 softWrap = true,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
                 modifier = Modifier
-                    .padding(start = 16.dp),
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp),
             )
 
             Spacer(modifier = Modifier.height(11.dp))
 
             Row(modifier = Modifier
+                .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             ) {
 
@@ -99,10 +105,9 @@ fun HomeSensorCard(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(58.dp))
+                Spacer(modifier = Modifier.weight(1f))
 
                 Box(
-                    contentAlignment = Alignment.BottomEnd,
                     modifier = Modifier
                         .align(Alignment.Bottom)
                 ){
@@ -125,7 +130,8 @@ fun HomeSensorCard(
                         modifier = Modifier
                             .width(30.dp)
                             .height(16.dp)
-                            .padding(end = 1.dp, bottom = 1.dp),
+                            .padding(end = 1.dp, bottom = 1.dp)
+                            .align(Alignment.BottomEnd),
                     )
                 }
             }
@@ -133,7 +139,7 @@ fun HomeSensorCard(
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun GyroscopeCard() {
     Card(
