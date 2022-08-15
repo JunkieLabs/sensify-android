@@ -22,6 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
+import io.sensify.sensor.ui.resource.themes.JLThemeBase
+import io.sensify.sensor.ui.resource.themes.JlThemeM3
+import io.sensify.sensor.ui.resource.values.JlResDimens
 
 /**
  * Created by Manish Kumar on 09/08/22.
@@ -33,13 +36,12 @@ fun HomePageHeader(){
     Box(modifier = Modifier
         .fillMaxWidth()
 
-        .clip(RoundedCornerShape(19.dp))
+        .clip(RoundedCornerShape(JlResDimens.dp18))
         .background(
             brush = Brush.linearGradient(
                 listOf(
-
-                    Color(0xB200752F),
-                    Color(0xB200752F),
+                    JLThemeBase.colorPrimary30,
+                    JLThemeBase.colorPrimary20,
                 )
             )
         )
@@ -50,24 +52,24 @@ fun HomePageHeader(){
                     Color(0x00FFFFFF),
                 )
             ),
-            width = 1.dp,
-            shape = RoundedCornerShape(19.dp)
+            width = JlResDimens.dp1,
+            shape = RoundedCornerShape(JlResDimens.dp18)
         )
     ) {
 
         Box(modifier = Modifier
             .fillMaxWidth()
             .border(
-                width = 5.dp,
-                color = Color.Red,
-                shape = RoundedCornerShape(1.dp)
+                width = JlResDimens.dp5,
+                color = JlThemeM3.md_theme_dark_error,
+                shape = RoundedCornerShape(JlResDimens.dp1)
             )
-            .blur(4.dp, BlurredEdgeTreatment(RoundedCornerShape(5.dp))))
+            .blur(JlResDimens.dp4, BlurredEdgeTreatment(RoundedCornerShape(JlResDimens.dp5))))
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = 6.dp),
+                .padding(all = JlResDimens.dp6),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -75,7 +77,7 @@ fun HomePageHeader(){
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(19.dp))
+                    .clip(RoundedCornerShape(JlResDimens.dp18))
                     .background(
                         brush = Brush.radialGradient(
                             listOf(
@@ -94,31 +96,31 @@ fun HomePageHeader(){
                                 Color(0x80FFFFFF),
                             )
                         ),
-                        width = 1.dp,
-                        shape = RoundedCornerShape(19.dp)
+                        width = JlResDimens.dp1,
+                        shape = RoundedCornerShape(JlResDimens.dp18)
                     )
 
             ) {
 
                 Box(
                     modifier = Modifier
-                        .blur(4.dp, BlurredEdgeTreatment(RoundedCornerShape(19.dp)))
+                        .blur(JlResDimens.dp4, BlurredEdgeTreatment(RoundedCornerShape(JlResDimens.dp18)))
                 )
                 Text(
                     text = "4 Active",
-                    color = Color(0xFFFFFFFF),
+                    color = JlThemeM3.md_theme_dark_onPrimary,
                     fontSize = 16.sp,
                     modifier = Modifier
                         .padding(
-                            start = 13.dp,
-                            top = 16.dp,
-                            end = 18.dp,
-                            bottom = 17.dp,
+                            start = JlResDimens.dp12,
+                            top = JlResDimens.dp16,
+                            end = JlResDimens.dp18,
+                            bottom = JlResDimens.dp18,
                         )
                 )
             }
 
-            Spacer(modifier = Modifier.width(18.dp))
+            Spacer(modifier = Modifier.width(JlResDimens.dp18))
 
             Image(
                 painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
@@ -126,14 +128,14 @@ fun HomePageHeader(){
                 colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
             )
 
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
             Box(
                 contentAlignment = Alignment.Center,
 
                 modifier = Modifier
 
-                    .border(1.dp, Color(0x33FFFFFF), shape = RoundedCornerShape(16.dp))
+                    .border(JlResDimens.dp1, Color(0x33FFFFFF), shape = RoundedCornerShape(JlResDimens.dp16))
                     .clip(CircleShape)
                     .background(Color(0x14FFFFFF))
 
@@ -143,30 +145,30 @@ fun HomePageHeader(){
                     contentDescription = "Gyroscope",
                     colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
                     modifier = Modifier
-                        .width(28.dp)
-                        .height(28.dp)
-                        .padding(start = 7.dp, end = 7.dp, top = 7.dp, bottom = 7.dp)
+                        .width(JlResDimens.dp28)
+                        .height(JlResDimens.dp28)
+                        .padding(JlResDimens.dp6)
                 )
             }
 
-            Spacer(modifier = Modifier.width(23.dp))
+            Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
             Text(
                 text = "Gyroscope",
-                color = Color.White,
-                fontSize = 12.sp,
+                color = JlThemeM3.md_theme_dark_onPrimary,
+                fontSize = JlResDimens.sp12,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.width(22.dp))
+            Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
             Image(
                 painterResource(id = R.drawable.ic_round_keyboard_arrow_right_24),
                 contentDescription = "slide to left",
-                colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
+                colorFilter = ColorFilter.tint(JlThemeM3.md_theme_dark_onPrimary),
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(JlResDimens.dp12))
         }
 
     }

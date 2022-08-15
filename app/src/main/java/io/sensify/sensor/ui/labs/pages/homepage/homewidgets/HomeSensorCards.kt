@@ -35,7 +35,7 @@ import io.sensify.sensor.R
 @Preview(showBackground=true, backgroundColor = 0xFF041B11)
 @Composable
 fun HomeSensorCard(
-    sensorName: String = "Magnatic Field klsdajlksdajlkjsdakjlkdsajfl;eijisdcjkldsfjkljlkdsjfkjsaedfkdsfjlkjdsf",
+    sensorName: String = "Magnatic Field",
     sensorValue: String = "9.7",
     sensorUnit: String = "m/s\u2008",
     sensorIcon: Int = R.drawable.ic_sensor_gravity,
@@ -131,103 +131,6 @@ fun HomeSensorCard(
                             .width(30.dp)
                             .height(16.dp)
                             .padding(end = 1.dp, bottom = 1.dp)
-                            .align(Alignment.BottomEnd),
-                    )
-                }
-            }
-        }
-    }
-}
-
-//@Preview
-@Composable
-fun GyroscopeCard() {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0x1D17FF58)
-        ),
-        modifier = Modifier
-    ) {
-        Column(modifier = Modifier) {
-            Box(
-                contentAlignment = Alignment.Center,
-
-                modifier = Modifier
-                    .padding(start = 16.dp, top = 16.dp)
-                    .border(1.dp, Color(0x33FFFFFF), shape = RoundedCornerShape(16.dp))
-                    .clip(CircleShape)
-                    .background(Color(0x14FFFFFF))
-
-            ){
-                Image(
-                    painterResource(R.drawable.ic_sensor_gyroscope),
-                    contentDescription = "Gyroscope",
-                    colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-
-                    modifier = Modifier
-                        .width(28.dp)
-                        .height(28.dp)
-                        .padding(start = 7.dp, end = 7.dp, top = 7.dp, bottom = 7.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Text(
-                text = "Gyroscope",
-                color = Color.White,
-                fontSize = 16.sp,
-                modifier = Modifier
-                    .padding(start = 16.dp),
-            )
-
-            Spacer(modifier = Modifier.height(11.dp))
-
-            Row(modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-            ) {
-
-                Column(modifier = Modifier) {
-                    Text(
-                        text = "in rpm",
-                        color = Color.White,
-                        fontSize = 12.sp
-                    )
-                    Text(
-                        text = "340",
-                        color = Color.White,
-                        fontSize = 14.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(58.dp))
-
-                Box(
-                    contentAlignment = Alignment.BottomEnd,
-                    modifier = Modifier
-                        .width(IntrinsicSize.Min)
-                        .align(Alignment.Bottom)
-                ){
-
-                    val interactionSource = remember { MutableInteractionSource() }
-                    val isPressed by interactionSource.collectIsPressedAsState()
-                    // Use the state to change our UI
-                    val color = if (isPressed) Color.Blue else Color.Yellow
-
-                    Switch(
-                        checked = false,
-                        onCheckedChange = null,
-                        interactionSource = interactionSource,
-                        colors= SwitchDefaults.colors(
-                            checkedThumbColor = Color(0xFF13ED6A),
-                            uncheckedThumbColor = Color(0xFF898989),
-                            checkedTrackColor = Color(0x4D00FF66),
-                            uncheckedTrackColor = Color(0x33B1B1B1)
-                        ),
-                        modifier = Modifier
-                            .width(30.dp)
-                            .height(16.dp)
-                            .padding(end = 1.dp)
                             .align(Alignment.BottomEnd),
                     )
                 }

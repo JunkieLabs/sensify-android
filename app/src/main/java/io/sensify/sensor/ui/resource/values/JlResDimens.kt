@@ -59,4 +59,5 @@ object JlResDimens {
      val dp144 = 144.dp;
      val dp168 = 168.dp;
      val dp196 = 196.dp;
+     val dp350 = 350.dp;
 }

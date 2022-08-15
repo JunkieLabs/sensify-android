@@ -25,282 +25,23 @@ import io.sensify.sensor.R
 import io.sensify.sensor.ui.labs.models.SensorCardModel
 import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomePageHeader
 import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomeSensorCard
+import io.sensify.sensor.ui.resource.themes.JLThemeBase
+import io.sensify.sensor.ui.resource.themes.JlThemeM3
+import io.sensify.sensor.ui.resource.values.JlResDimens
 
 /**
  * Created by Manish Kumar on 09/08/22.
  */
 
-
-@Composable
-fun HomePage(){
-
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(Color(0xFF041B11))
-    ) {
-
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-        ) {
-
-
-            // AppBar
-            Row( verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(32.dp)) {
-
-
-                Image(
-                    painterResource(id = R.drawable.pic_sensify_logo),
-                    modifier = Modifier
-                        .width(30.dp)
-                        .height(37.dp),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillBounds
-                )
-
-                Text(
-                    text = "Sensify",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight(400),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-
-            }
-
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp)
-            ) {
-                HomePageHeader()
-            }
-
-            Spacer(modifier = Modifier.height(350.dp))
-
-//            Sensor Cards
-            Column(modifier = Modifier
-                .padding(start = 32.dp, end = 32.dp, top = 28.dp)
-            ) {
-
-                Box(
-                    modifier = Modifier
-                        .padding(bottom = 11.dp)
-                ) {
-                    Text(
-                        text = "Available Sensors",
-                        fontSize = 16.sp,
-                        color = Color.White
-                    )
-                }
-
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                ) {
-
-                    Box(modifier = Modifier
-                        .weight(1f)
-                    ){
-                        HomeSensorCard(
-                            sensorName = "Gyroscope",
-                            sensorValue = "340",
-                            sensorUnit = "rpm",
-                            sensorIcon = R.drawable.ic_sensor_gyroscope
-                        )
-                    }
-
-                    Box(modifier = Modifier
-                        .weight(1f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Gravity",
-                            sensorValue = "9.7",
-                            sensorUnit = "m/s\u00B2",
-                            sensorIcon = R.drawable.ic_sensor_gravity
-                        )
-                    }
-
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                ) {
-
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                    ) {
-
-                        HomeSensorCard(
-                            sensorName = "Brightness",
-                            sensorValue = "340",
-                            sensorUnit = "cd",
-                            sensorIcon = R.drawable.ic_sensor_brightness
-                        )
-                    }
-
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Magnetic Field",
-                            sensorValue = "9.7",
-                            sensorUnit = "amp/m",
-                            sensorIcon = R.drawable.ic_sensor_magnet
-                        )
-                    }
-
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                ) {
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Temperature",
-                            sensorValue = "340",
-                            sensorUnit = "\u2103",
-                            sensorIcon = R.drawable.ic_sensor_temprature
-                        )
-                    }
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Proximity",
-                            sensorValue = "9.7",
-                            sensorUnit = "cm",
-                            sensorIcon = R.drawable.ic_sensor_proximity
-                        )
-                    }
-
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                ) {
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Pressure",
-                            sensorValue = "340",
-                            sensorUnit = "mbar",
-                            sensorIcon = R.drawable.ic_sensor_pressure
-                        )
-                    }
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Humidity",
-                            sensorValue = "9.7",
-                            sensorUnit = "%",
-                            sensorIcon = R.drawable.ic_sensor_humidity
-                        )
-                    }
-
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                ) {
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Rotation",
-                            sensorValue = "340",
-                            sensorUnit = "unknown",
-                            sensorIcon = R.drawable.ic_sensor_rotation
-                        )
-                    }
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Accelerometer",
-                            sensorValue = "9.7",
-                            sensorUnit = "m/s2",
-                            sensorIcon = R.drawable.ic_sensor_linear_acceleration
-                        )
-                    }
-
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-
-                ) {
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Brightness",
-                            sensorValue = "340",
-                            sensorUnit = "cd",
-                            sensorIcon = R.drawable.ic_sensor_brightness
-                        )
-                    }
-
-                    Box(modifier = Modifier
-                        .weight(0.5f)
-                    ) {
-                        HomeSensorCard(
-                            sensorName = "Compass",
-                            sensorValue = "9.7",
-                            sensorUnit = "Unknown",
-                            sensorIcon = R.drawable.ic_sensor_compass
-                        )
-                    }
-
-                }
-            }
-
-        }
-    }
-
-}
-
 @Preview(showBackground=true, backgroundColor = 0xFF041B11)
 @Composable
-fun HomePage2(modifier: Modifier = Modifier){
+fun HomePage(modifier: Modifier = Modifier){
 
     val sensorList = listOf(
         SensorCardModel("Gyroscope", "rpm", "340", R.drawable.ic_sensor_gyroscope),
         SensorCardModel("Gravity", "m/s\u00B2", "340", R.drawable.ic_sensor_gravity),
         SensorCardModel("Brightness", "cd", "340", R.drawable.ic_sensor_brightness),
-        SensorCardModel("Magnetic Field sjkhsjkdfksajhdkfsjhfiuoerauihr wnehrkjhdsjkfheiuwhfjewhfiuodshyfuiheuiwhf", "amp/m", "340", R.drawable.ic_sensor_magnet),
+        SensorCardModel("Magnetic Field", "amp/m", "340", R.drawable.ic_sensor_magnet),
         SensorCardModel("Temperature", "\u2103", "340", R.drawable.ic_sensor_temprature),
         SensorCardModel("Proximity", "cm", "340", R.drawable.ic_sensor_proximity),
         SensorCardModel("Pressure", "mbar", "340", R.drawable.ic_sensor_pressure),
@@ -312,26 +53,27 @@ fun HomePage2(modifier: Modifier = Modifier){
     )
 
     Column(modifier = Modifier
-        .background(Color(0xFF041B11))
-        .padding(start = 32.dp, end = 32.dp)
+        .fillMaxSize()
+        .background(JLThemeBase.colorPrimary10)
+        .padding(start = JlResDimens.dp32, end = JlResDimens.dp32)
     ) {
         // AppBar
         Row( verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
                 .fillMaxWidth()
-                .padding(32.dp)) {
+                .padding(JlResDimens.dp32)) {
             Image(
                 painterResource(id = R.drawable.pic_sensify_logo),
                 modifier = Modifier
-                    .width(30.dp)
-                    .height(37.dp),
+                    .width(JlResDimens.dp32)
+                    .height(JlResDimens.dp36),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds
             )
 
             Text(
                 text = "Sensify",
-                color = Color.Red,
+                color = JlThemeM3.md_theme_dark_onPrimary,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight(400),
@@ -342,7 +84,7 @@ fun HomePage2(modifier: Modifier = Modifier){
 
         LazyColumn(modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 32.dp)){
+        ){
 
             // Header
             item{
@@ -351,18 +93,18 @@ fun HomePage2(modifier: Modifier = Modifier){
 
             // Plotting area
             item {
-                Spacer(modifier = Modifier.height(350.dp))
+                Spacer(modifier = Modifier.height(JlResDimens.dp350))
             }
 
             // Available Sensors
             item{
                 Box(
                     modifier = Modifier
-                        .padding(bottom = 11.dp)
+                        .padding(bottom = JlResDimens.dp10)
                 ) {
                     Text(
                         text = "Available Sensors",
-                        fontSize = 16.sp,
+                        fontSize = JlResDimens.sp16,
                         color = Color.White
                     )
                 }
@@ -378,7 +120,7 @@ fun HomePage2(modifier: Modifier = Modifier){
                     item.forEach {
                         Box(modifier = Modifier
                             .fillParentMaxWidth(0.5f)
-                            .padding(bottom = 8.dp)
+                            .padding(bottom = JlResDimens.dp8)
 
                         ) {
                             HomeSensorCard(
@@ -389,10 +131,12 @@ fun HomePage2(modifier: Modifier = Modifier){
                             )
 
                         }
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(JlResDimens.dp8))
                     }
                 }
             }
+            
+            item{ Spacer(modifier = Modifier.height(JlResDimens.dp16))}
         }
     }
 }
