@@ -1,28 +1,30 @@
 package io.sensify.sensor.ui.labs.pages.homepage
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.labs.models.SensorCardModel
+import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
 import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomePageHeader
 import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomeSensorCard
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
@@ -35,7 +37,7 @@ import io.sensify.sensor.ui.resource.values.JlResDimens
 
 @Preview(showBackground=true, backgroundColor = 0xFF041B11)
 @Composable
-fun HomePage(modifier: Modifier = Modifier){
+fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null){
 
     val sensorList = listOf(
         SensorCardModel("Gyroscope", "rpm", "340", R.drawable.ic_sensor_gyroscope),
@@ -121,6 +123,9 @@ fun HomePage(modifier: Modifier = Modifier){
                         Box(modifier = Modifier
                             .fillParentMaxWidth(0.5f)
                             .padding(bottom = JlResDimens.dp8)
+                            .clickable(enabled = true, onClickLabel = "Card Click", onClick = {
+                                navController?.navigate(NavDirectionsLabs.DetailPage.route)
+                            })
 
                         ) {
                             HomeSensorCard(
@@ -140,3 +145,19 @@ fun HomePage(modifier: Modifier = Modifier){
         }
     }
 }
+
+//fun Modifier.clickable(
+//    enabled: Boolean = true,
+//    onClickLabel: String? = null,
+//    role: Role? = null,
+//    onClick: () -> Unit
+//) = composed(
+//    inspectorInfo = debugInspectorInfo {
+//        name = "clickable"
+//        properties["enabled"] = enabled
+//        properties["onClickLabel"] = onClickLabel
+//        properties["role"] = role
+//        properties["onClick"] = onClick
+//    },
+//
+//)

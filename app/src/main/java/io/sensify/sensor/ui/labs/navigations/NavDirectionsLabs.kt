@@ -5,7 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
-import io.sensify.sensor.ui.labs.pages.homepage.HomePage
+import io.sensify.sensor.ui.labs.pages.homepage.HomeMain
+import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.labs.permissions.LabsPermissionsPage
 import io.sensify.sensor.ui.labs.root.LabsPage
 import io.sensify.sensor.ui.labs.sensors.LabsSensorsPage
@@ -22,6 +23,7 @@ sealed class NavDirectionsLabs(val route: String) {
     object ViewPager: NavDirectionsLabs("view_pager_screen")
     object HomePage: NavDirectionsLabs("home_page")
     object Permissions: NavDirectionsLabs("permissions")
+    object DetailPage: NavDirectionsLabs("detail_page")
 
 }
 
@@ -32,7 +34,8 @@ fun NavGraphBuilder.labsGraph(navController: NavController){
         composable(NavDirectionsLabs.Sensors.route) { LabsSensorsPage(navController) }
         composable(NavDirectionsLabs.ViewPager.route) { ViewPagerSlider() }
         composable(NavDirectionsLabs.Styles.route) { LabsStylesPage(navController) }
-        composable(NavDirectionsLabs.HomePage.route) { HomePage() }
+        composable(NavDirectionsLabs.HomePage.route) { HomeMain(navController = navController) }
         composable(NavDirectionsLabs.Permissions.route) { LabsPermissionsPage(navController) }
+        composable(NavDirectionsLabs.DetailPage.route) { DetailMain(navController) }
     }
 }
