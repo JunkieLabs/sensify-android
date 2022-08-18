@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.*
-import io.sensify.sensor.ui.domains.permissions.PermissionsRequest
-import io.sensify.sensor.ui.domains.permissions.RememberPermissionManager
-import io.sensify.sensor.ui.domains.permissions.forPurpose
-import io.sensify.sensor.ui.domains.permissions.runAtStart
+import io.sensify.sensor.domains.permissions.PermissionsRequest
+import io.sensify.sensor.domains.permissions.RememberPermissionManager
+import io.sensify.sensor.domains.permissions.forPurpose
+import io.sensify.sensor.domains.permissions.runAtStart
 
 /**
  * Created by Niraj on 11-08-2022.

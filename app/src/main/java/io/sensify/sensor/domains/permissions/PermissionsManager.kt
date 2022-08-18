@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.domains.permissions
+package io.sensify.sensor.domains.permissions
 
 import android.Manifest
 import android.os.Build
