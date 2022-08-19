@@ -1,5 +1,7 @@
 package io.sensify.sensor.ui.labs.sensors
 
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,10 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import io.sensify.sensor.domains.sensors.packets.SensorPacketsProvider
+import io.sensify.sensor.domains.sensors.packets.rememberSensorPackets
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * Created by Niraj on 18-08-2022.
@@ -35,6 +40,11 @@ fun LabsSensorDataPage(navController: NavController) {
     val dse = tickFlow.collectAsState(initial = false)
 
     var visible1 by remember { mutableStateOf(true) }
+
+    val sensor1 = rememberSensorPackets(sensorType = Sensor.TYPE_GRAVITY, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
+    val sensor2 = rememberSensorPackets(sensorType = Sensor.TYPE_GYROSCOPE, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
+//    val sensor2 = tickFlow.collectAsState(initial = false)
+
 
 
 
@@ -74,7 +84,7 @@ fun LabsSensorDataPage(navController: NavController) {
 
         if(dse.value){
             Text(
-                text = "Data dse", modifier = Modifier
+                text = "Data check1", modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally)
                     .padding(0.dp),
 
@@ -84,13 +94,61 @@ fun LabsSensorDataPage(navController: NavController) {
 
         if(dsd.value){
             Text(
-                text = "Data dsd", modifier = Modifier
+                text = "Data check2", modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally)
                     .padding(0.dp),
 
                 fontSize = 16.sp
             )
         }
+
+        Button(
+            onClick = {
+
+                coroutineScope.launch {
+                    SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_GRAVITY)
+ }
+
+
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
+        ) {
+            Text(text = "Sensor 1  stop")
+        }
+
+        Button(
+            onClick = {
+
+                coroutineScope.launch {
+                    SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_GYROSCOPE)
+                }
+
+
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
+        ) {
+            Text(text = "Sensor 2 stop")
+        }
+
+        Text(
+            text = "Data sensor1: ${Arrays.toString(sensor1.value.sensorEvent?.values)}", modifier = Modifier
+                .align(alignment = Alignment.CenterHorizontally)
+                .padding(0.dp),
+
+            fontSize = 16.sp
+        )
+
+        Text(
+            text = "Data sensor2: ${Arrays.toString(sensor2.value.sensorEvent?.values)}", modifier = Modifier
+                .align(alignment = Alignment.CenterHorizontally)
+                .padding(0.dp),
+
+            fontSize = 16.sp
+        )
 
 
 
