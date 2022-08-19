@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalPermissionsApi::class)
 
-package io.sensify.sensor.ui.domains.permissions
+package io.sensify.sensor.domains.permissions
 
 import android.util.Log
 import androidx.compose.runtime.derivedStateOf
@@ -22,7 +22,7 @@ interface PermissionsState {
 class MutablePermissionState(
     private val permissionsRequest: PermissionsRequest, private val multiplePermissionsState: MultiplePermissionsState?
 
-): PermissionsState{
+): PermissionsState {
     override val isGranted: Boolean by derivedStateOf {
         multiplePermissionsState?.allPermissionsGranted ?: false
     }

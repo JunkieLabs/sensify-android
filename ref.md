@@ -59,3 +59,30 @@
 - https://developer.android.com/guide/topics/sensors/sensors_motion#sensors-motion-stepcounter
 
 
+# flow multi listener
+
+- https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#sharein
+
+- https://medium.com/androiddevelopers/things-to-know-about-flows-sharein-and-statein-operators-20e6ccb2bc74
+
+<!-- flow to state -->
+- https://developer.android.com/kotlin/flow
+
+- https://proandroiddev.com/how-to-collect-flows-lifecycle-aware-in-jetpack-compose-babd53582d0b
+
+
+<!-- mutable state flow -->
+- https://compose.academy/blog/modular_navigation_with_jetpack_compose
+
+- https://stackoverflow.com/questions/69901608/how-to-disable-simultaneous-clicks-on-multiple-items-in-jetpack-compose-list-c
+
+
+
+
+
+# sensor data 
+
+- https://proandroiddev.com/parallax-effect-with-sensormanager-using-jetpack-compose-a735a2f5811b
+
+- https://stackoverflow.com/questions/66834234/access-sensors-from-within-composables-in-jetpack-compose
+
