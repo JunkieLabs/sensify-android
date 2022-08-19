@@ -42,6 +42,7 @@ fun LabsPermissionsPage(navController: NavController) {
 
         }
     )
+
     if (permissionManager.isGranted) {
         Text("Camera permission Granted")
     } else {
