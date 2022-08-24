@@ -86,3 +86,11 @@
 
 - https://stackoverflow.com/questions/66834234/access-sensors-from-within-composables-in-jetpack-compose
 
+
+# Splash
+
+- https://github.com/mukeshsolanki/animated-splash-screen/blob/main/app/src/main/java/com/mukeshsolanki/animatedsplashscreen/SplashScreen.kt
+
+- https://github.com/ellisonchan/ComposeBird/blob/main/app/src/main/java/com/ellison/flappybird/util/SplashScreenController.kt
+
+- https://github.com/davidorellana98/splashscreen-compose/blob/main/app/src/main/java/com/davidorellana/splashscreenconjetpackcompose/SplashScreen.kt

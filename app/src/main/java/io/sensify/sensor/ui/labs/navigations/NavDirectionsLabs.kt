@@ -13,6 +13,7 @@ import io.sensify.sensor.ui.labs.sensors.LabsSensorDataPage
 import io.sensify.sensor.ui.labs.sensors.LabsSensorsPage
 import io.sensify.sensor.ui.labs.styles.LabsStylesPage
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
+import io.sensify.sensor.ui.pages.SplashPage
 
 /**
  * Created by Niraj on 04-08-2022.
@@ -26,6 +27,7 @@ sealed class NavDirectionsLabs(val route: String) {
     object HomePage: NavDirectionsLabs("home_page")
     object Permissions: NavDirectionsLabs("permissions")
     object DetailPage: NavDirectionsLabs("detail_page")
+    object Splash: NavDirectionsLabs("splash_page")
 
 }
 
@@ -40,5 +42,6 @@ fun NavGraphBuilder.labsGraph(navController: NavController){
         composable(NavDirectionsLabs.HomePage.route) { HomeMain(navController = navController) }
         composable(NavDirectionsLabs.Permissions.route) { LabsPermissionsPage(navController) }
         composable(NavDirectionsLabs.DetailPage.route) { DetailMain(navController) }
+        composable(NavDirectionsLabs.Splash.route) { SplashPage(navController) }
     }
 }
