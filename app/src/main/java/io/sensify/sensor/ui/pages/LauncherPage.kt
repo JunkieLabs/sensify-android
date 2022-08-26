@@ -15,13 +15,18 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.resource.values.JlResColors
 import io.sensify.sensor.ui.resource.values.JlResShapes
+import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 import kotlinx.coroutines.delay
 
 /**
@@ -60,6 +65,7 @@ fun SplashPage(navController: NavController) {
 
 }
 
+@OptIn(ExperimentalTextApi::class)
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
@@ -89,8 +95,7 @@ fun SplashScreen(
                     .scale(scale = scaleAnimation.value),
             )*/
             Image(
-                painter =  painterResource(id = R.drawable.pic_logo)
-                ,
+                painter = painterResource(id = R.drawable.pic_logo),
                 contentDescription = "Logotipo Splash Screen",
                 modifier = modifier
                     .size(120.dp)
@@ -98,22 +103,36 @@ fun SplashScreen(
             )
             Spacer(modifier = JlResShapes.Space.H24)
             Image(
-                painter =  painterResource(id = R.drawable.pic_launcher_eye)
-            ,
+                painter = painterResource(id = R.drawable.pic_launcher_eye),
                 contentDescription = "Logotipo Splash Screen",
                 modifier = modifier
                     .size(220.dp)
 //                    .scale(scale = scaleAnimation.value),
             )
-            Spacer(modifier = JlResShapes.Space.H32)
+            Spacer(modifier = JlResShapes.Space.H56)
             Text(
                 text = "Sensify",
+                style = JlResTxtStyles.h3.merge(
+                    other = TextStyle(
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                MaterialTheme.colorScheme.onSurface,
+                                MaterialTheme.colorScheme.onSurface.copy(0.1f)
+                            ),
+                            tileMode = TileMode.Mirror,
+                            start = Offset(0f, 0f),
+                            end = Offset(0f, Float.POSITIVE_INFINITY),
+                        )
+                    )
+                ),
+//                        modifier = Modifier.(scale = scaleAnimation.value
                 /*color = Color.White,
                 fontSize = JlResDimens.dp40,
                 fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily.Serif,
                 textAlign = TextAlign.Center,
-                modifier = modifier.scale(scale = scaleAnimation.value*/
+                modifier = modifier.scale(scale = scaleAnimation.value
+                */
             )
         }
     }
