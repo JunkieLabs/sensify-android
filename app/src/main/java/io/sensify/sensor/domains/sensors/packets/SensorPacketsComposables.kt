@@ -28,10 +28,11 @@ fun rememberSensorPackets(sensorType: Int, sensorDelay: Int): State<SensorPacket
     val state1 =
         sensorFlow.filter { sensorPacket ->
             var filtered = sensorPacket.type == sensorType
+            // sensorPacket.sensorEvent?.values
             Log.d("rememberSensorPackets", "filtered: $filtered, $sensorType")
         return@filter filtered
          }
-            .collectAsState(initial = SensorPacket(null, sensorType, sensorDelay, System.currentTimeMillis()))
+            .collectAsState(initial = SensorPacket(null, null, sensorType, sensorDelay, System.currentTimeMillis()))
 //    filter { sensorPacket -> sensorPacket.type == sensorType }
 //            .collectAsState(initial = false)
     return state1

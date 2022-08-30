@@ -49,6 +49,7 @@ class SensorPacketsProvider : SensorEventListener {
     val mSensorPacketFlow = _mSensorPacketFlow.asSharedFlow()
 
 
+
 //    private
 
 //    var keys: ds
@@ -150,6 +151,7 @@ mSensorEvents.put(
             if (sensorConfig != null) {
                 var sensorPacket = SensorPacket(
                     sensorEvent,
+                    sensorEvent.values,
                     sensorType,
                     sensorConfig.sensorDelay,
                     System.currentTimeMillis()
