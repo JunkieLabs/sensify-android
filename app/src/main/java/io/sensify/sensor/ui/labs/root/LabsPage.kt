@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
+import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.resource.values.JlResDimens
 
 /**
@@ -51,7 +52,7 @@ fun LabsPage(navController: NavController) {
 
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
-            onClick = { navController.navigate(NavDirectionsLabs.Splash.route) },
+            onClick = { navController.navigate(NavDirectionsApp.Splash.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
@@ -124,6 +125,17 @@ fun LabsPage(navController: NavController) {
                 .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
             Text(text = "Sensors Data")
+        }
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+        Button(
+            onClick = {
+                navController.navigate(NavDirectionsLabs.LineChart.route)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
+        ) {
+            Text(text = "Line Chart")
         }
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Divider(color = Color.White, thickness = JlResDimens.dp1)
