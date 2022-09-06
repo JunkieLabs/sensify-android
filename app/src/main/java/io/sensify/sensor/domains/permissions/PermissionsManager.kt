@@ -28,7 +28,7 @@ fun RememberPermissionManager(
     Log.d("RememberPermissionManager: ", "query.getPermissionsList(): ${query.getPermissionsList()}")
 
     var multiplePermissionsState =
-        if (query.getPermissionsList().size <= 0) {
+        if (query.getPermissionsList().isEmpty()) {
             null
         } else {
             rememberMultiplePermissionsState(
