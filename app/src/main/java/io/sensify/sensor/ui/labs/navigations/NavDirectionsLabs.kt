@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.sensify.sensor.ui.labs.charts.line.LabsLineChartPage
 import io.sensify.sensor.ui.labs.pages.homepage.HomeMain
 import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.labs.permissions.LabsPermissionsPage
@@ -26,6 +27,7 @@ sealed class NavDirectionsLabs(val route: String) {
     object HomePage: NavDirectionsLabs("home_page")
     object Permissions: NavDirectionsLabs("permissions")
     object DetailPage: NavDirectionsLabs("detail_page")
+    object LineChart: NavDirectionsLabs("line_chart")
 
 }
 
@@ -40,5 +42,6 @@ fun NavGraphBuilder.labsGraph(navController: NavController){
         composable(NavDirectionsLabs.HomePage.route) { HomeMain(navController = navController) }
         composable(NavDirectionsLabs.Permissions.route) { LabsPermissionsPage(navController) }
         composable(NavDirectionsLabs.DetailPage.route) { DetailMain(navController) }
+        composable(NavDirectionsLabs.LineChart.route) { LabsLineChartPage(navController) }
     }
 }

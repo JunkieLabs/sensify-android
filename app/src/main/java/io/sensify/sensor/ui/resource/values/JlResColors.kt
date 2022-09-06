@@ -34,6 +34,9 @@ object JlResColors {
     val backgroundColorVariant = Color(0xFF081B12)
     val headerCardColor = Color(0x1ADA66B2)
 
+    val backgroundTop = Color(0xFF19211D)
+    val backgroundBottom = Color(0xFF0C100E)
+
 
 
 

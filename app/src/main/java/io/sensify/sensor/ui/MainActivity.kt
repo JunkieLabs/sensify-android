@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.ui.labs.utils.Sensors.ProximitySensor
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
+import io.sensify.sensor.ui.navigation.NavGraphApp
 import io.sensify.sensor.ui.navigation.NavigationGraph
 import io.sensify.sensor.ui.resource.themes.SensifyM3Theme
 import io.sensify.sensor.ui.theme.SensifyAndroidTheme
@@ -69,7 +70,7 @@ class MainActivity : ComponentActivity() {
 //                        activityToOpen = it
 //                    }
 
-                    NavigationGraph()
+                    NavGraphApp()
 
                 }
             }

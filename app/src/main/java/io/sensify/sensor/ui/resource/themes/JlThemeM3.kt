@@ -65,7 +65,7 @@ object JlThemeM3 {
     val md_theme_dark_errorContainer = Color(0xFF930006)
     val md_theme_dark_onError = Color(0xFF680003)
     val md_theme_dark_onErrorContainer = Color(0xFFffdad4)
-    val md_theme_dark_background = Color(0xFF041B11)
+    val md_theme_dark_background = Color(0xFF0C100E)
     val md_theme_dark_onBackground = Color(0xFFebdfe1)
     val md_theme_dark_surface = Color(0xFF1f1a1b)
     val md_theme_dark_onSurface = Color(0xFFebdfe1)
@@ -205,6 +205,7 @@ fun SensifyM3Theme(
     val useDarkIcons = !isSystemInDarkTheme()
 
     SideEffect {
+//        systemUiController.isSystemBarsVisible = false
         systemUiController.setSystemBarsColor(
             color = Color.Transparent,
             darkIcons = useDarkIcons
@@ -214,6 +215,9 @@ fun SensifyM3Theme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = JlThemeM3.m3Typography,
-        content = content
+        content = content,
+
+
     )
+
 }

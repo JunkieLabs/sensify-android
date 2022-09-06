@@ -10,6 +10,7 @@ import io.sensify.sensor.ui.labs.navigations.labsGraph
  * Created by Manish Kumar on 30/07/22.
  */
 
+@Deprecated("replaced with navGraphApp")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun NavigationGraph(){

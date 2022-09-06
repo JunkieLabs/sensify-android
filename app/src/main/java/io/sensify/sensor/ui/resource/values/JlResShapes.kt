@@ -30,6 +30,9 @@ object JlResShapes {
         val H24 = Modifier.height(JlResDimens.dp24)
         val H28 = Modifier.height(JlResDimens.dp28)
         val H32 = Modifier.height(JlResDimens.dp32)
+        val H48 = Modifier.height(JlResDimens.dp48)
+        val H56 = Modifier.height(JlResDimens.dp56)
+
 
 
         val W18 = Modifier.width(JlResDimens.dp18)
