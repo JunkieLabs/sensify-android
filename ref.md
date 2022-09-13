@@ -77,6 +77,14 @@
 - https://stackoverflow.com/questions/69901608/how-to-disable-simultaneous-clicks-on-multiple-items-in-jetpack-compose-list-c
 
 
+## view model and state
+
+<!-- launch state -->
+- https://stackoverflow.com/questions/72638232/view-model-with-jetpack-compose-view
+
+<!-- viewmodel state -->
+- https://developer.android.com/jetpack/compose/state#viewmodels-source-of-truth
+
 
 
 
@@ -99,3 +107,7 @@
 # chart
 
 - https://github.com/pratclot/oxygentracker/blob/7cb153ca429818917f432c6a0a6ba9987a68618e/app/src/main/java/com/pratclot/oxygentracker/fragments/FragmentChart.kt
+
+<!-- mpchart realtime updates -->
+- https://github.com/PhilJay/MPAndroidChart/wiki/Dynamic-&-Realtime-Data
+

@@ -12,7 +12,7 @@ class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
     private var label: String? = null
     private var isDataHidden = false
     private var color = 0
-    private var data: QueueFixedLength<Float?>? = null
+    private var data: QueueFixedLength<Float>? = null
     private var dataType = 0
 
     init {
@@ -32,7 +32,7 @@ class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
         this.label = label
     }
 
-    fun setData(pData: QueueFixedLength<Float?>) {
+    fun setData(pData: QueueFixedLength<Float>) {
         data = pData
     }
 
@@ -48,7 +48,7 @@ class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
         return label
     }
 
-    fun getData(): QueueFixedLength<Float?>? {
+    fun getData(): QueueFixedLength<Float>? {
         return data
     }
 
@@ -68,7 +68,7 @@ class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
         return isDataHidden
     }
 
-    fun setData(length_sample: Int, pData: Array<Float?>?) {
+    fun setData(length_sample: Int, pData: Array<Float>?) {
         if (pData != null) {
             data = QueueFixedLength(length_sample, pData)
         } else {

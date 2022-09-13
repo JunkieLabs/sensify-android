@@ -8,8 +8,13 @@ import java.time.LocalTime
 /**
  * Created by Niraj on 19-08-2022.
  */
-data class SensorPacket(var sensorEvent: SensorEvent? = null, var values: FloatArray?,
-                        var type: Int, var delay: Int, var timestamp: Long) {
+data class SensorPacket(
+    /** some reference issue with this */
+    var sensorEvent: SensorEvent? = null,
+    var values: FloatArray?,
+    var type: Int,
+    var delay: Int,
+    var timestamp: Long) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

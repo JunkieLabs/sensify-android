@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -26,8 +27,10 @@ import io.sensify.sensor.ui.utils.MyXAxisFormatter
  */
 
 @Composable
-fun DefaultChartTesting(){
+fun DefaultChartTesting(isUpdating: MutableState<Boolean>){
 
+    var counter =  0
+//    Log.d("DefaultChartTesting", "Linechart isUpdating ${isUpdating.value}")
     AndroidView(
 
 
@@ -136,7 +139,11 @@ fun DefaultChartTesting(){
             /*key(isUpdating.value){
 //                    Log.i("LineChart Log: ", "h update ${isUpdating.value}")
             }*/
-            Log.i("LineChart Log: ", "h update ")
+            counter++;
+            if(isUpdating.value){
+                Log.i("LineChart Log: ", "h update true")
+            }
+            Log.i("LineChart Log: ", "h update : {$counter}")
 
 /*                if(isUpdating.value){
                 }*/

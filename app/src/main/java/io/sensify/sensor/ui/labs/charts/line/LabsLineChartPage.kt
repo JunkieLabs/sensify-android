@@ -24,7 +24,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.utils.MyXAxisFormatter
 
@@ -59,7 +58,7 @@ fun LabsLineChartPage(navController: NavController) {
         }
 
 //        key(keys = arrayOf(isUpdating.value)) {
-        DefaultChartTesting()
+            DefaultChartTesting(isUpdating)
 //        }
 
 

@@ -52,7 +52,7 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
         pDataType: Int,
         color: Int,
         pLabel: String?,
-        pData: Array<Float?>?,
+        pData: Array<Float>?,
         isHidden: Boolean
     ) {
 
@@ -83,7 +83,7 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
     }
 
 
-    fun getData(index: Int): QueueFixedLength<Float?>? {
+    fun getData(index: Int): QueueFixedLength<Float>? {
         return if (index < mModelChartDataSets.size) {
             mModelChartDataSets[index].getData()
         } else null
@@ -111,7 +111,7 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
      */
     fun getIndex(datatype: Int): Int {
         for (i in mModelChartDataSets.indices) {
-            if (mModelChartDataSets[i].getDataType() === datatype) {
+            if (mModelChartDataSets[i].getDataType() == datatype) {
                 return i
             }
         }
@@ -130,6 +130,8 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
         }
 
     }
+
+
 
     fun setHidden(index: Int, isHidden: Boolean) {
         if (index < mModelChartDataSets.size) {
