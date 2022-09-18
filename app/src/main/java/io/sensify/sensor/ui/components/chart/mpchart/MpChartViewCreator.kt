@@ -12,6 +12,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import io.sensify.sensor.domains.chart.entity.ModelChartDataSet
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.ui.components.chart.mpchart.axis.MpChartTimestampAxisFormatter
@@ -20,12 +21,12 @@ import io.sensify.util.QueueFixedLength
 /**
  * Created by Niraj on 18-09-2022.
  */
-class MpChartViewCreator (var context: Context, var mModelLineChart:  ModelLineChart){
+class MpChartViewCreator (var context: Context){
 
     companion object{
 
-        const val DATA_SET_TYPE_SINGLE = 1
-        const val DATA_SET_TYPE_3D = 3
+//        const val DATA_SET_TYPE_SINGLE = 1
+//        const val DATA_SET_TYPE_3D = 3
     }
 
     private val chart : LineChart by lazy {
@@ -79,10 +80,8 @@ class MpChartViewCreator (var context: Context, var mModelLineChart:  ModelLineC
             legend.orientation = Legend.LegendOrientation.HORIZONTAL
             legend.setDrawInside(false)
 
-
             setDrawGridBackground(false)
             setDrawBorders(false)
-
 
             axisLeft.setDrawZeroLine(false)
             axisRight.setDrawZeroLine(false)
@@ -98,41 +97,46 @@ class MpChartViewCreator (var context: Context, var mModelLineChart:  ModelLineC
 
             description.isEnabled = false
 
-
-
-
-
         }
     }
 
-    fun prepareDataSets(dataSetType: Int){
+    /*fun attachLineChart(modelLineChart: ModelLineChart){
+//        var dataType
+    }*/
+
+    fun prepareDataSets(modelLineChart: ModelLineChart): MpChartViewCreator {
 
         //LOGV(TAG, "addDataSet: dataType: "+ dataType +", color: "+ color + ", label: "+ label +"index: "+ index);
         var lineData: LineData? = chart.data
 
-        if(dataSetType == DATA_SET_TYPE_SINGLE){
-            lineData = prepareDataSet( SensorsConstants.DATA_AXIS_VALUE, lineData)
-        }else{
-            lineData = prepareDataSet(SensorsConstants.DATA_AXIS_X, lineData)
-            lineData = prepareDataSet(SensorsConstants.DATA_AXIS_Y, lineData)
-            lineData = prepareDataSet(SensorsConstants.DATA_AXIS_Z, lineData)
+        var datasets = modelLineChart.getDataSets()
+
+        for (dataSet in datasets){
+            lineData = prepareDataSet(dataSet,  lineData)
         }
 
+        return this
 
-
+      /*  if(dataSetType == DATA_SET_TYPE_SINGLE){
+            lineData = prepareDataSet(modelLineChart, SensorsConstants.DATA_AXIS_VALUE, lineData)
+        }else{
+            lineData = prepareDataSet(modelLineChart, SensorsConstants.DATA_AXIS_X, lineData)
+            lineData = prepareDataSet(modelLineChart, SensorsConstants.DATA_AXIS_Y, lineData)
+            lineData = prepareDataSet(modelLineChart, SensorsConstants.DATA_AXIS_Z, lineData)
+        }*/
     }
 
-    private fun prepareDataSet(dataType: Int, pLineData: LineData?): LineData? {
-        val index = mModelLineChart.getIndex(dataType)
+    private fun prepareDataSet(modelDataSet: ModelChartDataSet,  pLineData: LineData?): LineData? {
+       /* val index = modelLineChart.getIndex(dataType)
 
-        var chartLineData = pLineData
 
 
         if (index != -1) {
             chartLineData?.removeDataSet(index)
-        }
+        }*/
+        var chartLineData = pLineData
 
-        var dataSet = createDataSet(dataType)
+        var dataSet = createDataSet(modelDataSet)
         //TODO hide and show dataSet
         if (pLineData == null) {
             val sets = java.util.ArrayList<ILineDataSet>()
@@ -155,25 +159,25 @@ class MpChartViewCreator (var context: Context, var mModelLineChart:  ModelLineC
     }
 
 
-    private fun createDataSet(dataType: Int): ILineDataSet {
-        val index: Int = mModelLineChart.getIndex(dataType)
-        val label: String? = mModelLineChart.getLabel(index)
-        val data: QueueFixedLength<Float>? = mModelLineChart.getData(index)
+    private fun createDataSet(dataSet: ModelChartDataSet): ILineDataSet {
+       /* val index: Int = modelLineChart.getIndex(dataType)*/
+        val label: String? = dataSet.getLabel()
+        val data: QueueFixedLength<Float>? = dataSet.getData()
         val entries: MutableList<Entry>
         if (data == null) {
-            entries = ArrayList<Entry>(mModelLineChart.getSampleLength())
-            for (i in 0 until mModelLineChart.getSampleLength()) {
+            entries = ArrayList<Entry>(dataSet.getSampleLength())
+            for (i in 0 until dataSet.getSampleLength()) {
                 entries.add(Entry(i.toFloat(), 0.0f))
             }
         } else {
-            var emptySize: Int = mModelLineChart.getSampleLength() - data.size()
-            entries = ArrayList<Entry>(mModelLineChart.getSampleLength())
+            var emptySize: Int = dataSet.getSampleLength() - data.size()
+            entries = ArrayList<Entry>(dataSet.getSampleLength())
             for (i in 0 until emptySize) {
                 entries.add(Entry(i.toFloat(), 0.0f))
             }
             val iterator: Iterator<Float> = data.getValues()
             while (iterator.hasNext()) {
-                if (emptySize < mModelLineChart.getSampleLength()) {
+                if (emptySize < dataSet.getSampleLength()) {
                     entries.add(Entry(emptySize.toFloat(), iterator.next()))
                     emptySize++
                 }
@@ -184,22 +188,13 @@ class MpChartViewCreator (var context: Context, var mModelLineChart:  ModelLineC
         ds.axisDependency = YAxis.AxisDependency.RIGHT
         ds.setDrawCircles(false)
         ds.setDrawValues(false)
-        ds.color = mModelLineChart.getColor(index)
+        ds.color = dataSet.getColor()
         //LOGV(TAG, "create: dataType: "+ dataTypes+", color: "+ mModelLineChart.getColor(dataTypes));
         return ds
     }
 
-
-    fun invalidate() {
+    fun invalidate(): MpChartViewCreator {
         chart.invalidate()
+        return this
     }
-
-
-
-
-
-    //
-
-
-
 }

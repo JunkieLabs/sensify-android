@@ -6,12 +6,12 @@ import io.sensify.util.QueueFixedLength
  * Created by Niraj on 31-08-2022.
  */
 // TODO under development
-class ModelLineChart(sampleLength: Int, visibleNum: Int) {
+class ModelLineChart(var mSampleLength: Int = 100, var mVisibleNum: Int =  -1) {
 
 
     //private SparseIntArray mMapIndex;
-    private var VISIBLE_NUM = -1
-    private var LENGTH_SAMPLE = 100
+    /*private var VISIBLE_NUM = -1
+    private var LENGTH_SAMPLE = 100*/
 
     private var mTs = 0.1f
 
@@ -24,27 +24,27 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
     }
 
     init {
-        LENGTH_SAMPLE = sampleLength
-        VISIBLE_NUM = visibleNum
+      /*  LENGTH_SAMPLE = mSampleLength
+        VISIBLE_NUM = mVisibleNum*/
     }
 
 
     fun sampleSize(sampleSize: Int) {
-        LENGTH_SAMPLE = sampleSize
-        VISIBLE_NUM = if (VISIBLE_NUM == -1) sampleSize else VISIBLE_NUM
+        mSampleLength = sampleSize
+        mVisibleNum = if (mVisibleNum == -1) sampleSize else mVisibleNum
         for (i in mModelChartDataSets.indices) {
             val modelChartDataSet = mModelChartDataSets[i]
-            modelChartDataSet.resize(LENGTH_SAMPLE)
+            modelChartDataSet.resize(mSampleLength)
         }
 
     }
 
     fun visibleNumber(visibleNum: Int) {
-        VISIBLE_NUM = if (visibleNum <= LENGTH_SAMPLE) visibleNum else LENGTH_SAMPLE
+        mVisibleNum = if (visibleNum <= mSampleLength) visibleNum else mSampleLength
     }
 
     fun getSampleLength(): Int {
-        return LENGTH_SAMPLE
+        return mSampleLength
     }
 
 
@@ -65,7 +65,7 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
             }
         }
         if (modelChartDataSet == null) {
-            modelChartDataSet = ModelChartDataSet(pDataType, LENGTH_SAMPLE)
+            modelChartDataSet = ModelChartDataSet(pDataType, mSampleLength)
             mModelChartDataSets.add(modelChartDataSet)
         }
         modelChartDataSet.setColor(color)
@@ -78,7 +78,7 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
 
 
         //LOGV(TAG, "addDta: type: "+ pDataType +" || array :  "+ Arrays.toString(pData));
-        modelChartDataSet.setData(LENGTH_SAMPLE, pData)
+        modelChartDataSet.setData(mSampleLength, pData)
         modelChartDataSet.setDataHidden(isHidden)
     }
 
@@ -146,5 +146,9 @@ class ModelLineChart(sampleLength: Int, visibleNum: Int) {
     fun setTimePeriod(millisecond: Int) {
         mTs = millisecond.toFloat() / 1000f
         mTs = Math.round(mTs * 100f) / 100f
+    }
+
+    fun getDataSets(): List<ModelChartDataSet> {
+        return mModelChartDataSets
     }
 }

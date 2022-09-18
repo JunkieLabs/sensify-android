@@ -5,7 +5,7 @@ import io.sensify.util.QueueFixedLength
 /**
  * Created by Niraj on 31-08-2022.
  */
-class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
+class ModelChartDataSet(private var dataType: Int = 0, private var sampleLength: Int) {
 
 //    private val TAG: String = makeLogTag(io.sensify.lib.charting.ModelChartDataSet::class.java)
 
@@ -13,11 +13,11 @@ class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
     private var isDataHidden = false
     private var color = 0
     private var data: QueueFixedLength<Float>? = null
-    private var dataType = 0
+//    private var dataType = 0
 
     init {
-        this.dataType = dataType
-        data = QueueFixedLength(LENGTH_SAMPLE, null)
+//        this.dataType = dataType
+        data = QueueFixedLength(sampleLength, null)
     }
 
     fun setColor(color: Int) {
@@ -70,9 +70,15 @@ class ModelChartDataSet(dataType: Int, LENGTH_SAMPLE: Int) {
 
     fun setData(length_sample: Int, pData: Array<Float>?) {
         if (pData != null) {
+            sampleLength = length_sample
             data = QueueFixedLength(length_sample, pData)
         } else {
+            sampleLength = length_sample
             data?.resize(length_sample)
         }
+    }
+
+    fun getSampleLength(): Int {
+        return sampleLength
     }
 }

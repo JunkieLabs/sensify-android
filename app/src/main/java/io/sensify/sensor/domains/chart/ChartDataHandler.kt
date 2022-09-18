@@ -1,7 +1,6 @@
 package io.sensify.sensor.domains.chart
 
 import android.hardware.SensorManager
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.domains.sensors.packets.SensorPacket
@@ -13,8 +12,8 @@ import kotlin.time.Duration.Companion.seconds
  */
 class ChartDataHandler {
 
-    private var VISIBLE_NUM = -1
-    private var LENGTH_SAMPLE = 100
+    private var mVisibleNum = -1
+    private var mLengthSample = 100
 
     private val mLockDataAdd = Any()
 
@@ -33,17 +32,24 @@ class ChartDataHandler {
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
 
     init {
-      mModelLineChart  = ModelLineChart(
-LENGTH_SAMPLE, VISIBLE_NUM
+        mModelLineChart = ModelLineChart(
+            mLengthSample, mVisibleNum
         )
     }
+
     fun destroy() {
 
         mDataComputationScope.cancel()
 
     }
 
-    fun addDataSet(dataType:Int,  color: Int,  label: String,  data: Array<Float>,  isHidden: Boolean){
+    fun addDataSet(
+        dataType: Int,
+        color: Int,
+        label: String,
+        data: Array<Float>,
+        isHidden: Boolean
+    ) {
         mDataTypesIndexed.add(dataType)
 
         // TODO check for data added
@@ -66,10 +72,10 @@ LENGTH_SAMPLE, VISIBLE_NUM
 
         mDataComputationScope.launch {
             while (mDataComputationScope.isActive) {
-                // TODO periodic shift
+                // TODO should I periodic shift
 
                 addPreEntry()
-                delay(SensorsConstants.MAP_SAMPLE_TYPE_TO_DELAY.get(mUIRefreshDelay).seconds)
+                delay(SensorsConstants.MAP_DELAY_TYPE_TO_DELAY.get(mUIRefreshDelay).seconds)
 
 
             }
@@ -79,14 +85,14 @@ LENGTH_SAMPLE, VISIBLE_NUM
 
     }
 
-    private fun addPreEntry() {
+    private fun addPreEntry(): Int {
         var preData: MutableList<SensorPacket>
         synchronized(mLockDataAdd) {
             preData = mPre
             mPre = mutableListOf()
         }
 
-        var needToChangeUi = preData.size > 0
+        val needToChangeUi = preData.size > 0
 
         for (item in preData) {
 
@@ -94,12 +100,15 @@ LENGTH_SAMPLE, VISIBLE_NUM
 
                 if (item.values != null) {
                     if (item.values!!.size > index) {
-                        mModelLineChart?.addEntry(mDataTypesIndexed[index], item.values!![index]);
+                        mModelLineChart.addEntry(mDataTypesIndexed[index], item.values!![index]);
                     }
                 }
                 //loops all indices (performs just as well as two examples above)
             }
         }
+
+        return preData.size;
+
 
 
 //        for
