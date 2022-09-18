@@ -20,7 +20,7 @@ class ChartDataHandler {
 
     // TODO use this in ui handler
     private var mAddDirection = ChartConstants.DIRECTION_START_END
-    var mModelLineChart: ModelLineChart? = null
+    var mModelLineChart: ModelLineChart
 
     var mPre = mutableListOf<SensorPacket>()
 
@@ -32,9 +32,22 @@ class ChartDataHandler {
 
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
 
+    init {
+      mModelLineChart  = ModelLineChart(
+LENGTH_SAMPLE, VISIBLE_NUM
+        )
+    }
     fun destroy() {
 
         mDataComputationScope.cancel()
+
+    }
+
+    fun addDataSet(dataType:Int,  color: Int,  label: String,  data: Array<Float>,  isHidden: Boolean){
+        mDataTypesIndexed.add(dataType)
+
+        // TODO check for data added
+        mModelLineChart.addDataType(dataType, color, label, data, isHidden)
 
     }
 
@@ -66,7 +79,7 @@ class ChartDataHandler {
 
     }
 
-    fun addPreEntry() {
+    private fun addPreEntry() {
         var preData: MutableList<SensorPacket>
         synchronized(mLockDataAdd) {
             preData = mPre
