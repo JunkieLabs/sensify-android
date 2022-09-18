@@ -1,16 +1,19 @@
 package io.sensify.sensor.domains.chart
 
 import android.hardware.SensorManager
+import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.domains.sensors.packets.SensorPacket
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlin.time.Duration.Companion.seconds
 
 /**
  * Created by Niraj on 13-09-2022.
  */
-class ChartDataHandler {
+class ChartDataHandler(var sensorType: Int) {
 
     private var mVisibleNum = -1
     private var mLengthSample = 100
@@ -31,6 +34,10 @@ class ChartDataHandler {
 
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
 
+    private val _mSensorPacketFlow = MutableSharedFlow<ModelChartUiUpdate>(replay = 0)
+    val mSensorPacketFlow = _mSensorPacketFlow.asSharedFlow()
+
+
     init {
         mModelLineChart = ModelLineChart(
             mLengthSample, mVisibleNum
@@ -42,6 +49,7 @@ class ChartDataHandler {
         mDataComputationScope.cancel()
 
     }
+
 
     fun addDataSet(
         dataType: Int,
@@ -74,7 +82,15 @@ class ChartDataHandler {
             while (mDataComputationScope.isActive) {
                 // TODO should I periodic shift
 
-                addPreEntry()
+                var items = addPreEntry()
+                _mSensorPacketFlow.emit(
+                    ModelChartUiUpdate(
+//                    mModelLineChart
+                        sensorType,
+                        items.size, items
+                    )
+                )
+
                 delay(SensorsConstants.MAP_DELAY_TYPE_TO_DELAY.get(mUIRefreshDelay).seconds)
 
 
@@ -85,7 +101,7 @@ class ChartDataHandler {
 
     }
 
-    private fun addPreEntry(): Int {
+    private fun addPreEntry(): MutableList<SensorPacket> {
         var preData: MutableList<SensorPacket>
         synchronized(mLockDataAdd) {
             preData = mPre
@@ -107,8 +123,7 @@ class ChartDataHandler {
             }
         }
 
-        return preData.size;
-
+        return preData;
 
 
 //        for

@@ -193,8 +193,8 @@ class MpChartViewCreator (var context: Context){
         return ds
     }
 
-    fun invalidate(): MpChartViewCreator {
+    fun invalidate(): LineChart {
         chart.invalidate()
-        return this
+        return chart
     }
 }
