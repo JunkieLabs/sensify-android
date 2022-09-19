@@ -1,6 +1,7 @@
 package io.sensify.sensor.domains.chart
 
 import android.hardware.SensorManager
+import android.util.Log
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.sensors.SensorsConstants
@@ -9,6 +10,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.milliseconds
 
 /**
  * Created by Niraj on 13-09-2022.
@@ -48,6 +50,7 @@ class ChartDataHandler(var sensorType: Int) {
 
         mDataComputationScope.cancel()
 
+
     }
 
 
@@ -68,6 +71,7 @@ class ChartDataHandler(var sensorType: Int) {
     fun addEntry(sensorPacket: SensorPacket) {
 
         synchronized(mLockDataAdd) {
+
             mPre.add(sensorPacket)
 
         }
@@ -83,6 +87,7 @@ class ChartDataHandler(var sensorType: Int) {
                 // TODO should I periodic shift
 
                 var items = addPreEntry()
+                Log.d("MpChartViewManager ", "runPeriodicTask : ")
                 _mSensorPacketFlow.emit(
                     ModelChartUiUpdate(
 //                    mModelLineChart
@@ -91,8 +96,9 @@ class ChartDataHandler(var sensorType: Int) {
                     )
                 )
 
-                delay(SensorsConstants.MAP_DELAY_TYPE_TO_DELAY.get(mUIRefreshDelay).seconds)
+                delay(SensorsConstants.MAP_DELAY_TYPE_TO_DELAY.get(mUIRefreshDelay).toLong())
 
+//                Log.d("MpChartViewManager ", "runPeriodicTask : ")
 
             }
 

@@ -60,6 +60,8 @@ fun LabsLineChartPage(navController: NavController) {
 //        key(keys = arrayOf(isUpdating.value)) {
             DefaultChartTesting(isUpdating)
 //        }
+        LabsLineChartRealtimeTesting()
+
 
 
     }

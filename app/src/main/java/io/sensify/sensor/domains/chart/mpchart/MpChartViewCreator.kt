@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.components.chart.mpchart
+package io.sensify.sensor.domains.chart.mpchart
 
 import android.content.Context
 import android.view.View
@@ -14,8 +14,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import io.sensify.sensor.domains.chart.entity.ModelChartDataSet
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
-import io.sensify.sensor.domains.sensors.SensorsConstants
-import io.sensify.sensor.ui.components.chart.mpchart.axis.MpChartTimestampAxisFormatter
+import io.sensify.sensor.domains.chart.mpchart.axis.MpChartTimestampAxisFormatter
 import io.sensify.util.QueueFixedLength
 
 /**

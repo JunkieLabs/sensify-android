@@ -1,24 +1,19 @@
-package io.sensify.sensor.ui.components.chart.mpchart
+package io.sensify.sensor.domains.chart.mpchart
 
 import android.content.Context
 import android.hardware.SensorManager
-import android.view.View
-import androidx.compose.ui.graphics.Color
+import android.util.Log
 import androidx.compose.ui.graphics.toArgb
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import io.sensify.sensor.R
 import io.sensify.sensor.domains.chart.ChartDataHandler
+import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
+import io.sensify.sensor.domains.chart.mpchart.MpChartViewCreator
 import io.sensify.sensor.domains.sensors.SensorsConstants
-import io.sensify.sensor.ui.components.chart.mpchart.axis.MpChartTimestampAxisFormatter
+import io.sensify.sensor.domains.sensors.packets.SensorPacket
 import io.sensify.sensor.ui.resource.values.JlResColors
-import io.sensify.sensor.ui.utils.MyXAxisFormatter
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 /**
  * Created by Niraj on 13-09-2022.
@@ -28,8 +23,11 @@ class MpChartViewManager(
     var mSensorDelayType: Int = SensorManager.SENSOR_DELAY_NORMAL
 ) {
 
+    var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
 
-    var mChartDataHandler: ChartDataHandler;
+    var mChartDataHandler: ChartDataHandler
+
+    val mSensorPacketFlow :SharedFlow<ModelChartUiUpdate>
 
     init {
         mChartDataHandler = ChartDataHandler(sensorType)
@@ -61,7 +59,12 @@ class MpChartViewManager(
             )
         }
 
+        mSensorPacketFlow = mChartDataHandler.mSensorPacketFlow
 
+    }
+
+    fun destroy(){
+        mChartDataHandler.destroy()
     }
 
     fun setSensorDelayType(type: Int) {
@@ -76,14 +79,27 @@ class MpChartViewManager(
         var chart = MpChartViewCreator(context).prepareDataSets(mChartDataHandler.mModelLineChart)
             .invalidate()
 
+        mDataComputationScope.launch {
+            delay(100)
+            Log.d("MpChartViewManager ", "createChart periodic Task: ")
+            mChartDataHandler.runPeriodicTask()
+        }
+
         return chart
 
 //        return linechart
 
     }
 
-    fun updateData(lineChart: LineChart) {
+    fun updateData(lineChart: LineChart, value: ModelChartUiUpdate) {
 //        var lineData: LineData = chart.getData()
+        Log.d("MpChartViewManager ", "updateData update: ${value.size} ")
 
+    }
+
+    fun addEntry(sensorPacket: SensorPacket) {
+        Log.d("MpChartViewManager ", "addEntry ")
+
+        mChartDataHandler.addEntry(sensorPacket)
     }
 }

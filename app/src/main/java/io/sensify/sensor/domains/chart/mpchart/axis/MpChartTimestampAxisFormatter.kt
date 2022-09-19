@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.components.chart.mpchart.axis
+package io.sensify.sensor.domains.chart.mpchart.axis
 
 import android.hardware.SensorManager
 import com.github.mikephil.charting.components.AxisBase
