@@ -27,6 +27,8 @@ class MpChartViewManager(
 
     var mChartDataHandler: ChartDataHandler
 
+    var mMpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater()
+
     val mSensorPacketFlow :SharedFlow<ModelChartUiUpdate>
 
     init {
@@ -49,12 +51,12 @@ class MpChartViewManager(
             )
             mChartDataHandler.addDataSet(
                 SensorsConstants.DATA_AXIS_Y,
-                JlResColors.NotePink.toArgb(),
+                JlResColors.NoteGreen.toArgb(),
                 SensorsConstants.DATA_AXIS_Z_STRING, emptyArray(), false
             )
             mChartDataHandler.addDataSet(
                 SensorsConstants.DATA_AXIS_Z,
-                JlResColors.NotePink.toArgb(),
+                JlResColors.NoteBlue.toArgb(),
                 SensorsConstants.DATA_AXIS_Z_STRING, emptyArray(), false
             )
         }
@@ -91,15 +93,18 @@ class MpChartViewManager(
 
     }
 
-    fun updateData(lineChart: LineChart, value: ModelChartUiUpdate) {
-//        var lineData: LineData = chart.getData()
-        Log.d("MpChartViewManager ", "updateData update: ${value.size} ")
 
-    }
 
     fun addEntry(sensorPacket: SensorPacket) {
         Log.d("MpChartViewManager ", "addEntry ")
 
         mChartDataHandler.addEntry(sensorPacket)
+    }
+
+
+    fun updateData(lineChart: LineChart, value: ModelChartUiUpdate) {
+//        var lineData: LineData = chart.getData()
+        Log.d("MpChartViewManager ", "updateData update: ${value.size} ")
+        mMpChartViewUpdater.update(lineChart, value, mChartDataHandler.mModelLineChart)
     }
 }

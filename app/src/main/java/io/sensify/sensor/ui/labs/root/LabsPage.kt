@@ -135,7 +135,18 @@ fun LabsPage(navController: NavController) {
                 .fillMaxWidth()
                 .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
-            Text(text = "Line Chart")
+            Text(text = "Line Chart Realtime")
+        }
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+        Button(
+            onClick = {
+
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
+        ) {
+            Text(text = "Line Chart Ui")
         }
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Divider(color = Color.White, thickness = JlResDimens.dp1)
