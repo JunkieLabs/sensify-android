@@ -42,7 +42,7 @@ fun LabsPage(navController: NavController) {
 
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
-            onClick = { navController.navigate(NavDirectionsLabs.HomePage.route) },
+            onClick = { navController.navigate(NavDirectionsApp.HomePage.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)

@@ -67,7 +67,7 @@ object JlThemeM3 {
     val md_theme_dark_onErrorContainer = Color(0xFFffdad4)
     val md_theme_dark_background = Color(0xFF0C100E)
     val md_theme_dark_onBackground = Color(0xFFebdfe1)
-    val md_theme_dark_surface = Color(0xFF1f1a1b)
+    val md_theme_dark_surface = Color(0xFF1a1a1b)
     val md_theme_dark_onSurface = Color(0xFFebdfe1)
     val md_theme_dark_surfaceVariant = Color(0xFF514347)
     val md_theme_dark_onSurfaceVariant = Color(0xFFd5c1c6)

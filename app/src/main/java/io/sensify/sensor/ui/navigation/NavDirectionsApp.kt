@@ -1,14 +1,11 @@
 package io.sensify.sensor.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import io.sensify.sensor.ui.labs.navigations.labsGraph
-import io.sensify.sensor.ui.labs.pages.homepage.HomeMain
+import io.sensify.sensor.ui.pages.home.HomeMain
 import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.pages.SplashPage
 

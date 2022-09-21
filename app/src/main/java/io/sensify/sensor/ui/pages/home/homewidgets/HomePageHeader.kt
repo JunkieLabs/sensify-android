@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.labs.pages.homepage.homewidgets
+package io.sensify.sensor.ui.pages.home.homewidgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -6,6 +6,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +25,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
@@ -122,11 +127,19 @@ fun HomePageHeader(){
 
             Spacer(modifier = Modifier.width(JlResDimens.dp18))
 
-            Image(
+            /*Image(
                 painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
                 contentDescription = "slide to left",
                 colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-            )
+            )*/
+
+            IconButton(onClick = { /* doSomething() */ }) {
+                Icon(Icons.Outlined.KeyboardArrowLeft,
+                    tint = MaterialTheme.colorScheme.onSurface ,
+
+                    contentDescription = "Arrow Back",
+                )
+            }
 
             Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
