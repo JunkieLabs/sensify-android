@@ -10,6 +10,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.KeyboardArrowLeft
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -29,7 +31,9 @@ import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.themes.JlThemeM3
+import io.sensify.sensor.ui.resource.values.JlResColors
 import io.sensify.sensor.ui.resource.values.JlResDimens
+import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
 /**
  * Created by Manish Kumar on 09/08/22.
@@ -44,10 +48,17 @@ fun HomePageHeader(){
         .clip(RoundedCornerShape(JlResDimens.dp18))
         .background(
             brush = Brush.linearGradient(
+
                 listOf(
-                    JLThemeBase.colorPrimary30,
-                    JLThemeBase.colorPrimary20,
-                )
+                    JLThemeBase.colorPrimary,
+//                            MaterialTheme.colorScheme.primary,
+//                    JLThemeBase.colorPrimary30,
+                    JLThemeBase.colorPrimary40,
+//                    JLThemeBase.colorPrimary20,
+                ),
+
+                start = Offset(0f, 0f),
+                end = Offset(0f, Float.POSITIVE_INFINITY)
             )
         )
         .border(
@@ -113,8 +124,8 @@ fun HomePageHeader(){
                 )
                 Text(
                     text = "4 Active",
-                    color = JlThemeM3.md_theme_dark_onPrimary,
-                    fontSize = 16.sp,
+                    style = JlResTxtStyles.h4,
+                    color = Color.White,
                     modifier = Modifier
                         .padding(
                             start = JlResDimens.dp12,
@@ -141,7 +152,7 @@ fun HomePageHeader(){
                 )
             }
 
-            Spacer(modifier = Modifier.width(JlResDimens.dp24))
+            Spacer(modifier = Modifier.width(JlResDimens.dp12))
 
             Box(
                 contentAlignment = Alignment.Center,
@@ -164,23 +175,31 @@ fun HomePageHeader(){
                 )
             }
 
-            Spacer(modifier = Modifier.width(JlResDimens.dp24))
+            Spacer(modifier = Modifier.width(JlResDimens.dp12))
 
             Text(
                 text = "Gyroscope",
-                color = JlThemeM3.md_theme_dark_onPrimary,
-                fontSize = JlResDimens.sp12,
+                style = JlResTxtStyles.h5,
+                color = Color.White,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.width(JlResDimens.dp24))
+            Spacer(modifier = Modifier.width(JlResDimens.dp12))
 
-            Image(
+
+            IconButton(onClick = { /* doSomething() */ }) {
+                Icon(Icons.Outlined.KeyboardArrowRight,
+                    tint = MaterialTheme.colorScheme.onSurface ,
+
+                    contentDescription = "Arrow Next",
+                )
+            }
+            /*Image(
                 painterResource(id = R.drawable.ic_round_keyboard_arrow_right_24),
                 contentDescription = "slide to left",
                 colorFilter = ColorFilter.tint(JlThemeM3.md_theme_dark_onPrimary),
-            )
+            )*/
             Spacer(modifier = Modifier.width(JlResDimens.dp12))
         }
 

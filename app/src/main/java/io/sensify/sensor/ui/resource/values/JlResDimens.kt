@@ -24,6 +24,7 @@ object JlResDimens {
      val sp28 = 28.sp;
      val sp32 = 32.sp;
      val sp36 = 36.sp;
+     val sp42 = 42.sp;
      val sp48 = 48.sp;
 
      val dp0 = 0.dp;

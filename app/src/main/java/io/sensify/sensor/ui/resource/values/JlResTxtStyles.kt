@@ -23,7 +23,7 @@ object JlResTxtStyles {
     val h1 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Medium,
-        fontSize = JlResDimens.sp48
+        fontSize = JlResDimens.sp42
     )
 
     val h2 = TextStyle(
@@ -41,37 +41,37 @@ object JlResTxtStyles {
     val h4 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Normal,
-        fontSize = JlResDimens.sp24
+        fontSize = JlResDimens.sp20
     )
 
     val h5 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Normal,
-        fontSize = JlResDimens.sp20
+        fontSize = JlResDimens.sp18
     )
 
     val h6 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Normal,
-        fontSize = JlResDimens.sp16
+        fontSize = JlResDimens.sp14
     )
 
     val p1 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Normal,
-        fontSize = JlResDimens.sp22
+        fontSize = JlResDimens.sp20
     )
 
     val p2 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Normal,
-        fontSize = JlResDimens.sp18
+        fontSize = JlResDimens.sp16
     )
 
     val p3 = TextStyle(
         fontFamily = fontsJost,
         fontWeight = FontWeight.Normal,
-        fontSize = JlResDimens.sp14
+        fontSize = JlResDimens.sp12
     )
 
 

@@ -112,7 +112,7 @@ fun SplashScreen(
             Spacer(modifier = JlResShapes.Space.H56)
             Text(
                 text = "Sensify",
-                style = JlResTxtStyles.h3.merge(
+                style = JlResTxtStyles.h1.merge(
                     other = TextStyle(
                         brush = Brush.linearGradient(
                             colors = listOf(
