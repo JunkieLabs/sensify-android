@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.pages.home.homewidgets
+package io.sensify.sensor.ui.labs.pages.homepage.homewidgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -8,6 +8,7 @@ import io.sensify.sensor.ui.labs.navigations.labsGraph
 import io.sensify.sensor.ui.pages.home.HomeMain
 import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.pages.SplashPage
+import io.sensify.sensor.ui.pages.home.HomePage
 
 
 /**
@@ -29,7 +30,7 @@ fun NavGraphApp(){
         labsGraph(navController)
 //        composable(NavDirectionsApp.Root.route) { LabsPage(navController) }
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
-        composable(NavDirectionsApp.HomePage.route) { HomeMain(navController = navController) }
+        composable(NavDirectionsApp.HomePage.route) { HomePage(navController = navController) }
         composable(NavDirectionsApp.DetailPage.route) { DetailMain(navController) }
     }
 /*    navigation(startDestination = NavDirectionsLabs.Root.route, route = "labs1") {

@@ -25,6 +25,7 @@ object JlResShapes {
 
 
     object Space{
+        val H4 = Modifier.height(JlResDimens.dp4)
         val H18 = Modifier.height(JlResDimens.dp18)
         val H20 = Modifier.height(JlResDimens.dp20)
         val H24 = Modifier.height(JlResDimens.dp24)

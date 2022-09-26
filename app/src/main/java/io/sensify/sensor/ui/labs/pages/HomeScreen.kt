@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.sensify.sensor.R
-import io.sensify.sensor.ui.pages.home.homewidgets.HomeSensorCard
+import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomeSensorCard
 
 /**
  * Created by Manish Kumar on 23/07/22.

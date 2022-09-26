@@ -76,6 +76,9 @@
 
 - https://stackoverflow.com/questions/69901608/how-to-disable-simultaneous-clicks-on-multiple-items-in-jetpack-compose-list-c
 
+<!-- composite Local -->
+- https://developer.android.com/jetpack/compose/compositionlocal
+
 
 ## view model and state
 
@@ -110,4 +113,7 @@
 
 <!-- mpchart realtime updates -->
 - https://github.com/PhilJay/MPAndroidChart/wiki/Dynamic-&-Realtime-Data
+
+<!-- responsive grid -->
+- https://betterprogramming.pub/responsive-layout-grid-363aa1fb7a8b
 

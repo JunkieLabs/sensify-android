@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.pages.home.homewidgets
+package io.sensify.sensor.ui.labs.pages.homepage.homewidgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,7 +38,6 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 /**
  * Created by Manish Kumar on 09/08/22.
  */
-
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
 fun HomePageHeader(){
@@ -48,17 +47,10 @@ fun HomePageHeader(){
         .clip(RoundedCornerShape(JlResDimens.dp18))
         .background(
             brush = Brush.linearGradient(
-
                 listOf(
-                    JLThemeBase.colorPrimary,
-//                            MaterialTheme.colorScheme.primary,
-//                    JLThemeBase.colorPrimary30,
-                    JLThemeBase.colorPrimary40,
-//                    JLThemeBase.colorPrimary20,
-                ),
-
-                start = Offset(0f, 0f),
-                end = Offset(0f, Float.POSITIVE_INFINITY)
+                    JLThemeBase.colorPrimary30,
+                    JLThemeBase.colorPrimary20,
+                )
             )
         )
         .border(
@@ -124,8 +116,8 @@ fun HomePageHeader(){
                 )
                 Text(
                     text = "4 Active",
-                    style = JlResTxtStyles.h4,
-                    color = Color.White,
+                    color = JlThemeM3.md_theme_dark_onPrimary,
+                    fontSize = 16.sp,
                     modifier = Modifier
                         .padding(
                             start = JlResDimens.dp12,
@@ -138,21 +130,13 @@ fun HomePageHeader(){
 
             Spacer(modifier = Modifier.width(JlResDimens.dp18))
 
-            /*Image(
+            Image(
                 painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
                 contentDescription = "slide to left",
                 colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-            )*/
+            )
 
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(Icons.Outlined.KeyboardArrowLeft,
-                    tint = MaterialTheme.colorScheme.onSurface ,
-
-                    contentDescription = "Arrow Back",
-                )
-            }
-
-            Spacer(modifier = Modifier.width(JlResDimens.dp12))
+            Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
             Box(
                 contentAlignment = Alignment.Center,
@@ -175,31 +159,23 @@ fun HomePageHeader(){
                 )
             }
 
-            Spacer(modifier = Modifier.width(JlResDimens.dp12))
+            Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
             Text(
                 text = "Gyroscope",
-                style = JlResTxtStyles.h5,
-                color = Color.White,
+                color = JlThemeM3.md_theme_dark_onPrimary,
+                fontSize = JlResDimens.sp12,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.width(JlResDimens.dp12))
+            Spacer(modifier = Modifier.width(JlResDimens.dp24))
 
-
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(Icons.Outlined.KeyboardArrowRight,
-                    tint = MaterialTheme.colorScheme.onSurface ,
-
-                    contentDescription = "Arrow Next",
-                )
-            }
-            /*Image(
+            Image(
                 painterResource(id = R.drawable.ic_round_keyboard_arrow_right_24),
                 contentDescription = "slide to left",
                 colorFilter = ColorFilter.tint(JlThemeM3.md_theme_dark_onPrimary),
-            )*/
+            )
             Spacer(modifier = Modifier.width(JlResDimens.dp12))
         }
 

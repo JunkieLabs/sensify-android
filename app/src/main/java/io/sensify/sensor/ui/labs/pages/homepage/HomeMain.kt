@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -23,8 +24,9 @@ import androidx.navigation.NavController
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.labs.models.SensorCardModel
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
-import io.sensify.sensor.ui.pages.home.homewidgets.HomePageHeader
-import io.sensify.sensor.ui.pages.home.homewidgets.HomeSensorCard
+import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomePageHeader
+import io.sensify.sensor.ui.labs.pages.homepage.homewidgets.HomeSensorCard
+import io.sensify.sensor.ui.pages.home.items.HomeSensorItem
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.themes.JlThemeM3
 import io.sensify.sensor.ui.resource.values.JlResDimens
@@ -35,12 +37,10 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
  * Created by Manish Kumar on 09/08/22.
  */
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class)
-@Preview(showBackground = true, backgroundColor = 0xFF041B11)
+@Preview(showBackground=true, backgroundColor = 0xFF041B11)
 @Composable
-fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null) {
+fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null){
 
-    val lazyListState = rememberLazyListState()
     val sensorList = listOf(
         SensorCardModel("Gyroscope", "rpm", "340", R.drawable.ic_sensor_gyroscope),
         SensorCardModel("Gravity", "m/s\u00B2", "340", R.drawable.ic_sensor_gravity),
@@ -55,69 +55,43 @@ fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null
         SensorCardModel("Compass", "Unknown", "340", R.drawable.ic_sensor_compass),
 
         )
-    Scaffold(topBar = {
 
-        SmallTopAppBar(
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(JLThemeBase.colorPrimary10)
+        .padding(start = JlResDimens.dp32, end = JlResDimens.dp32)
+    ) {
+        // AppBar
+        Row( verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(JlResDimens.dp32)) {
+            Image(
+                painterResource(id = R.drawable.pic_sensify_logo),
+                modifier = Modifier
+                    .width(JlResDimens.dp32)
+                    .height(JlResDimens.dp36),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds
+            )
 
-//            backgroundColor = Color.Transparent,
-            colors =  if(lazyListState.firstVisibleItemIndex > 0) TopAppBarDefaults.mediumTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
-            ) else TopAppBarDefaults.mediumTopAppBarColors(
-                containerColor = Color.Transparent //Add your own color here, just to clarify.
-            ),
+            Text(
+                text = "Sensify",
+                color = JlThemeM3.md_theme_dark_onPrimary,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight(400),
+                modifier = modifier.fillMaxWidth(),
+            )
 
-            modifier = Modifier.padding(horizontal = JlResDimens.dp16),
+        }
 
-            navigationIcon = {
-                Image(
-                    painterResource(id = R.drawable.pic_sensify_logo),
-                    modifier = Modifier
-                        .width(JlResDimens.dp32)
-                        .height(JlResDimens.dp36),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillBounds
-                )
-            },
-            title = {
-                Text(
-                    text = "Sensify",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center,
-                    style = JlResTxtStyles.h4,
-                    fontWeight = FontWeight(400),
-                    modifier = modifier.fillMaxWidth(),
-                )
-            }
-        )
-    }) {
-        LazyColumn(
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()
+        ){
 
-            modifier = Modifier
-                .consumedWindowInsets(it)
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
-
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
-                        )
-                    )
-                )
-//                .fillMaxSize()
-//                .background(JLThemeBase.colorPrimary10)
-//                .consumedWindowInsets
-
-                .padding(start = JlResDimens.dp32, end = JlResDimens.dp32),
-            contentPadding = it,
-            state = lazyListState
-        ) {
-
-            item {
-                Spacer(modifier = JlResShapes.Space.H24)
-
-            }
             // Header
-            item {
+            item{
                 HomePageHeader()
             }
 
@@ -127,7 +101,7 @@ fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null
             }
 
             // Available Sensors
-            item {
+            item{
                 Box(
                     modifier = Modifier
                         .padding(bottom = JlResDimens.dp10)
@@ -141,24 +115,19 @@ fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null
             }
 
             // Sensor's card grid
-            items(sensorList.windowed(2, 2, true)) { item ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
+            items(sensorList.windowed(2, 2, true)){ item ->
+                Row(modifier = Modifier
+                    .fillMaxWidth()
 
                 ) {
 
                     item.forEach {
-                        Box(
-                            modifier = Modifier
-                                .fillParentMaxWidth(0.5f)
-                                .padding(bottom = JlResDimens.dp8)
-                                .clickable(
-                                    enabled = true,
-                                    onClickLabel = "Card Click",
-                                    onClick = {
-                                        navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                                    })
+                        Box(modifier = Modifier
+                            .fillParentMaxWidth(0.5f)
+                            .padding(bottom = JlResDimens.dp8)
+                            .clickable(enabled = true, onClickLabel = "Card Click", onClick = {
+                                navController?.navigate(NavDirectionsLabs.DetailPage.route)
+                            })
 
                         ) {
                             HomeSensorCard(
@@ -174,14 +143,10 @@ fun HomeMain(modifier: Modifier = Modifier, navController: NavController? = null
                 }
             }
 
-            item { Spacer(modifier = Modifier.height(JlResDimens.dp16)) }
-//            }
+            item{ Spacer(modifier = Modifier.height(JlResDimens.dp16))}
         }
     }
-
-
 }
-
 //fun Modifier.clickable(
 //    enabled: Boolean = true,
 //    onClickLabel: String? = null,
