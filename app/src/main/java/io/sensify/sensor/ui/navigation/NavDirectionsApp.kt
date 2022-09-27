@@ -9,7 +9,7 @@ import io.sensify.sensor.ui.pages.home.HomeMain
 import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.pages.SplashPage
 import io.sensify.sensor.ui.pages.home.HomePage
-import io.sensify.sensor.ui.pages.sensor.details.SensorDetailPage
+import io.sensify.sensor.ui.pages.sensor.details.SensorPage
 
 
 /**
@@ -32,7 +32,7 @@ fun NavGraphApp(){
 //        composable(NavDirectionsApp.Root.route) { LabsPage(navController) }
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
         composable(NavDirectionsApp.HomePage.route) { HomePage(navController = navController) }
-        composable(NavDirectionsApp.SensorDetailPage.route) { SensorDetailPage(navController = navController) }
+        composable(NavDirectionsApp.SensorDetailPage.route) { SensorPage(navController = navController) }
     }
 
 }

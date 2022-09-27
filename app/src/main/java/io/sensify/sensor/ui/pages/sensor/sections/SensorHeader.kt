@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.pages.sensor.details.sections
+package io.sensify.sensor.ui.pages.sensor.sections
 
 import android.util.Log
 import androidx.compose.animation.Animatable

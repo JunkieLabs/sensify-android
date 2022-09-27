@@ -1,4 +1,4 @@
-package io.sensify.sensor.ui.pages.sensor.details.sections
+package io.sensify.sensor.ui.pages.sensor.sections
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,11 +32,12 @@ fun SensorDetailCurrentValue() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(all = JlResDimens.dp6),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+        verticalAlignment = Alignment.Top,
+
+        ) {
         Box(
             modifier = Modifier
-                .size(JlResDimens.dp18)
+                .size(JlResDimens.dp20)
                 .background(Color(0xFFFFCA10), shape = CircleShape)
                 .border(
                     width = JlResDimens.dp1, brush = Brush.verticalGradient(
@@ -45,25 +46,44 @@ fun SensorDetailCurrentValue() {
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                         )
                     ), shape = CircleShape
-                ).drawColoredShadow(Color(0xFFFFCA10), offsetY = JlResDimens.dp12),
+                )
+                .drawColoredShadow(
+                    Color(0xFFFFCA10), offsetY = JlResDimens.dp12,
+                    shadowRadius = JlResDimens.dp8, borderRadius = JlResDimens.dp8, alpha = 0.5f
+                ),
             contentAlignment = Alignment.Center
 
         ) {
             Box(
                 modifier = Modifier
                     .size(JlResDimens.dp12)
-                    .border(width = JlResDimens.dp2, color = Color.White, shape = CircleShape)
+                    .border(width = JlResDimens.dp2, color = MaterialTheme.colorScheme.onSurface, shape = CircleShape)
             )
 
         }
 
         Spacer(modifier = Modifier.width(JlResDimens.dp18))
 
-        Text(
-            text = "Current Value",
-            color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center,
-            style = JlResTxtStyles.h5,
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = JlResDimens.dp12, end = JlResDimens.dp28)
+        ) {
+            Text(
+                text = "Current Value",
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                textAlign = TextAlign.Center,
+                style = JlResTxtStyles.h4,
+            )
+            Text(
+                text = "50%",
+                fontSize = JlResDimens.sp48,
+                color = JlThemeM3.md_theme_dark_onSurface,
+            )
+        }
+
+        Spacer(modifier = Modifier.width(JlResDimens.dp18))
+
+
     }
 }
