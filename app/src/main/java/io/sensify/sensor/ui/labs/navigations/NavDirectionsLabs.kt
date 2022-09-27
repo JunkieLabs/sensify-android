@@ -24,7 +24,7 @@ sealed class NavDirectionsLabs(val route: String) {
     object SensorData: NavDirectionsLabs("sensorData")
     object Styles: NavDirectionsLabs("styles")
     object ViewPager: NavDirectionsLabs("view_pager_screen")
-//    object HomePage: NavDirectionsLabs("home_page")
+    object HomePage: NavDirectionsLabs("home")
     object Permissions: NavDirectionsLabs("permissions")
     object DetailPage: NavDirectionsLabs("detail_page")
     object LineChart: NavDirectionsLabs("line_chart")
@@ -39,7 +39,7 @@ fun NavGraphBuilder.labsGraph(navController: NavController){
         composable(NavDirectionsLabs.SensorData.route) { LabsSensorDataPage(navController) }
         composable(NavDirectionsLabs.ViewPager.route) { ViewPagerSlider() }
         composable(NavDirectionsLabs.Styles.route) { LabsStylesPage(navController) }
-//        composable(NavDirectionsLabs.HomePage.route) { HomeMain(navController = navController) }
+        composable(NavDirectionsLabs.HomePage.route) { HomeMain(navController = navController) }
         composable(NavDirectionsLabs.Permissions.route) { LabsPermissionsPage(navController) }
         composable(NavDirectionsLabs.DetailPage.route) { DetailMain(navController) }
         composable(NavDirectionsLabs.LineChart.route) { LabsLineChartPage(navController) }
