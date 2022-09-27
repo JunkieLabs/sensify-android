@@ -61,8 +61,8 @@ fun HomeHeader(){
         .border(
             brush = Brush.verticalGradient(
                 listOf(
-                    Color(0x80FFFFFF),
-                    Color(0x00FFFFFF),
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 )
             ),
             width = JlResDimens.dp1,

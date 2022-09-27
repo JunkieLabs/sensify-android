@@ -9,6 +9,7 @@ import io.sensify.sensor.ui.pages.home.HomeMain
 import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.pages.SplashPage
 import io.sensify.sensor.ui.pages.home.HomePage
+import io.sensify.sensor.ui.pages.sensor.details.SensorDetailPage
 
 
 /**
@@ -17,7 +18,7 @@ import io.sensify.sensor.ui.pages.home.HomePage
 sealed class NavDirectionsApp(val route: String) {
     object Root : NavDirectionsApp("root")
     object HomePage : NavDirectionsApp("home_page")
-    object DetailPage : NavDirectionsApp("detail_page")
+    object SensorDetailPage : NavDirectionsApp("sensor_detail_page")
     object Splash : NavDirectionsApp("splash_page")
 }
 
@@ -31,17 +32,7 @@ fun NavGraphApp(){
 //        composable(NavDirectionsApp.Root.route) { LabsPage(navController) }
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
         composable(NavDirectionsApp.HomePage.route) { HomePage(navController = navController) }
-        composable(NavDirectionsApp.DetailPage.route) { DetailMain(navController) }
+        composable(NavDirectionsApp.SensorDetailPage.route) { SensorDetailPage(navController = navController) }
     }
-/*    navigation(startDestination = NavDirectionsLabs.Root.route, route = "labs1") {
-        composable(NavDirectionsLabs.Root.route) { LabsPage(navController) }
-        composable(NavDirectionsLabs.Sensors.route) { LabsSensorsPage(navController) }
-        composable(NavDirectionsLabs.SensorData.route) { LabsSensorDataPage(navController) }
-        composable(NavDirectionsLabs.ViewPager.route) { ViewPagerSlider() }
-        composable(NavDirectionsLabs.Styles.route) { LabsStylesPage(navController) }
-        composable(NavDirectionsLabs.HomePage.route) { HomeMain(navController = navController) }
-        composable(NavDirectionsLabs.Permissions.route) { LabsPermissionsPage(navController) }
-        composable(NavDirectionsLabs.DetailPage.route) { DetailMain(navController) }
-        composable(NavDirectionsLabs.Splash.route) { SplashPage(navController) }
-    }*/
+
 }

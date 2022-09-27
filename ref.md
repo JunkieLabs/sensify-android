@@ -117,3 +117,11 @@
 <!-- responsive grid -->
 - https://betterprogramming.pub/responsive-layout-grid-363aa1fb7a8b
 
+
+# Tabs
+
+- https://github.com/hrishikeshpanhalkar/TabLayout-Jetpack-Compose/blob/main/app/src/main/java/com/example/tablayoutwithanimation/MainActivity.kt
+
+# pager
+
+- https://google.github.io/accompanist/pager/

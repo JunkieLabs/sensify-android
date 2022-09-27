@@ -39,7 +39,15 @@ fun LabsPage(navController: NavController) {
         )
         Divider(color = Color.White, thickness = JlResDimens.dp1)
 
-
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+        Button(
+            onClick = { navController.navigate(NavDirectionsApp.Splash.route) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
+        ) {
+            Text(text = "Launcher")
+        }
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
             onClick = { navController.navigate(NavDirectionsApp.HomePage.route) },
@@ -52,13 +60,15 @@ fun LabsPage(navController: NavController) {
 
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
-            onClick = { navController.navigate(NavDirectionsApp.Splash.route) },
+            onClick = { navController.navigate(NavDirectionsApp.SensorDetailPage.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
         ) {
-            Text(text = "Launcher")
+            Text(text = "Sensor Detail")
         }
+
+
 
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
