@@ -38,6 +38,11 @@ object JlResColors {
     val backgroundBottom = Color(0xFF0C100E)
 
 
+    val lightBackgroundColor = Color(0xFFfcfcfc)
+    val lightSurfaceColor = Color(0xFFffffff)
+
+    val darkBackgroundColor = Color(0xFF0C100E)
+    val darkSurfaceColor = Color(0xFF1a1a1b)
 
 
     val SensifyGreen = Color(0xFF1ADA66)

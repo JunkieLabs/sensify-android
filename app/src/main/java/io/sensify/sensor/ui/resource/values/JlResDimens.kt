@@ -37,6 +37,7 @@ object JlResDimens {
      val dp8 = 8.dp;
      val dp10 = 10.dp;
      val dp12 = 12.dp;
+     val dp14 = 14.dp;
      val dp15 = 15.dp;
      val dp16 = 16.dp;
      val dp18 = 18.dp;

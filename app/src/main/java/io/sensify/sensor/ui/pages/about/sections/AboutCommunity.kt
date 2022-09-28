@@ -1,6 +1,7 @@
 package io.sensify.sensor.ui.pages.about.sections
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -18,9 +19,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.sensify.sensor.R
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
 import io.sensify.sensor.ui.resource.values.JlResDimens
 
@@ -35,7 +39,8 @@ import io.sensify.sensor.ui.resource.values.JlResDimens
 @Composable
 fun AboutCommunity() {
 
-    val stroke = Stroke(width = 2f,
+    val stroke = Stroke(
+        width = 2f,
         pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
     )
     val onSurfaceColor = MaterialTheme.colorScheme.onSurface;
@@ -45,17 +50,10 @@ fun AboutCommunity() {
             .fillMaxWidth()
             .clip(RoundedCornerShape(JlResDimens.dp18))
             .background(
-                brush = Brush.radialGradient(
-                    listOf(
-                        MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
-                        MaterialTheme.colorScheme.surface.copy(alpha = 1f),
-                    ),
-                    center = Offset(30f, -30f),
-                    radius = 500.0f
-                )
+                color = MaterialTheme.colorScheme.background.copy(alpha = 0.9f),
             )
             .border(
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.surface,
 
                 width = JlResDimens.dp1,
                 shape = RoundedCornerShape(JlResDimens.dp18)
@@ -65,49 +63,111 @@ fun AboutCommunity() {
 
 
         Column() {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                Box(Modifier.size(size = JlResDimens.dp32),contentAlignment = Alignment.Center) {
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(Modifier.size(size = JlResDimens.dp32), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         drawCircle(color = onSurfaceColor.copy(alpha = 0.3f), style = stroke)
                     }
                 }
 
-                Box(Modifier.size(size = JlResDimens.dp32),contentAlignment = Alignment.Center) {
+                Box(Modifier.size(size = JlResDimens.dp32), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
-                        drawRoundRect(color = onSurfaceColor.copy(alpha = 0.3f), style = stroke, cornerRadius = CornerRadius(x = 12f, y=12f))
+                        drawRoundRect(
+                            color = onSurfaceColor.copy(alpha = 0.3f),
+                            style = stroke,
+                            cornerRadius = CornerRadius(x = JlResDimens.dp14.value, y = JlResDimens.dp14.value)
+                        )
                     }
                 }
                 Box(Modifier.size(size = JlResDimens.dp32))
-
+                Box(Modifier.size(size = JlResDimens.dp32).clip(shape = RoundedCornerShape(JlResDimens.dp12))){
+                    Image( painterResource(id = R.drawable.pic_person2),
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop )
+                }
                 Box(Modifier.size(size = JlResDimens.dp32))
-                Box(Modifier.size(size = JlResDimens.dp32),contentAlignment = Alignment.Center) {
+                /*Box(Modifier.size(size = JlResDimens.dp32), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
-                        drawRoundRect(color = onSurfaceColor.copy(alpha = 0.3f), style = stroke, cornerRadius = CornerRadius(x = 12f, y=12f))
+                        drawRoundRect(
+                            color = onSurfaceColor.copy(alpha = 0.3f),
+                            style = stroke,
+                            cornerRadius = CornerRadius(x = JlResDimens.dp14.value, y = JlResDimens.dp14.value)
+                        )
                     }
+                }*/
+                Box(
+                    Modifier
+                        .size(size = JlResDimens.dp32)
+                        .background(Color(0xFF9747FF), shape = CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+
                 }
             }
             Spacer(modifier = Modifier.height(JlResDimens.dp12))
 
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Row( Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween) {
 
 
-                Box(Modifier.size(size = JlResDimens.dp32),contentAlignment = Alignment.Center) {
+                Box(Modifier.size(size = JlResDimens.dp32), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
-                        drawRoundRect(color = onSurfaceColor.copy(alpha = 0.3f), style = stroke, cornerRadius = CornerRadius(x = 12f, y=12f))
+                        drawRoundRect(
+                            color = onSurfaceColor.copy(alpha = 0.3f),
+                            style = stroke,
+                            cornerRadius = CornerRadius(x = JlResDimens.dp14.value, y = JlResDimens.dp14.value)
+                        )
                     }
                 }
-                Box(Modifier.size(size = JlResDimens.dp32))
-                Box(Modifier.size(size = JlResDimens.dp32),contentAlignment = Alignment.Center) {
+                Box(Modifier.size(size = JlResDimens.dp32).clip(shape = RoundedCornerShape(JlResDimens.dp12))){
+                    Image( painterResource(id = R.drawable.pic_person1),
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop )
+                }
+                Box(
+                    Modifier
+                        .size(size = JlResDimens.dp32)
+                        .background(Color(0xFFFFDB5A), shape = CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+
+                }
+                 Box(Modifier.size(size = JlResDimens.dp32), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
-                        drawRoundRect(color = onSurfaceColor.copy(alpha = 0.3f), style = stroke, cornerRadius = CornerRadius(x = 12f, y=12f))
+                        drawRoundRect(
+                            color = onSurfaceColor.copy(alpha = 0.3f),
+                            style = stroke,
+                            cornerRadius = CornerRadius(x = JlResDimens.dp14.value, y = JlResDimens.dp14.value)
+                        )
                     }
                 }
-                Box(Modifier.size(size = JlResDimens.dp32))
-                Box(Modifier.size(size = JlResDimens.dp32),contentAlignment = Alignment.Center) {
+                Box(
+                    Modifier
+                        .size(size = JlResDimens.dp32)
+                        .background(Color(0xFF64DA93), shape = CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+
+                }
+                Box(Modifier.size(size = JlResDimens.dp32), contentAlignment = Alignment.Center) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
-                        drawRoundRect(color = onSurfaceColor.copy(alpha = 0.3f), style = stroke, cornerRadius = CornerRadius(x = 12f, y=12f))
+                        drawRoundRect(
+                            color = onSurfaceColor.copy(alpha = 0.3f),
+                            style = stroke,
+                            cornerRadius = CornerRadius(x = JlResDimens.dp14.value, y = JlResDimens.dp14.value)
+                        )
                     }
                 }
+
             }
         }
 

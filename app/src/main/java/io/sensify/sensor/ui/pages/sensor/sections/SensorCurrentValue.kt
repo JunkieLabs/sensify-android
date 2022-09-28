@@ -78,7 +78,7 @@ fun SensorDetailCurrentValue() {
             Text(
                 text = "50%",
                 fontSize = JlResDimens.sp48,
-                color = JlThemeM3.md_theme_dark_onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
 

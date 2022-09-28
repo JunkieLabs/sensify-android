@@ -131,7 +131,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController? = null
                     Text(
                         text = "Available Sensors",
                         fontSize = JlResDimens.sp16,
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

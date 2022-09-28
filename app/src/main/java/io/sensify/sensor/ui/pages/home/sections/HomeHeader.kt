@@ -50,7 +50,7 @@ fun HomeHeader(){
                     JLThemeBase.colorPrimary,
 //                            MaterialTheme.colorScheme.primary,
 //                    JLThemeBase.colorPrimary30,
-                    JLThemeBase.colorPrimary40,
+                    JLThemeBase.colorPrimary30,
 //                    JLThemeBase.colorPrimary20,
                 ),
 
@@ -62,7 +62,7 @@ fun HomeHeader(){
             brush = Brush.verticalGradient(
                 listOf(
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f),
                 )
             ),
             width = JlResDimens.dp1,
@@ -92,21 +92,15 @@ fun HomeHeader(){
                 modifier = Modifier
                     .clip(RoundedCornerShape(JlResDimens.dp18))
                     .background(
-                        brush = Brush.radialGradient(
-                            listOf(
-                                Color(0x33000000),
-                                Color(0x33000000),
-
-                                )
-                        )
+                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f)
                     )
 
                     .border(
                         brush = Brush.verticalGradient(
                             listOf(
 
-                                Color(0x00FFFFFF),
-                                Color(0x80FFFFFF),
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
                             )
                         ),
                         width = JlResDimens.dp1,
@@ -122,7 +116,7 @@ fun HomeHeader(){
                 Text(
                     text = "4 Active",
                     style = JlResTxtStyles.h4,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(
                             start = JlResDimens.dp12,
@@ -169,17 +163,19 @@ fun HomeHeader(){
 
                             .border(
                                 JlResDimens.dp1,
-                                Color(0x33FFFFFF),
+
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
                                 shape = RoundedCornerShape(JlResDimens.dp16)
                             )
                             .clip(CircleShape)
-                            .background(Color(0x14FFFFFF))
+                            .background(
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
 
                     ) {
                         Image(
                             painterResource(id = R.drawable.ic_sensor_gyroscope),
                             contentDescription = "Gyroscope",
-                            colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                             modifier = Modifier
                                 .width(JlResDimens.dp28)
                                 .height(JlResDimens.dp28)
@@ -192,7 +188,7 @@ fun HomeHeader(){
                     Text(
                         text = "Gyroscope",
                         style = JlResTxtStyles.h5,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

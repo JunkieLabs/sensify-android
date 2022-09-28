@@ -103,9 +103,11 @@ fun AboutPage(modifier: Modifier = Modifier, navController: NavController? = nul
                     Brush.verticalGradient(
                         colors = listOf(
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
-
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
-                        )
+                        ),
+                        startY = 0f,
+                        endY = Float.POSITIVE_INFINITY
+
                     )
                 )
 
@@ -186,7 +188,7 @@ fun AboutPage(modifier: Modifier = Modifier, navController: NavController? = nul
                     style = JlResTxtStyles.h5,
                 )
 
-                Spacer(modifier = Modifier.height(JlResDimens.dp12))
+                Spacer(modifier = Modifier.height(JlResDimens.dp36))
 
                 AboutCommunity()
 
@@ -223,7 +225,7 @@ fun AboutPage(modifier: Modifier = Modifier, navController: NavController? = nul
                         text = "Junkie Labs",textAlign = TextAlign.Center,
                         style = JlResTxtStyles.h5,)
                 }
-                Spacer(modifier = Modifier.height(JlResDimens.dp20))
+                Spacer(modifier = Modifier.height(JlResDimens.dp28))
 
             }
 
