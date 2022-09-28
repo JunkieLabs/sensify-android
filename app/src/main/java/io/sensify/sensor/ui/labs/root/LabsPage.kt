@@ -82,6 +82,20 @@ fun LabsPage(navController: NavController) {
             Text(text = "Sensors")
         }
 
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+        Button(
+            onClick = {
+                navController.navigate(NavDirectionsApp.AboutPage.route)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)
+        ) {
+            Text(text = "About")
+        }
+
+        Spacer(modifier = Modifier.height(JlResDimens.dp16))
+
         Divider(color = Color.White, thickness = JlResDimens.dp1)
         Text(
             text = "Old", modifier = Modifier

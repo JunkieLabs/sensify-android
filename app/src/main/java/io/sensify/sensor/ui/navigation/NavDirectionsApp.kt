@@ -8,6 +8,7 @@ import io.sensify.sensor.ui.labs.navigations.labsGraph
 import io.sensify.sensor.ui.pages.home.HomeMain
 import io.sensify.sensor.ui.labs.pages.sensordetails.detailpagewidgets.DetailMain
 import io.sensify.sensor.ui.pages.SplashPage
+import io.sensify.sensor.ui.pages.about.AboutPage
 import io.sensify.sensor.ui.pages.home.HomePage
 import io.sensify.sensor.ui.pages.sensor.details.SensorPage
 
@@ -19,6 +20,7 @@ sealed class NavDirectionsApp(val route: String) {
     object Root : NavDirectionsApp("root")
     object HomePage : NavDirectionsApp("home_page")
     object SensorDetailPage : NavDirectionsApp("sensor_detail_page")
+    object AboutPage : NavDirectionsApp("about_page")
     object Splash : NavDirectionsApp("splash_page")
 }
 
@@ -33,6 +35,7 @@ fun NavGraphApp(){
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
         composable(NavDirectionsApp.HomePage.route) { HomePage(navController = navController) }
         composable(NavDirectionsApp.SensorDetailPage.route) { SensorPage(navController = navController) }
+        composable(NavDirectionsApp.AboutPage.route) { AboutPage(navController = navController) }
     }
 
 }

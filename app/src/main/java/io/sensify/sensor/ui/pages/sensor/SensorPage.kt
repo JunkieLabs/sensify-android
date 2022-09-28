@@ -41,7 +41,8 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 /**
  * Created by Niraj on 27-09-2022.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class,
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class,
     ExperimentalPagerApi::class
 )
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
@@ -57,7 +58,7 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
         SmallTopAppBar(
 
 //            backgroundColor = Color.Transparent,
-            colors =  if(lazyListState.firstVisibleItemIndex > 0) TopAppBarDefaults.mediumTopAppBarColors(
+            colors = if (lazyListState.firstVisibleItemIndex > 0) TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
             ) else TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = Color.Transparent //Add your own color here, just to clarify.
@@ -80,12 +81,12 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
                 ) {
                     Icon(Icons.Rounded.KeyboardArrowLeft, "back")
 
-                   /* Image(
-                        painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
-                        contentDescription = "slide to left",
-                        colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-                        alignment = Alignment.Center,
-                    )*/
+                    /* Image(
+                         painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
+                         contentDescription = "slide to left",
+                         colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
+                         alignment = Alignment.Center,
+                     )*/
                 }
 
             },
@@ -116,7 +117,8 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
                             )
                         ),
                         shape = RoundedCornerShape(50.dp)
-                    ).border(
+                    )
+                    .border(
                         brush = Brush.verticalGradient(
                             listOf(
                                 MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
@@ -134,65 +136,68 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
 
             }
         }
-                ) {
-                LazyColumn(
+    ) {
+        LazyColumn(
 
-                    modifier = Modifier
-                        .consumedWindowInsets(it)
-                        .background(
-                            Brush.verticalGradient(
-                                colors = listOf(
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
+            modifier = Modifier
+                .consumedWindowInsets(it)
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
 
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
-                                )
-                            )
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
                         )
+                    )
+                )
 //                .fillMaxSize()
 //                .background(JLThemeBase.colorPrimary10)
 //                .consumedWindowInsets
 
-                        .padding(start = JlResDimens.dp32, end = JlResDimens.dp32),
-                    contentPadding = it,
-                    state = lazyListState
-                ) {
-                    // Header
-                    item {
-                        SensorDetailHeader(pagerState, coroutineScope)
-                    }
-                    item {
-                        HorizontalPager(
-                            count = tabItems.size,
-                            state = pagerState,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(color = Color.Transparent)
-                        ) { page ->
-                            Text(
-                                text = tabItems[page],
-                                modifier = Modifier.padding(JlResDimens.dp64),
-                                color = Color.White
-                            )
-                        }
-                    }
-
-                    // Plotting area
-                    item {
-                        Spacer(modifier = Modifier.height(JlResDimens.dp350))
-                    }
-
-                    item {
-                        SensorDetailCurrentValue()
-                    }
-
-                    item {
-                        Spacer(modifier = Modifier.height(JlResDimens.dp12))
-                    }
-
-                    item {
-                        SensorDetail()
-                    }
-
+                .padding(start = JlResDimens.dp32, end = JlResDimens.dp32),
+            contentPadding = it,
+            state = lazyListState
+        ) {
+            // Header
+            item {
+                SensorDetailHeader(pagerState, coroutineScope)
+            }
+            item {
+                HorizontalPager(
+                    count = tabItems.size,
+                    state = pagerState,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = Color.Transparent)
+                ) { page ->
+                    Text(
+                        text = tabItems[page],
+                        modifier = Modifier.padding(JlResDimens.dp64),
+                        color = Color.White
+                    )
                 }
             }
+
+            // Plotting area
+            item {
+                Spacer(modifier = Modifier.height(JlResDimens.dp350))
             }
+
+            item {
+                SensorDetailCurrentValue()
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(JlResDimens.dp12))
+            }
+
+            item {
+                SensorDetail()
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(JlResDimens.dp72))
+            }
+        }
+    }
+}
