@@ -125,3 +125,7 @@
 # pager
 
 - https://google.github.io/accompanist/pager/
+
+# linear interpolation
+
+- https://limnu.com/sketch-lerp-unlerp-remap/

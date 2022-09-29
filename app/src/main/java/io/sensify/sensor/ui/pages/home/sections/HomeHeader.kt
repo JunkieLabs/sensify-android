@@ -50,7 +50,7 @@ fun HomeHeader(){
                     JLThemeBase.colorPrimary,
 //                            MaterialTheme.colorScheme.primary,
 //                    JLThemeBase.colorPrimary30,
-                    JLThemeBase.colorPrimary30,
+                    JLThemeBase.colorPrimary40,
 //                    JLThemeBase.colorPrimary20,
                 ),
 
