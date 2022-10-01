@@ -3,24 +3,26 @@ package io.sensify.sensor.domains.chart.mpchart
 import android.content.Context
 import android.hardware.SensorManager
 import android.util.Log
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import com.github.mikephil.charting.charts.LineChart
 import io.sensify.sensor.domains.chart.ChartDataHandler
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
-import io.sensify.sensor.domains.chart.mpchart.MpChartViewCreator
+import io.sensify.sensor.domains.chart.mpchart.view.IMpChartLineView
+import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.domains.sensors.packets.SensorPacket
 import io.sensify.sensor.ui.resource.values.JlResColors
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 
 /**
  * Created by Niraj on 13-09-2022.
  */
 class MpChartViewManager(
     var sensorType: Int,
-    var mSensorDelayType: Int = SensorManager.SENSOR_DELAY_NORMAL
+    var mSensorDelayType: Int = SensorManager.SENSOR_DELAY_NORMAL,
+    var chart: IMpChartLineView = MpChartLineView()
 ) {
 
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
@@ -52,7 +54,7 @@ class MpChartViewManager(
             mChartDataHandler.addDataSet(
                 SensorsConstants.DATA_AXIS_Y,
                 JlResColors.NoteGreen.toArgb(),
-                SensorsConstants.DATA_AXIS_Z_STRING, emptyArray(), false
+                SensorsConstants.DATA_AXIS_Y_STRING, emptyArray(), false
             )
             mChartDataHandler.addDataSet(
                 SensorsConstants.DATA_AXIS_Z,
@@ -73,12 +75,9 @@ class MpChartViewManager(
         mSensorDelayType = type
     }
 
+    fun createChart(context: Context, colorSurface: Color, colorOnSurface: Color): LineChart {
 
-
-
-    fun createChart(context: Context): LineChart {
-
-        var chart = MpChartViewCreator(context).prepareDataSets(mChartDataHandler.mModelLineChart)
+        var lineChart = MpChartViewBinder(context, chart).prepareDataSets(mChartDataHandler.mModelLineChart)
             .invalidate()
 
         mDataComputationScope.launch {
@@ -87,7 +86,7 @@ class MpChartViewManager(
             mChartDataHandler.runPeriodicTask()
         }
 
-        return chart
+        return lineChart
 
 //        return linechart
 

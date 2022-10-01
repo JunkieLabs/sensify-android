@@ -15,20 +15,25 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import io.sensify.sensor.domains.chart.entity.ModelChartDataSet
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.chart.mpchart.axis.MpChartTimestampAxisFormatter
+import io.sensify.sensor.domains.chart.mpchart.view.IMpChartLineView
 import io.sensify.util.QueueFixedLength
 
 /**
  * Created by Niraj on 18-09-2022.
  */
-class MpChartViewCreator (var context: Context){
+class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
+                         var colorSurface: Color =  Color.Transparent,
+                         var colorOnSurface: Color = Color.White){
 
     companion object{
-
 //        const val DATA_SET_TYPE_SINGLE = 1
 //        const val DATA_SET_TYPE_3D = 3
     }
 
     private val chart : LineChart by lazy {
+        chartView.create(context, colorSurface, colorOnSurface)
+    }
+    private val oldChart : LineChart by lazy {
         LineChart(context).apply {
             // set properties until it looks like you want it to look like
 //                layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -103,7 +108,7 @@ class MpChartViewCreator (var context: Context){
 //        var dataType
     }*/
 
-    fun prepareDataSets(modelLineChart: ModelLineChart): MpChartViewCreator {
+    fun prepareDataSets(modelLineChart: ModelLineChart): MpChartViewBinder {
 
         //LOGV(TAG, "addDataSet: dataType: "+ dataType +", color: "+ color + ", label: "+ label +"index: "+ index);
         var lineData: LineData? = chart.data

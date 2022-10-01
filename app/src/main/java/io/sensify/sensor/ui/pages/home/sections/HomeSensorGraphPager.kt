@@ -25,6 +25,7 @@ import androidx.core.graphics.ColorUtils
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import io.sensify.sensor.ui.pages.home.items.HomeSensorChart
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
@@ -114,7 +115,7 @@ fun HomeSensorGraphPager(modifier: Modifier = Modifier) {
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
             )
-
+// HomeSensorChart
 
 //                .fillMaxSize()
 //                .height(120.dp)
@@ -126,7 +127,8 @@ fun HomeSensorGraphPager(modifier: Modifier = Modifier) {
                     .fillMaxSize(),
 
                 ) {
-                Text(text = "Graph $page", modifier = Modifier.align(alignment = Alignment.Center))
+                HomeSensorChart()
+//                Text(text = "Graph $page", modifier = Modifier.align(alignment = Alignment.Center))
             }
 
         }
