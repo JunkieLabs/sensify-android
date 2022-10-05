@@ -62,6 +62,7 @@ class SensorPacketsProvider : SensorEventListener {
 
     fun attachSensor(config: SensorPacketConfig): SensorPacketsProvider {
 
+        Log.d("SensorPacketsProvider", "attachSensor")
         var prevConfig = mSensorConfigs.get(config.sensorType)
         var shouldRegister = true
         if (prevConfig != null) {

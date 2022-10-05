@@ -19,6 +19,22 @@ object SensorsConstants {
     const val DATA_AXIS_Y_STRING = "y"
     const val DATA_AXIS_Z_STRING = "z"
 
+    const val DETAIL_KEY_NAME = "Name"
+    const val DETAIL_KEY_VENDOR = "Vendor"
+    const val DETAIL_KEY_VERSION = "Version"
+    const val DETAIL_KEY_POWER = "Power"
+    const val DETAIL_KEY_Resolution = "Resolution"
+    const val DETAIL_KEY_Range = "Range"
+
+
+   /* val MAP_DETAIL_TYPE_TO_Key: SparseIntArray = object : SparseIntArray() {
+        init {
+            put(SensorManager.SENSOR_DELAY_NORMAL, 200)
+            put(SensorManager.SENSOR_DELAY_UI, 60)
+            put(SensorManager.SENSOR_DELAY_GAME, 20)
+            put(SensorManager.SENSOR_DELAY_FASTEST, 10)
+        }
+    }*/
 
     val MAP_DELAY_TYPE_TO_DELAY: SparseIntArray = object : SparseIntArray() {
         init {
