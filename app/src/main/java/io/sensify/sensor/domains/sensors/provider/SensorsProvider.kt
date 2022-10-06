@@ -56,6 +56,7 @@ class SensorsProvider {
         }
 
         mDefaultScope.launch {
+            Log.d("SensorsProvider","listenSensors 2: ${mSensors.size}")
             _mSensorsFlow.emit(mSensors)
 
         }
@@ -65,9 +66,11 @@ class SensorsProvider {
 
     fun listenSensor(sensorType: Int): Flow<ModelSensor?> {
 
-        return mSensorsFlow.map { sensors -> return@map sensors.singleOrNull { modelSensor ->
+        var flow=  mSensorsFlow.map { sensors -> return@map sensors.singleOrNull { modelSensor ->
             modelSensor.type == sensorType }  }
 
+
+        return flow
     }
 
 

@@ -73,6 +73,8 @@ class SensorPacketsProvider : SensorEventListener {
             }
         }
         if (shouldRegister) {
+            Log.d("SensorPacketsProvider", "attachSensor 2")
+
             mSensorConfigs.set(config.sensorType, config)
             registerSensor(config)
         }
@@ -81,10 +83,14 @@ class SensorPacketsProvider : SensorEventListener {
 
 
     fun detachSensor(sensorType: Int): SensorPacketsProvider {
+        Log.d("SensorPacketsProvider", "detachSensor 1")
+
         var sensorConfig = mSensorConfigs.get(sensorType)
         if (sensorConfig != null) {
 
+            Log.d("SensorPacketsProvider", "detachSensor 2")
             unregisterSensor(sensorConfig)
+            mSensorConfigs.remove(sensorType)
 
         }
         return this

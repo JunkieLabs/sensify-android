@@ -30,7 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
+import io.sensify.sensor.domains.sensors.SensorsConstants
+import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
+import io.sensify.sensor.ui.resource.sensors.SensorsIcons
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
@@ -43,12 +46,15 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @Preview(showBackground = true, backgroundColor = 0xFFf5f5f5)
 @Composable
 fun HomeSensorItem(
-    sensorName: String = " Sensor 1",
-    sensorValue: String = "Sa",
-    sensorUnit: String = "m/s\u2008",
-    sensorIcon: Int = R.drawable.ic_sensor_gravity,
+    modelSensor: ModelSensor = ModelSensor(-1,null),
+
     onClick : () -> Unit =  { }
 ) {
+
+    /* sensorValue: String = "Sa",
+    sensorUnit: String = "m/s\u2008",
+    sensorIcon: Int = R.drawable.ic_sensor_gravity,
+    */
     val mCheckedState = remember{ mutableStateOf(false)}
 
     var cardColor = if(mCheckedState.value)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
@@ -119,8 +125,8 @@ fun HomeSensorItem(
 
             ) {
                 Image(
-                    painterResource(sensorIcon),
-                    contentDescription = sensorName,
+                    painterResource(SensorsIcons.MAP_TYPE_TO_ICON.get(modelSensor.type, R.drawable.ic_sensor_unknown)),
+                    contentDescription = modelSensor.sensor?.name,
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
 
                     modifier = Modifier
@@ -131,10 +137,11 @@ fun HomeSensorItem(
             }
             Spacer(modifier = JlResShapes.Space.H4)
             Text(
-                text = "sensorName",
+                text = SensorsConstants.MAP_TYPE_TO_NAME.get( modelSensor.type,modelSensor.sensor?.name?:""),
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 style = JlResTxtStyles.h5,
+                maxLines = 1,
                 fontWeight = FontWeight(400),
             )
 
@@ -149,12 +156,12 @@ fun HomeSensorItem(
                     Column(modifier = Modifier,
                     ) {
                         Text(
-                            text = "in $sensorUnit",
+                            text = "in sensorUnit",
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                             fontSize = 12.sp
                         )
                         Text(
-                            text = sensorValue,
+                            text = "sensorValue",
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                             fontSize = 14.sp
                         )

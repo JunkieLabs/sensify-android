@@ -37,7 +37,7 @@ import java.util.*
 fun LabsSensorDataPage(navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
 
-//    val sensors =  SensorsProviderComposable()
+    val sensors =  SensorsProviderComposable()
 
     val _tickFlow = MutableSharedFlow<Boolean>(replay = 0)
     val tickFlow = _tickFlow.asSharedFlow()
@@ -54,7 +54,7 @@ fun LabsSensorDataPage(navController: NavController) {
 //    val sensor2 = tickFlow.collectAsState(initial = false)
 
 
-
+    sensors.value
 //    val sensor11 = sensor1.
 
     val count: MutableState<Int> = remember { mutableStateOf(0) }
@@ -185,10 +185,11 @@ fun LabsSensorDataPage(navController: NavController) {
 
         Button(
             onClick = {
+                Log.d("LabsSensorDataPage", "listenSensor 1:click")
 
-               /* coroutineScope.launch {
-                    SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_GYROSCOPE)
-                }*/
+                /* coroutineScope.launch {
+                     SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_GYROSCOPE)
+                 }*/
                 coroutineScope.launch {
                     SensorsProvider.getInstance().listenSensor(Sensor.TYPE_ACCELEROMETER)
                         .collectLatest {
@@ -207,6 +208,7 @@ fun LabsSensorDataPage(navController: NavController) {
 
         Button(
             onClick = {
+                Log.d("LabsSensorDataPage", "listenSensor 2:click")
 
                 /* coroutineScope.launch {
                      SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_GYROSCOPE)

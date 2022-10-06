@@ -6,10 +6,16 @@ import io.sensify.sensor.domains.sensors.SensorsConstants
 /**
  * Created by Niraj on 05-10-2022.
  */
-class ModelSensor(var type: Int = -1, var sensor: Sensor? = null, var info: MutableMap<String, Any> = mutableMapOf()) {
+class ModelSensor(
+    var type: Int = -1,
+    var sensor: Sensor? = null,
+    var info: MutableMap<String, Any> = mutableMapOf(),
+    var valueRms: Float? = null,
+    var isActive: Boolean = false
+) {
 
     init {
-        if(sensor!=null){
+        if (sensor != null) {
             /*sensorType =  sensor.getType();*/
 
             info[SensorsConstants.DETAIL_KEY_NAME] = sensor!!.name

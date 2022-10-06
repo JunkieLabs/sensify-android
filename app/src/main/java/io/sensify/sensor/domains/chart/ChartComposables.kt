@@ -33,7 +33,7 @@ fun rememberChartUiUpdateEvent(
         sensorFlow.filter { sensorPacket ->
             var filtered = sensorPacket.type == mpChartViewManager.sensorType
             // sensorPacket.sensorEvent?.values
-            Log.d("rememberChartUiUpdateEvent", "filtered: $filtered, ${mpChartViewManager.sensorType}")
+//            Log.d("rememberChartUiUpdateEvent", "filtered: $filtered, ${mpChartViewManager.sensorType}")
             return@filter filtered
         }
 

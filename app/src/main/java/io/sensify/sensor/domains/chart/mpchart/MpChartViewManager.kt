@@ -95,7 +95,7 @@ class MpChartViewManager(
 
 
     fun addEntry(sensorPacket: SensorPacket) {
-        Log.d("MpChartViewManager ", "addEntry ")
+//        Log.d("MpChartViewManager ", "addEntry ")
 
         mChartDataHandler.addEntry(sensorPacket)
     }
@@ -103,7 +103,7 @@ class MpChartViewManager(
 
     fun updateData(lineChart: LineChart, value: ModelChartUiUpdate) {
 //        var lineData: LineData = chart.getData()
-        Log.d("MpChartViewManager ", "updateData update: ${value.size} ")
+//        Log.d("MpChartViewManager ", "updateData update: ${value.size} ")
         mMpChartViewUpdater.update(lineChart, value, mChartDataHandler.mModelLineChart)
     }
 }

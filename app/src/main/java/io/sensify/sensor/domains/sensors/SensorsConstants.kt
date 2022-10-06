@@ -2,7 +2,9 @@ package io.sensify.sensor.domains.sensors
 
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.util.SparseArray
 import android.util.SparseIntArray
+
 
 /**
  * Created by Niraj on 13-09-2022.
@@ -71,5 +73,36 @@ object SensorsConstants {
 
         }
     }
+
+    val MAP_TYPE_TO_NAME: SparseArray<String> = object : SparseArray<String>() {
+        init {
+            put(Sensor.TYPE_ACCELEROMETER, "Accelerometer") //1
+            put(Sensor.TYPE_MAGNETIC_FIELD, "Magnetic") //2
+            put(Sensor.TYPE_ORIENTATION, "Orientation") //3
+            put(Sensor.TYPE_GYROSCOPE, "Gyroscope") //4
+            put(Sensor.TYPE_LIGHT, "Light") //5
+            put(Sensor.TYPE_PRESSURE, "Pressure") //6
+            put(Sensor.TYPE_TEMPERATURE, "Temperature") //7
+            put(Sensor.TYPE_PROXIMITY, "Proximity") //8
+            put(Sensor.TYPE_GRAVITY, "Gravity") //9
+            put(Sensor.TYPE_LINEAR_ACCELERATION, "Linear Acce.") //10
+            put(Sensor.TYPE_ROTATION_VECTOR, "Rotation") //11
+            put(Sensor.TYPE_RELATIVE_HUMIDITY, "humidity") //12
+            put(Sensor.TYPE_AMBIENT_TEMPERATURE, "Temperature") //13
+            put(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED, "Magnetic") //14
+            put(Sensor.TYPE_GAME_ROTATION_VECTOR, "Game Rotation") //15
+            put(Sensor.TYPE_GYROSCOPE_UNCALIBRATED, "Gyroscope") //16
+            put(Sensor.TYPE_SIGNIFICANT_MOTION, "Motion") //17
+            put(Sensor.TYPE_STEP_DETECTOR, "Step detector") //18
+            put(Sensor.TYPE_STEP_COUNTER, "Step counter") //19
+            put(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR, "Compass") //20
+            put(Sensor.TYPE_HEART_RATE, "Heart rate") //21
+
+//            put(Sensor.TYPE_STATIONARY_DETECT, R.color.md_amber_500);//29
+//            put(Sensor.TYPE_MOTION_DETECT, R.color.md_amber_500);//30
+//            put(Sensor.TYPE_HEART_BEAT, R.color.md_amber_500);//31
+        }
+    }
+
 
 }

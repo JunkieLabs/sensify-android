@@ -87,7 +87,7 @@ class ChartDataHandler(var sensorType: Int) {
                 // TODO should I periodic shift
 
                 var items = addPreEntry()
-                Log.d("MpChartViewManager ", "runPeriodicTask : ")
+//                Log.d("MpChartViewManager ", "runPeriodicTask : ")
                 _mSensorPacketFlow.emit(
                     ModelChartUiUpdate(
 //                    mModelLineChart
