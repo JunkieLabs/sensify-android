@@ -9,9 +9,7 @@ import io.sensify.sensor.domains.sensors.SensorsConstants
 class ModelSensor(
     var type: Int = -1,
     var sensor: Sensor? = null,
-    var info: MutableMap<String, Any> = mutableMapOf(),
-    var valueRms: Float? = null,
-    var isActive: Boolean = false
+    var info: MutableMap<String, Any> = mutableMapOf()
 ) {
 
     init {

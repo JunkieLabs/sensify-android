@@ -46,26 +46,16 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class)
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun HomePage(modifier: Modifier = Modifier, navController: NavController? = null) {
+fun HomePage(
+    modifier: Modifier = Modifier, navController: NavController? = null,
+    viewModel: HomeViewModel = HomeViewModel()
+) {
 
     val lazyListState = rememberLazyListState()
     val sensorsProvider = SensorsProviderComposable()
     val sensors =  remember { sensorsProvider }
 
-    val sensorList = listOf(
-        SensorCardModel("Gyroscope", "rpm", "340", R.drawable.ic_sensor_gyroscope),
-        SensorCardModel("Gravity", "m/s\u00B2", "340", R.drawable.ic_sensor_gravity),
-        SensorCardModel("Brightness", "cd", "340", R.drawable.ic_sensor_brightness),
-        SensorCardModel("Magnetic Field", "amp/m", "340", R.drawable.ic_sensor_magnet),
-        SensorCardModel("Temperature", "\u2103", "340", R.drawable.ic_sensor_temprature),
-        SensorCardModel("Proximity", "cm", "340", R.drawable.ic_sensor_proximity),
-        SensorCardModel("Pressure", "mbar", "340", R.drawable.ic_sensor_pressure),
-        SensorCardModel("Humidity", "%", "340", R.drawable.ic_sensor_humidity),
-        SensorCardModel("Rotation", "unknown", "340", R.drawable.ic_sensor_rotation),
-        SensorCardModel("Acceleration", "m/s²", "340", R.drawable.ic_sensor_linear_acceleration),
-        SensorCardModel("Compass", "Unknown", "340", R.drawable.ic_sensor_compass),
 
-        )
     Scaffold(topBar = {
 
         SmallTopAppBar(
@@ -117,6 +107,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController? = null
             }
         )
     }) {
+
         LazyColumn(
 
             modifier = Modifier
@@ -152,7 +143,6 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController? = null
                     HomeHeader()
                 }
             }
-
             // Plotting area
             item {
 //                Spacer(modifier = Modifier.height(JlResDimens.dp350))
@@ -179,123 +169,38 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController? = null
             }
 
 
-            /*item {
-                Column(modifier = Modifier
+        items(sensors.value.windowed(2, 2, true)) { item ->
+            Box(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = JlResDimens.dp32, end = JlResDimens.dp32),) {
+                    .padding(horizontal = JlResDimens.dp32)
+            ) {
 
-                }
-            }*/
-
-
-            /*item {
-
-                val itemSize = ((LocalConfiguration.current.screenWidthDp.dp - 80.dp) / 2)
-                Box(
-                    modifier = Modifier.padding(horizontal = JlResDimens.dp32)
-                ) {
-
-                    FlowRow(
-                        mainAxisSize = SizeMode.Expand,
-
-                        mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween,
-                        crossAxisSpacing = JlResDimens.dp8,
-                        mainAxisSpacing = JlResDimens.dp8
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
 
 
                     ) {
-                        sensorList.forEach {
-                            Box(
-                                modifier = Modifier
-                                    .defaultMinSize(minWidth = itemSize)
-                                    .fillMaxWidth(0.5f)
 
-
-//                                .defaultMinSize(minWidth =  itemSize)
-
-//                                .padding(bottom = JlResDimens.dp8)
-                                    .clickable(
-                                        enabled = true,
-                                        onClickLabel = "Card Click",
-                                        onClick = {
-                                            navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                                        })
-
-                            ) {
-                                HomeSensorItem(
-                                    sensorName = it.sensorName,
-                                    sensorValue = it.sensorValue,
-                                    sensorUnit = it.sensorUnit,
-                                    sensorIcon = it.sensorIcon
-                                )
-
-                            }
-                        }
-                    }
-                }
-            }*/
-
-            /*LazyVerticalGrid(
-                modifier = Modifier,
-                columns  = GridCells.Adaptive(minSize = 120.dp)
-            ) {
-               *//* items(sensorList){ item: SensorCardModel ->
+                    for (i in item.indices) {
                         Box(
                             modifier = Modifier
-                                .fillParentMaxWidth(0.5f)
-                                .padding(bottom = JlResDimens.dp8)
-                            .clickable(
-                                enabled = true,
-                                onClickLabel = "Card Click",
-                                onClick = {
-                                    navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                                })
-
-                        ) {
-                            HomeSensorItem(
-                                sensorName = item.sensorName,
-                                sensorValue = item.sensorValue,
-                                sensorUnit = item.sensorUnit,
-                                sensorIcon = item.sensorIcon
-                            )
-
-                        }
-                    }*//*
-                }
-            }*/
-
-            items(sensors.value.windowed(2, 2, true)) { item ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = JlResDimens.dp32)
-                ) {
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-
-
-                        ) {
-
-                        for (i in item.indices) {
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
+                                .weight(1f)
 //                                    .fillParentMaxWidth(0.5f)
 //                                    .padding(bottom = JlResDimens.dp8)
-                                /*.clickable(
+                            .clickable(
                                 enabled = true,
                         onClickLabel = "Card Click",
                         onClick = {
                             navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                        })*/
+                        })
 
                             ) {
                                 HomeSensorItem(
                                     modelSensor = item[i],
-/*                                    se = item[i].sensorName,
+                                   /* se = item[i].sensorName,
                                     sensorValue = item[i].sensorValue,
                                     sensorUnit = item[i].sensorUnit,
                                     sensorIcon = item[i].sensorIcon*/
@@ -316,66 +221,14 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController? = null
                             )
                         }
 
-                        /* item.forEach {
-                             Box(
-                                 modifier = Modifier
-                                     .weight(1f)
- //                                    .fillParentMaxWidth(0.5f)
- //                                    .padding(bottom = JlResDimens.dp8)
-                             ) {
-                                 HomeSensorItem(
-                                     sensorName = it.sensorName,
-                                     sensorValue = it.sensorValue,
-                                     sensorUnit = it.sensorUnit,
-                                     sensorIcon = it.sensorIcon
-                                 )
-
-                             }
-
-                         }*/
                     }
                 }
                 Spacer(modifier = Modifier.height(JlResDimens.dp8))
 
             }
-            // Sensor's card grid
-            /* items(sensorList.windowed(2, 2, true)) { item ->
-                 Row(
-                     modifier = Modifier
-                         .fillMaxWidth()
-
-                     ) {
-
-                     item.forEach {
-                         Box(
-                             modifier = Modifier
-                                 .fillParentMaxWidth(0.5f)
-                                 .padding(bottom = JlResDimens.dp8)
-                             *//*.clickable(
-                                enabled = true,
-                                onClickLabel = "Card Click",
-                                onClick = {
-                                    navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                                })*//*
-
-                        ) {
-                            HomeSensorItem(
-                                sensorName = it.sensorName,
-                                sensorValue = it.sensorValue,
-                                sensorUnit = it.sensorUnit,
-                                sensorIcon = it.sensorIcon
-                            )
-
-                        }
-                        Spacer(modifier = Modifier.width(JlResDimens.dp8))
-                    }
-                }
-            }*/
 
             item { Spacer(modifier = Modifier.height(JlResDimens.dp16)) }
 //            }
-        }
     }
-
-
+}
 }
