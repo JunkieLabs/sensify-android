@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -59,6 +60,12 @@ fun HomePage(
 
     val sensorsUiState = viewModel.mUiState.collectAsState()
 
+    val isAtTop = remember {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
+        }
+    }
+
     Log.d("HomePage", "sensor ${sensorsUiState.value.sensors}");
 
     Scaffold(topBar = {
@@ -66,7 +73,7 @@ fun HomePage(
         SmallTopAppBar(
 
 //            backgroundColor = Color.Transparent,
-            colors = if (lazyListState.firstVisibleItemIndex > 0) TopAppBarDefaults.mediumTopAppBarColors(
+            colors = if (!isAtTop.value) TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
             ) else TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = Color.Transparent //Add your own color here, just to clarify.
@@ -174,7 +181,7 @@ fun HomePage(
             }
 
 
-            items(sensorsUiState.value.sensors.windowed(2, 2, true)) { item ->
+            items(viewModel.mSensorsList.windowed(2, 2, true)) { item ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()

@@ -146,3 +146,7 @@
 
 - https://developer.android.com/codelabs/basic-android-kotlin-compose-viewmodel-and-state#5
 
+# rememberLazyListState
+
+- https://stackoverflow.com/questions/70376897/jetpack-compose-detect-when-lazycolumns-scroll-position-is-at-the-first-index
+- https://stackoverflow.com/questions/67252538/jetpack-compose-update-composable-when-list-changes

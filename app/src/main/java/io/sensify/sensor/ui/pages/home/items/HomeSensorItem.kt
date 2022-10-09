@@ -53,10 +53,10 @@ fun HomeSensorItem(
     sensorUnit: String = "m/s\u2008",
     sensorIcon: Int = R.drawable.ic_sensor_gravity,
     */
-    val mCheckedState = remember{ mutableStateOf(false)}
+//    val mCheckedState = remember{ mutableStateOf(false)}
 
-    var cardColor = if(mCheckedState.value)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
-    var borderColor = if(mCheckedState.value)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
+    var cardColor = if(modelSensor.isActive)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
+    var borderColor = if(modelSensor.isActive)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
     Box(modifier = Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(JlResDimens.dp18))
@@ -150,7 +150,7 @@ fun HomeSensorItem(
                 verticalAlignment = Alignment.Bottom
             ) {
 
-                if(mCheckedState.value){
+                if(modelSensor.isActive){
                     Column(modifier = Modifier,
                     ) {
                         Text(
@@ -170,7 +170,8 @@ fun HomeSensorItem(
                 Spacer(modifier = Modifier.weight(1f))
                 Switch(
                     checked = modelSensor.isActive,
-                    onCheckedChange = { mCheckedState.value = it;
+                    onCheckedChange = {
+//                        mCheckedState.value = it;
                         onCheckChange.invoke(modelSensor.type, it)} ,
 //                    interactionSource = interactionSource,
                     colors= SwitchDefaults.colors(
