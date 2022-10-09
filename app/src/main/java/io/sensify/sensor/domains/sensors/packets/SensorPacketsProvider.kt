@@ -12,8 +12,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.util.*
 
 /**
  * Created by Niraj on 18-08-2022.
@@ -45,7 +43,7 @@ class SensorPacketsProvider : SensorEventListener {
     private var mSensorConfigs = SparseArray<SensorPacketConfig>()
 
 
-    private val _mSensorPacketFlow = MutableSharedFlow<SensorPacket>(replay = 0)
+    private val _mSensorPacketFlow = MutableSharedFlow<ModelSensorPacket>(replay = 0)
     val mSensorPacketFlow = _mSensorPacketFlow.asSharedFlow()
 
 
@@ -156,7 +154,7 @@ mSensorEvents.put(
 
 
             if (sensorConfig != null) {
-                var sensorPacket = SensorPacket(
+                var sensorPacket = ModelSensorPacket(
                     sensorEvent,
                     sensorEvent.values,
                     sensorType,

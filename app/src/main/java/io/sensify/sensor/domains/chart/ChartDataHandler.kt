@@ -1,16 +1,13 @@
 package io.sensify.sensor.domains.chart
 
 import android.hardware.SensorManager
-import android.util.Log
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.sensors.SensorsConstants
-import io.sensify.sensor.domains.sensors.packets.SensorPacket
+import io.sensify.sensor.domains.sensors.packets.ModelSensorPacket
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.milliseconds
 
 /**
  * Created by Niraj on 13-09-2022.
@@ -26,7 +23,7 @@ class ChartDataHandler(var sensorType: Int) {
     private var mAddDirection = ChartConstants.DIRECTION_START_END
     var mModelLineChart: ModelLineChart
 
-    var mPre = mutableListOf<SensorPacket>()
+    var mPre = mutableListOf<ModelSensorPacket>()
 
     var mUIRefreshDelay = SensorManager.SENSOR_DELAY_UI
 
@@ -68,7 +65,7 @@ class ChartDataHandler(var sensorType: Int) {
 
     }
 
-    fun addEntry(sensorPacket: SensorPacket) {
+    fun addEntry(sensorPacket: ModelSensorPacket) {
 
         synchronized(mLockDataAdd) {
 
@@ -107,8 +104,8 @@ class ChartDataHandler(var sensorType: Int) {
 
     }
 
-    private fun addPreEntry(): MutableList<SensorPacket> {
-        var preData: MutableList<SensorPacket>
+    private fun addPreEntry(): MutableList<ModelSensorPacket> {
+        var preData: MutableList<ModelSensorPacket>
         synchronized(mLockDataAdd) {
             preData = mPre
             mPre = mutableListOf()

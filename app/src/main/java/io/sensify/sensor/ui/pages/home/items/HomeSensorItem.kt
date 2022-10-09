@@ -9,8 +9,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,10 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.sensify.sensor.R
 import io.sensify.sensor.domains.sensors.SensorsConstants
-import io.sensify.sensor.domains.sensors.provider.ModelSensor
-import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
+import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.sensors.SensorsIcons
-import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -46,9 +42,11 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @Preview(showBackground = true, backgroundColor = 0xFFf5f5f5)
 @Composable
 fun HomeSensorItem(
-    modelSensor: ModelSensor = ModelSensor(-1,null),
+    modelSensor: ModelHomeSensor = ModelHomeSensor(-1,null),
 
-    onClick : () -> Unit =  { }
+    onClick : () -> Unit =  { },
+    onCheckChange: (Int, Boolean) -> Unit =  { type: Int, isChecked: Boolean -> }
+    //(type: Int, false){},
 ) {
 
     /* sensorValue: String = "Sa",
@@ -171,8 +169,9 @@ fun HomeSensorItem(
 
                 Spacer(modifier = Modifier.weight(1f))
                 Switch(
-                    checked = mCheckedState.value,
-                    onCheckedChange = { mCheckedState.value = it } ,
+                    checked = modelSensor.isActive,
+                    onCheckedChange = { mCheckedState.value = it;
+                        onCheckChange.invoke(modelSensor.type, it)} ,
 //                    interactionSource = interactionSource,
                     colors= SwitchDefaults.colors(
                         checkedThumbColor = Color(0xFF13ED6A),

@@ -2,7 +2,6 @@ package io.sensify.sensor.domains.sensors.packets
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.util.Log
 import androidx.compose.runtime.Composable
@@ -10,9 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
-import io.sensify.sensor.domains.sensors.sensorManagerProvider
 import kotlinx.coroutines.flow.filter
-import java.time.LocalDateTime
 
 /**
  * Created by Niraj on 19-08-2022.
@@ -21,7 +18,7 @@ import java.time.LocalDateTime
 //@SuppressLint("FlowOperatorInvokedInComposition")
 @SuppressLint("FlowOperatorInvokedInComposition")
 @Composable
-fun rememberSensorPackets(sensorType: Int, sensorDelay: Int): State<SensorPacket> {
+fun rememberSensorPackets(sensorType: Int, sensorDelay: Int): State<ModelSensorPacket> {
 //    var sensorManager = sensorManagerProvider()
      var sensorFlow =
         SensorPacketsProvider.getInstance().mSensorPacketFlow
@@ -35,7 +32,7 @@ fun rememberSensorPackets(sensorType: Int, sensorDelay: Int): State<SensorPacket
 //            Log.d("rememberSensorPackets", "filtered: $filtered, $sensorType")
         return@filter filtered
          }
-            .collectAsState(initial = SensorPacket(null, null, sensorType, sensorDelay, System.currentTimeMillis()))
+            .collectAsState(initial = ModelSensorPacket(null, null, sensorType, sensorDelay, System.currentTimeMillis()))
     val context = LocalContext.current
 
     LaunchedEffect(key1 = context){

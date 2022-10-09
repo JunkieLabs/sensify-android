@@ -1,5 +1,7 @@
 package io.sensify.sensor.ui
 
+import android.content.Context
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.sensify.sensor.domains.sensors.packets.SensorPacketsProvider
+import io.sensify.sensor.domains.sensors.provider.SensorsProvider
 import io.sensify.sensor.ui.labs.utils.Sensors.ProximitySensor
 import io.sensify.sensor.ui.labs.viewpager.ViewPagerSlider
 import io.sensify.sensor.ui.navigation.NavGraphApp
@@ -29,6 +33,10 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        SensorsProvider.getInstance().setSensorManager(sensorManager)
+        SensorPacketsProvider.getInstance().setSensorManager(sensorManager)
         setContent {
             SensifyM3Theme {
                 // A surface container using the 'background' color from the theme

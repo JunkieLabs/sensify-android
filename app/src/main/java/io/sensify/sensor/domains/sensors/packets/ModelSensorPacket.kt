@@ -1,14 +1,11 @@
 package io.sensify.sensor.domains.sensors.packets
 
 import android.hardware.SensorEvent
-import java.sql.Timestamp
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 /**
  * Created by Niraj on 19-08-2022.
  */
-data class SensorPacket(
+data class ModelSensorPacket(
     /** some reference issue with this */
     var sensorEvent: SensorEvent? = null,
     var values: FloatArray?,
@@ -20,7 +17,7 @@ data class SensorPacket(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as SensorPacket
+        other as ModelSensorPacket
 
         if (sensorEvent != other.sensorEvent) return false
         if (values != null) {

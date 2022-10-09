@@ -11,7 +11,7 @@ import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.mpchart.view.IMpChartLineView
 import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.sensors.SensorsConstants
-import io.sensify.sensor.domains.sensors.packets.SensorPacket
+import io.sensify.sensor.domains.sensors.packets.ModelSensorPacket
 import io.sensify.sensor.ui.resource.values.JlResColors
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.SharedFlow
@@ -94,7 +94,7 @@ class MpChartViewManager(
 
 
 
-    fun addEntry(sensorPacket: SensorPacket) {
+    fun addEntry(sensorPacket: ModelSensorPacket) {
 //        Log.d("MpChartViewManager ", "addEntry ")
 
         mChartDataHandler.addEntry(sensorPacket)

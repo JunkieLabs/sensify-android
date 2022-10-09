@@ -1,5 +1,6 @@
 package io.sensify.sensor.ui.pages.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -52,9 +54,12 @@ fun HomePage(
 ) {
 
     val lazyListState = rememberLazyListState()
-    val sensorsProvider = SensorsProviderComposable()
-    val sensors =  remember { sensorsProvider }
+//    val sensorsProvider = SensorsProviderComposable()
+//    val sensors = remember { sensorsProvider }
 
+    val sensorsUiState = viewModel.mUiState.collectAsState()
+
+    Log.d("HomePage", "sensor ${sensorsUiState.value.sensors}");
 
     Scaffold(topBar = {
 
@@ -169,41 +174,46 @@ fun HomePage(
             }
 
 
-        items(sensors.value.windowed(2, 2, true)) { item ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = JlResDimens.dp32)
-            ) {
-
-                Row(
+            items(sensorsUiState.value.sensors.windowed(2, 2, true)) { item ->
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                        .fillMaxWidth()
+                        .padding(horizontal = JlResDimens.dp32)
+                ) {
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
 
 
-                    ) {
+                        ) {
 
-                    for (i in item.indices) {
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
+                        for (i in item.indices) {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
 //                                    .fillParentMaxWidth(0.5f)
 //                                    .padding(bottom = JlResDimens.dp8)
-                            .clickable(
-                                enabled = true,
-                        onClickLabel = "Card Click",
-                        onClick = {
-                            navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                        })
+                                    .clickable(
+                                        enabled = true,
+                                        onClickLabel = "Card Click",
+                                        onClick = {
+                                            navController?.navigate(NavDirectionsLabs.DetailPage.route)
+                                        })
 
                             ) {
                                 HomeSensorItem(
                                     modelSensor = item[i],
-                                   /* se = item[i].sensorName,
-                                    sensorValue = item[i].sensorValue,
-                                    sensorUnit = item[i].sensorUnit,
-                                    sensorIcon = item[i].sensorIcon*/
+                                    /* se = item[i].sensorName,
+                                     sensorValue = item[i].sensorValue,
+                                     sensorUnit = item[i].sensorUnit,
+                                     sensorIcon = item[i].sensorIcon*/
+
+                                    onCheckChange = { type: Int, isChecked: Boolean ->
+                                        viewModel.onSensorChecked(type, isChecked)
+
+                                    }
                                 )
 
                             }
@@ -229,6 +239,6 @@ fun HomePage(
 
             item { Spacer(modifier = Modifier.height(JlResDimens.dp16)) }
 //            }
+        }
     }
-}
 }
