@@ -25,6 +25,8 @@ import androidx.core.graphics.ColorUtils
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.rememberPagerState
+import io.sensify.sensor.ui.pages.home.HomeViewModel
 import io.sensify.sensor.ui.pages.home.items.HomeSensorChart
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
 import io.sensify.sensor.ui.resource.themes.JLThemeBase
@@ -37,17 +39,26 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalPagerApi::class)
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun HomeSensorGraphPager(modifier: Modifier = Modifier) {
+fun HomeSensorGraphPager(modifier: Modifier = Modifier, viewModel: HomeViewModel = HomeViewModel()) {
 
+    val pagerState = rememberPagerState(
+//        pageCount = 3,
+    )
+//    pagerState.
+    val activeSensorStateList = viewModel.mActiveSensorStateList
 
+//    Log.d("HomeSensorGraphPager", "pager: $pagerState")
     HorizontalPager(
-        count = 3,
+//        count = 3,
+        state = pagerState,
+        count = activeSensorStateList.size,
         // Add 32.dp horizontal padding to 'center' the pages
         contentPadding = PaddingValues(horizontal = JlResDimens.dp32),
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = JlResDimens.dp20)
-    ) { page ->
+            .padding(vertical = JlResDimens.dp20),
+
+        ) { page ->
         Card(
             Modifier
                 .graphicsLayer {
@@ -80,11 +91,23 @@ fun HomeSensorGraphPager(modifier: Modifier = Modifier) {
                     brush = Brush.radialGradient(
 
                         listOf(
-                            Color(ColorUtils.blendARGB(MaterialTheme.colorScheme.onSurface.toArgb(), MaterialTheme.colorScheme.surface.toArgb(), 0.65f)),
+                            Color(
+                                ColorUtils.blendARGB(
+                                    MaterialTheme.colorScheme.onSurface.toArgb(),
+                                    MaterialTheme.colorScheme.surface.toArgb(),
+                                    0.65f
+                                )
+                            ),
 //                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
 //                            MaterialTheme.colorScheme.primary,
 //                    JLThemeBase.colorPrimary30,
-                            Color(ColorUtils.blendARGB(MaterialTheme.colorScheme.onSurface.toArgb(), MaterialTheme.colorScheme.surface.toArgb(), 0.95f)),
+                            Color(
+                                ColorUtils.blendARGB(
+                                    MaterialTheme.colorScheme.onSurface.toArgb(),
+                                    MaterialTheme.colorScheme.surface.toArgb(),
+                                    0.95f
+                                )
+                            ),
 //                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.07f),
 //                    Color.Transparent,
                         ),
@@ -127,7 +150,7 @@ fun HomeSensorGraphPager(modifier: Modifier = Modifier) {
                     .fillMaxSize(),
 
                 ) {
-                HomeSensorChart()
+                HomeSensorChart(activeSensorStateList[page])
 //                Text(text = "Graph $page", modifier = Modifier.align(alignment = Alignment.Center))
             }
 

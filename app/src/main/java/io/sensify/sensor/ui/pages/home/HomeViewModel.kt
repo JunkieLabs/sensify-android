@@ -26,11 +26,21 @@ class HomeViewModel : ViewModel() {
 
     // Backing property to avoid state updates from other classes
     val mUiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+
+
+    private val _uiPagerState = MutableStateFlow(HomeUiState())
+
+    // Backing property to avoid state updates from other classes
+    val mUiPagerState: StateFlow<HomeUiState> = _uiPagerState.asStateFlow()
+
+
     private val _mSensorsList = mutableStateListOf<ModelHomeSensor>()
     val mSensorsList: SnapshotStateList<ModelHomeSensor> = _mSensorsList
-//    private val _uiListState = MutableStateFlow(_mSensorsList)
 
-//    val mUiListState: StateFlow<SnapshotStateList<ModelHomeSensor>> = _uiListState.asStateFlow()
+
+    private val _mActiveSensorStateList = mutableStateListOf<ModelHomeSensor>()
+    val mActiveSensorStateList: SnapshotStateList<ModelHomeSensor> = _mActiveSensorStateList
+
 
     private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_GYROSCOPE, true))
     private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
@@ -56,6 +66,8 @@ class HomeViewModel : ViewModel() {
                 Log.d("HomeViewModel", "sensors 2: $it")
                 if (_mSensorsList.size == 0) {
                     _mSensorsList.addAll(mSensors)
+                    var activeSensors = it.filter { modelHomeSensor -> modelHomeSensor.isActive }
+                    _mActiveSensorStateList.addAll(activeSensors)
                 }
 //                mSensorsList.emit(_mSensorsList)
 
@@ -84,16 +96,30 @@ class HomeViewModel : ViewModel() {
         if (index >= 0) {
             Log.d("HomeViewModel", "onSensorChecked: Index: $index $isChecked")
             var sensor = mSensors[index]
-            var updatedSensor =                 ModelHomeSensor(sensor.type, sensor.sensor, sensor.info, sensor.valueRms, isChecked)
+            var updatedSensor =
+                ModelHomeSensor(sensor.type, sensor.sensor, sensor.info, sensor.valueRms, isChecked)
             mSensors[index] = updatedSensor
 
             mSensorsList[index] = updatedSensor
+            updateActiveSensor(updatedSensor, isChecked)
+
         }
         viewModelScope.launch {
             emitUiState()
 
         }
 
+    }
+
+    fun updateActiveSensor(sensor: ModelHomeSensor, isChecked: Boolean = false) {
+        var index = _mActiveSensorStateList.indexOfFirst { it.type == sensor.type }
+
+        if (!isChecked && index >= 0) {
+            _mActiveSensorStateList.removeAt(index)
+
+        } else if (isChecked && index < 0) {
+            _mActiveSensorStateList.add(sensor)
+        }
     }
 
     suspend fun emitUiListState(index: Int, sensor: ModelHomeSensor) {

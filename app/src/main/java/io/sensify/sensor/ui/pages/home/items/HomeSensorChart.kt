@@ -2,6 +2,7 @@ package io.sensify.sensor.ui.pages.home.items
 
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -15,6 +16,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewManager
 import io.sensify.sensor.domains.chart.rememberChartUiUpdateEvent
+import io.sensify.sensor.domains.sensors.SensorsConstants
+import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -23,13 +26,17 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
  * Created by Niraj on 30-09-2022.
  */
 @Composable
-fun HomeSensorChart() {
+fun HomeSensorChart(modelSensor: ModelHomeSensor =  ModelHomeSensor(
+    type = Sensor.TYPE_GRAVITY
+)
+) {
 
-    var sensorType = Sensor.TYPE_GRAVITY
+//    var sensorType = Sensor.TYPE_GRAVITY
 //    val sensorData = rememberSensorPackets(sensorType = sensorType, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
 
 
-    var mpChartViewManager = MpChartViewManager(sensorType)
+    Log.d("HomeSensorChart", "Chart: ")
+    var mpChartViewManager = MpChartViewManager(modelSensor.type)
     val sensorUiUpdate =
         rememberChartUiUpdateEvent(mpChartViewManager, SensorManager.SENSOR_DELAY_NORMAL)
 
@@ -48,7 +55,7 @@ fun HomeSensorChart() {
 
         Text(
             modifier = Modifier.padding(horizontal = JlResDimens.dp12),
-            text = "Gyroscope",
+            text = "${modelSensor.name}",
 
 
 
