@@ -35,7 +35,7 @@ fun HomeSensorChart(modelSensor: ModelHomeSensor =  ModelHomeSensor(
 //    val sensorData = rememberSensorPackets(sensorType = sensorType, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
 
 
-    Log.d("HomeSensorChart", "Chart: ")
+    Log.d("HomeSensorChart", "Chart model: $modelSensor")
     var mpChartViewManager = MpChartViewManager(modelSensor.type)
     val sensorUiUpdate =
         rememberChartUiUpdateEvent(mpChartViewManager, SensorManager.SENSOR_DELAY_NORMAL)

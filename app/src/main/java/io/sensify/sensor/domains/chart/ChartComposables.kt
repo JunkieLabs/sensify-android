@@ -1,6 +1,9 @@
 package io.sensify.sensor.domains.chart
 
+import android.content.Context
+import android.hardware.SensorManager
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewManager
 import io.sensify.sensor.domains.sensors.packets.SensorPacketConfig
@@ -19,12 +22,19 @@ fun rememberChartUiUpdateEvent(
 ): State<ModelChartUiUpdate> {
     val coroutineScope = rememberCoroutineScope()
 
-    var sensorManager = sensorManagerProvider()
+//    var sensorManager = sensorManagerProvider()
+
+    /*
+    val flow =
+        sensorFlow.filter { sensorPacket ->
+            var filtered = sensorPacket.type == mpChartViewManager.sensorType
+            // sensorPacket.sensorEvent?.values
+//            Log.d("rememberChartUiUpdateEvent", "filtered: $filtered, ${mpChartViewManager.sensorType}")
+            return@filter filtered
+        }*/
 
     var sensorFlow =
-        SensorPacketsProvider.getInstance().setSensorManager(sensorManager).attachSensor(
-            SensorPacketConfig(mpChartViewManager.sensorType, sensorDelay)
-        ).mSensorPacketFlow
+        SensorPacketsProvider.getInstance().mSensorPacketFlow
     val flow =
         sensorFlow.filter { sensorPacket ->
             var filtered = sensorPacket.type == mpChartViewManager.sensorType
@@ -32,23 +42,34 @@ fun rememberChartUiUpdateEvent(
 //            Log.d("rememberChartUiUpdateEvent", "filtered: $filtered, ${mpChartViewManager.sensorType}")
             return@filter filtered
         }
+    val context = LocalContext.current
 
-    coroutineScope.launch {
-        flow.collect {
-            mpChartViewManager.addEntry(it)
+    // TODO fix chart view updated
+    LaunchedEffect(key1 = context) {
+
+        var sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        SensorPacketsProvider.getInstance().setSensorManager(sensorManager).attachSensor(
+            SensorPacketConfig(mpChartViewManager.sensorType, sensorDelay)
+        )
+        coroutineScope.launch {
+            flow.collect {
+                mpChartViewManager.addEntry(it)
+            }
         }
     }
 
-    var state1 =  mpChartViewManager.mSensorPacketFlow.collectAsState(
+    var state = mpChartViewManager.mSensorPacketFlow.collectAsState(
         initial = ModelChartUiUpdate(
             sensorType = mpChartViewManager.sensorType,
             0,
             listOf()
         )
-    );
+    )
+    val state1 = remember {
+        state
+    };
 
-    return  state1;
-
+    return state1;
 
 }
 

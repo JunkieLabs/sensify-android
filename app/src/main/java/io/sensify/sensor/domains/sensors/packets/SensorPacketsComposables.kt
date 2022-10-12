@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.filter
 @Composable
 fun rememberSensorPackets(sensorType: Int, sensorDelay: Int): State<ModelSensorPacket> {
 //    var sensorManager = sensorManagerProvider()
-     var sensorFlow =
+    var sensorFlow =
         SensorPacketsProvider.getInstance().mSensorPacketFlow
     /*SensorPacketsProvider.getInstance().setSensorManager(sensorManager).attachSensor(
         SensorPacketConfig(sensorType, sensorDelay)
@@ -30,15 +30,23 @@ fun rememberSensorPackets(sensorType: Int, sensorDelay: Int): State<ModelSensorP
             var filtered = sensorPacket.type == sensorType
             // sensorPacket.sensorEvent?.values
 //            Log.d("rememberSensorPackets", "filtered: $filtered, $sensorType")
-        return@filter filtered
-         }
-            .collectAsState(initial = ModelSensorPacket(null, null, sensorType, sensorDelay, System.currentTimeMillis()))
+            return@filter filtered
+        }
+            .collectAsState(
+                initial = ModelSensorPacket(
+                    null,
+                    null,
+                    sensorType,
+                    sensorDelay,
+                    System.currentTimeMillis()
+                )
+            )
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = context){
+    LaunchedEffect(key1 = context) {
 
         var sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        Log.d("rememberSensorPackets","LaunchedEffect sensorType: $sensorType")
+        Log.d("rememberSensorPackets", "LaunchedEffect sensorType: $sensorType")
 
         SensorPacketsProvider.getInstance().setSensorManager(sensorManager).attachSensor(
             SensorPacketConfig(sensorType, sensorDelay = sensorDelay)
