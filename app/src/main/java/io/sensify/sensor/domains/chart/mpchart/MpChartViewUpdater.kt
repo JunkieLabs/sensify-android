@@ -14,9 +14,14 @@ import io.sensify.sensor.domains.chart.entity.ModelLineChart
 class MpChartViewUpdater {
 
 
-    fun update(chart: LineChart, value: ModelChartUiUpdate, modelLineChart: ModelLineChart) {
-        if (value.size == 0) return;
-        var lineData: LineData? = chart.data ?: return
+    fun update(chart: LineChart, value: ModelChartUiUpdate, modelLineChart: ModelLineChart) : Boolean {
+        if (value.size == 0) return false;
+        var lineData: LineData? = chart.data
+
+        if(lineData==null){
+//            Log.v("MpChartViewUpdater", "update no line data ")
+            return false
+        }
 
         //        value.packets[0].
 //        modelLineChart.
@@ -35,6 +40,8 @@ class MpChartViewUpdater {
 
         /*for (dataSet in datasets){
         }*/
+
+        return true
 
     }
 

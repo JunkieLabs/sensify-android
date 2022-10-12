@@ -6,9 +6,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.sensors.packets.ModelSensorPacket
 import io.sensify.sensor.domains.sensors.packets.SensorPacketsProvider
-import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.domains.sensors.provider.SensorsProvider
 import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.pages.home.state.HomeUiState
@@ -44,6 +44,7 @@ class HomeViewModel : ViewModel() {
 
     private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_GYROSCOPE, true))
     private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
+    private val mChartDataManagerMap = mutableMapOf<Int, MpChartDataManager>()
 
     init {
         Log.d("HomeViewModel", "viewmodel init")
@@ -116,6 +117,8 @@ class HomeViewModel : ViewModel() {
 
         if (!isChecked && index >= 0) {
             _mActiveSensorStateList.removeAt(index)
+            var manager = mChartDataManagerMap.remove(sensor.type)
+            manager?.destroy()
 
         } else if (isChecked && index < 0) {
             _mActiveSensorStateList.add(sensor)
@@ -133,5 +136,20 @@ class HomeViewModel : ViewModel() {
          }
          _uiListState.emit()*/
         _uiState.emit(HomeUiState(sensors = mSensors))
+    }
+
+    fun getChartDataManager(type: Int): MpChartDataManager {
+        var chartDataManager = mChartDataManagerMap.getOrPut(type, defaultValue = {
+            MpChartDataManager(type, onDestroy = {
+            })
+        })
+        return chartDataManager
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+
+        mChartDataManagerMap.forEach { i, mpChartDataManager -> mpChartDataManager.destroy() }
     }
 }

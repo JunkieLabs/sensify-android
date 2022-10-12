@@ -11,6 +11,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -39,15 +40,19 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalPagerApi::class)
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun HomeSensorGraphPager(modifier: Modifier = Modifier, viewModel: HomeViewModel = HomeViewModel()) {
+fun HomeSensorGraphPager(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = HomeViewModel()
+) {
 
     val pagerState = rememberPagerState(
 //        pageCount = 3,
     )
-//    pagerState.
-    val activeSensorStateList = viewModel.mActiveSensorStateList
 
-//    Log.d("HomeSensorGraphPager", "pager: $pagerState")
+//    pagerState.
+    val activeSensorStateList = remember { viewModel.mActiveSensorStateList }
+
+    Log.d("HomeSensorGraphPager", "pager: $pagerState ${activeSensorStateList.size}")
     HorizontalPager(
 //        count = 3,
         state = pagerState,
@@ -77,6 +82,7 @@ fun HomeSensorGraphPager(modifier: Modifier = Modifier, viewModel: HomeViewModel
                         scaleX = scale
                         scaleY = scale
                     }
+
 
                     // We animate the alpha, between 50% and 100%
                     alpha = lerp(
@@ -150,7 +156,15 @@ fun HomeSensorGraphPager(modifier: Modifier = Modifier, viewModel: HomeViewModel
                     .fillMaxSize(),
 
                 ) {
-                HomeSensorChart(activeSensorStateList[page])
+                Log.d(
+                    "HomeSensorGraphPager",
+                    "Chart model: size: ${activeSensorStateList.size} ${page} ${activeSensorStateList[page]}"
+                )
+                HomeSensorChart(
+                    activeSensorStateList[page],
+                    viewModel.getChartDataManager(activeSensorStateList[page].type)
+                )
+
 //                Text(text = "Graph $page", modifier = Modifier.align(alignment = Alignment.Center))
             }
 

@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.toArgb
 import com.github.mikephil.charting.charts.LineChart
 import io.sensify.sensor.domains.chart.ChartDataHandler
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
+import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.chart.mpchart.view.IMpChartLineView
 import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.sensors.SensorsConstants
@@ -19,17 +20,18 @@ import kotlinx.coroutines.flow.SharedFlow
 /**
  * Created by Niraj on 13-09-2022.
  */
-class MpChartViewManager(
+class MpChartDataManager(
     var sensorType: Int,
     var mSensorDelayType: Int = SensorManager.SENSOR_DELAY_NORMAL,
-    var chart: IMpChartLineView = MpChartLineView()
+    var onDestroy: (type: Int) -> Unit = {}
 ) {
 
+    private var mIsRunningPeriod: Boolean =  false
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
 
     var mChartDataHandler: ChartDataHandler
 
-    var mMpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater()
+//    var mMpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater()
 
     val mSensorPacketFlow :SharedFlow<ModelChartUiUpdate>
 
@@ -71,17 +73,22 @@ class MpChartViewManager(
     }
 
     fun destroy(){
+        Log.d("MpChartDataManager","destroy $sensorType")
         mChartDataHandler.destroy()
+        onDestroy.invoke(sensorType)
     }
 
     fun setSensorDelayType(type: Int) {
         mSensorDelayType = type
     }
 
-    fun createChart(context: Context, colorSurface: Color, colorOnSurface: Color): LineChart {
+    fun runPeriodically(){
 
-        var lineChart = MpChartViewBinder(context, chart).prepareDataSets(mChartDataHandler.mModelLineChart)
-            .invalidate()
+
+        if(mIsRunningPeriod){
+            return
+        }
+        mIsRunningPeriod = true
 
         mDataComputationScope.launch {
             delay(100)
@@ -89,7 +96,7 @@ class MpChartViewManager(
             mChartDataHandler.runPeriodicTask()
         }
 
-        return lineChart
+//        return lineChart
 
 //        return linechart
 
@@ -104,9 +111,15 @@ class MpChartViewManager(
     }
 
 
+    /*
+    TODO remvoe this
     fun updateData(lineChart: LineChart, value: ModelChartUiUpdate) {
 //        var lineData: LineData = chart.getData()
 //        Log.d("MpChartViewManager ", "updateData update: ${value.size} ")
         mMpChartViewUpdater.update(lineChart, value, mChartDataHandler.mModelLineChart)
+    }*/
+
+    fun getModel(): ModelLineChart {
+        return mChartDataHandler.mModelLineChart
     }
 }

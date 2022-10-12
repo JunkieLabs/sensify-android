@@ -9,12 +9,20 @@ import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
-import io.sensify.sensor.domains.chart.mpchart.MpChartViewManager
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
+import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
+import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
+import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.chart.rememberChartUiUpdateEvent
 import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
@@ -26,19 +34,25 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
  * Created by Niraj on 30-09-2022.
  */
 @Composable
-fun HomeSensorChart(modelSensor: ModelHomeSensor =  ModelHomeSensor(
-    type = Sensor.TYPE_GRAVITY
-)
+fun HomeSensorChart(
+    modelSensor: ModelHomeSensor = ModelHomeSensor(
+        type = Sensor.TYPE_LIGHT
+    ),
+    mpChartDataManager : MpChartDataManager = MpChartDataManager(modelSensor.type),
+    mpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater(),
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
 
 //    var sensorType = Sensor.TYPE_GRAVITY
 //    val sensorData = rememberSensorPackets(sensorType = sensorType, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
 
 
-    Log.d("HomeSensorChart", "Chart model: $modelSensor")
-    var mpChartViewManager = MpChartViewManager(modelSensor.type)
+    Log.d("HomeSensorChart", "Chart model: ${modelSensor.name} ${modelSensor.type}  ${mpChartDataManager.sensorType}")
+//    var mpChartViewManager = MpChartViewManager(modelSensor.type)
     val sensorUiUpdate =
-        rememberChartUiUpdateEvent(mpChartViewManager, SensorManager.SENSOR_DELAY_NORMAL)
+        rememberChartUiUpdateEvent(mpChartDataManager, SensorManager.SENSOR_DELAY_NORMAL)
+
+    val context = remember {  }
 
 //    var counter = 0
 //    Log.d("DefaultChartTesting", "Linechart isUpdating ${isUpdating.value}")
@@ -58,10 +72,10 @@ fun HomeSensorChart(modelSensor: ModelHomeSensor =  ModelHomeSensor(
             text = "${modelSensor.name}",
 
 
-
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Start,
-            style = JlResTxtStyles.h5,)
+            style = JlResTxtStyles.h5,
+        )
         AndroidView(
             modifier = Modifier
                 .background(color = Color.Transparent)
@@ -69,21 +83,45 @@ fun HomeSensorChart(modelSensor: ModelHomeSensor =  ModelHomeSensor(
                 .fillMaxSize(),
 
             factory = { ctx ->
-                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)
+
+                Log.v("HomeSensorChart", "factory: ${mpChartDataManager.sensorType}")
+
+                val lineChart = MpChartViewBinder(ctx, MpChartLineView()).prepareDataSets(mpChartDataManager.getModel())
+                    .invalidate()
+                return@AndroidView lineChart
+//                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)
             },
             update = {
+              mpChartViewUpdater.update(it, sensorUiUpdate.value, mpChartDataManager.getModel())
+//                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType} ${isUpdated}")
 
-
-                mpChartViewManager.updateData(it, sensorUiUpdate.value)
+//                mpChartDataManager.runPeriodically()
+            //updateData(it, sensorUiUpdate.value)
             }
         )
         Spacer(modifier = JlResShapes.Space.H18)
 
     }
 
-    DisposableEffect(LocalLifecycleOwner.current) {
+    DisposableEffect(mpChartDataManager.sensorType) {
+      /*  val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_START) {
+//                currentOnStart()
+            } else if (event == Lifecycle.Event.ON_DESTROY) {
+//                currentOnStop()
+                Log.v("HomeSensorChart", "destroy: ${mpChartDataManager.sensorType}")
+                mpChartDataManager.destroy()
+            }
+        }
+
+        // Add the observer to the lifecycle
+        lifecycleOwner.lifecycle.addObserver(observer)*/
         onDispose {
-            mpChartViewManager.destroy()
+
+            Log.v("HomeSensorChart", "dispose: ${mpChartDataManager.sensorType}")
+//            mpChartDataManager.destroy()
+//            lifecycleOwner.lifecycle.removeObserver(observer)
+
 
         }
     }
