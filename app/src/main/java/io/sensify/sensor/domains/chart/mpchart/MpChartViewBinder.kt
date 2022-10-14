@@ -116,7 +116,7 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
 
         var datasets = modelLineChart.getDataSets()
 
-        Log.d("MpChartViewBinder", " prepareDataSets: ${datasets.size}")
+//        Log.d("MpChartViewBinder", " prepareDataSets: ${datasets.size}")
 
         for (dataSet in datasets){
             lineData = prepareDataSet(dataSet,  lineData)
@@ -141,7 +141,7 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
         if (index != -1) {
             chartLineData?.removeDataSet(index)
         }*/
-        Log.d("MpChartViewBinder", " prepareDataSet: ${modelDataSet.getData()?.size()}")
+//        Log.d("MpChartViewBinder", " prepareDataSet: ${modelDataSet.getData()?.size()}")
 
         var chartLineData = pLineData
 
@@ -152,7 +152,7 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
             sets.add(dataSet)
             chartLineData = LineData(sets)
             chart.setData(chartLineData)
-            Log.d("MpChartViewBinder", " prepareDataSet 1: ")
+//            Log.d("MpChartViewBinder", " prepareDataSet 1: ")
         } else {
             val sets: MutableList<ILineDataSet> = pLineData.getDataSets()
             sets.add(dataSet)
@@ -162,7 +162,7 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
             chart.setData(chartLineData)
             //lineData.addDataSet(dataSet);
             //lineData.notifyDataChanged();
-            Log.d("MpChartViewBinder", " prepareDataSet 2: ")
+//            Log.d("MpChartViewBinder", " prepareDataSet 2: ")
         }
 
         return chartLineData;

@@ -77,7 +77,17 @@ class SensorsProvider {
             modelSensor.type == sensorType }  }
 
 
+
         return flow
+    }
+
+    fun getSensor(sensorType: Int): ModelSensor? {
+        if(mSensors.size==0){
+
+        }
+
+        return mSensors.singleOrNull { modelSensor ->
+            modelSensor.type == sensorType }
     }
 
 

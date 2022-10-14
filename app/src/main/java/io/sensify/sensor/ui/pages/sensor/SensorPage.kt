@@ -1,5 +1,7 @@
 package io.sensify.sensor.ui.pages.sensor.details
 
+import android.hardware.Sensor
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,9 +14,12 @@ import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -31,6 +36,8 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import io.sensify.sensor.R
+import io.sensify.sensor.domains.sensors.provider.ModelSensor
+import io.sensify.sensor.domains.sensors.provider.SensorsProvider
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetail
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailCurrentValue
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailHeader
@@ -47,12 +54,18 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 )
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = null) {
+fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = null,
+               type: Int =  Sensor.TYPE_GYROSCOPE) {
     val lazyListState = rememberLazyListState()
     val pagerState = rememberPagerState(initialPage = 0)
     val coroutineScope = rememberCoroutineScope()
     val tabItems = listOf("Visual", "Graph")
 
+    var sensorFlowState = SensorsProvider.getInstance().listenSensor(type).collectAsState(initial = SensorsProvider.getInstance().getSensor(type));
+    var sensorState = remember{
+        sensorFlowState
+    }
+    Log.d("SensorPage", "$type")
     Scaffold(topBar = {
 
         SmallTopAppBar(
@@ -92,13 +105,26 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
             },
             title = {
                 Text(
-                    text = "Brightness",
+                    text = "${sensorState.value?.name}",
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
                     style = JlResTxtStyles.h4,
                     fontWeight = FontWeight(400),
                     modifier = modifier.fillMaxWidth(),
                 )
+            },actions = {
+                Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
+                    Image(
+
+                        painterResource(id = R.drawable.pic_sensify_logo),
+                        modifier = Modifier
+                            .alpha(0f)
+                            .width(JlResDimens.dp32)
+                            .height(JlResDimens.dp36),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds
+                    )
+                }
             }
         )
     },
@@ -192,7 +218,7 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
             }
 
             item {
-                SensorDetail()
+                SensorDetail(sensorState.value?.info?: mutableMapOf())
             }
 
             item {

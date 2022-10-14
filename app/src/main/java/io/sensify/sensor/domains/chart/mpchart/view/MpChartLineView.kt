@@ -12,7 +12,7 @@ import io.sensify.sensor.domains.chart.mpchart.axis.MpChartTimestampAxisFormatte
 /**
  * Created by Niraj on 30-09-2022.
  */
-open class MpChartLineView : IMpChartLineView {
+open class MpChartLineView(var mKey: Int) : IMpChartLineView {
     var mLineChart: LineChart? = null
     override fun create(context: Context, colorSurface: Color, colorOnSurface: Color): LineChart {
         mLineChart = LineChart(context).apply {
@@ -37,6 +37,7 @@ open class MpChartLineView : IMpChartLineView {
 
 
             description.isEnabled = false
+            tag = mKey
 
         }
         return mLineChart!!

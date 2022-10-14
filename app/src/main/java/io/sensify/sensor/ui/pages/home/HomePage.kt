@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
 import io.sensify.sensor.ui.pages.home.items.HomeSensorItem
@@ -36,7 +37,9 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 /**
  * Created by Niraj on 26-09-2022.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class,
+    ExperimentalPagerApi::class
+)
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
 fun HomePage(
@@ -49,6 +52,7 @@ fun HomePage(
 //    val sensors = remember { sensorsProvider }
 
     val sensorsUiState = viewModel.mUiState.collectAsState()
+    var sensorUiState = viewModel.mUiCurrentSensorState.collectAsState()
 
     val isAtTop = remember {
         derivedStateOf {
@@ -142,7 +146,7 @@ fun HomePage(
                         end = JlResDimens.dp32
                     ),
                 ) {
-                    HomeHeader()
+                    HomeHeader(sensorUiState.value)
                 }
             }
             // Plotting area

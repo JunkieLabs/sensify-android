@@ -9,26 +9,36 @@ import io.sensify.sensor.domains.sensors.SensorsConstants
 class ModelSensor(
     var type: Int = -1,
     var sensor: Sensor? = null,
-    var info: MutableMap<String, Any> = mutableMapOf()
+    var info: Map<String, Any> = mutableMapOf(),
+   var name: String =  ""
+
 ) {
 
     init {
         if (sensor != null) {
-            /*sensorType =  sensor.getType();*/
+            name = SensorsConstants.MAP_TYPE_TO_NAME.get( type,sensor?.name?:"")
+            if (info is MutableMap<String, Any>) {
+                /*sensorType =  sensor.getType();*/
 
-            info[SensorsConstants.DETAIL_KEY_NAME] = sensor!!.name
-            info[SensorsConstants.DETAIL_KEY_VENDOR] = sensor!!.vendor
-            info[SensorsConstants.DETAIL_KEY_VERSION] = sensor!!.version
-            info[SensorsConstants.DETAIL_KEY_POWER] = sensor!!.power
-            info[SensorsConstants.DETAIL_KEY_Resolution] = sensor!!.resolution
-            info[SensorsConstants.DETAIL_KEY_Range] = sensor!!.maximumRange
+                (info as MutableMap<String, Any>)[SensorsConstants.DETAIL_KEY_NAME] = sensor!!.name
+                (info as MutableMap<String, Any>)[SensorsConstants.DETAIL_KEY_VENDOR] =
+                    sensor!!.vendor
+                (info as MutableMap<String, Any>)[SensorsConstants.DETAIL_KEY_VERSION] =
+                    sensor!!.version
+                (info as MutableMap<String, Any>)[SensorsConstants.DETAIL_KEY_POWER] =
+                    sensor!!.power
+                (info as MutableMap<String, Any>)[SensorsConstants.DETAIL_KEY_Resolution] =
+                    sensor!!.resolution
+                (info as MutableMap<String, Any>)[SensorsConstants.DETAIL_KEY_Range] =
+                    sensor!!.maximumRange
 
-            /*name=  sensor.getName();
+                /*name=  sensor.getName();
             vendorName = sensor.getVendor();
             version = sensor.getVersion();
             power = sensor.getPower();
             resolution = sensor.getResolution();
             maxRange = sensor.getMaximumRange();*/
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package io.sensify.sensor.ui.labs.root
 
+import android.hardware.Sensor
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -60,7 +61,8 @@ fun LabsPage(navController: NavController) {
 
         Spacer(modifier = Modifier.height(JlResDimens.dp16))
         Button(
-            onClick = { navController.navigate(NavDirectionsApp.SensorDetailPage.route) },
+            onClick = { navController.navigate("${NavDirectionsApp.SensorDetailPage.route}/${Sensor.TYPE_GRAVITY}") },
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = JlResDimens.dp16, end = JlResDimens.dp16)

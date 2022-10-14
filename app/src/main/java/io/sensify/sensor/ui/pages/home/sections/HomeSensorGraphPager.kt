@@ -10,8 +10,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -44,21 +43,32 @@ fun HomeSensorGraphPager(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = HomeViewModel()
 ) {
+//    pagerState.
+//    TODO uncomment val activeSensorStateList = remember { viewModel.mActiveSensorStateList }
 
+    var sd =  viewModel.mActiveSensorListFlow.collectAsState(initial = mutableListOf())
+    val activeSensorStateList = remember { sd }
     val pagerState = rememberPagerState(
 //        pageCount = 3,
     )
 
-//    pagerState.
-    val activeSensorStateList = remember { viewModel.mActiveSensorStateList }
+    LaunchedEffect(pagerState) {
+        snapshotFlow { "${pagerState.currentPage} ${pagerState.pageCount}" }.collect { page ->
+            Log.d("HomeSensorGraphPager", "pager 2: $page")
 
-    Log.d("HomeSensorGraphPager", "pager: $pagerState ${activeSensorStateList.size}")
+            viewModel.setActivePage(pagerState.currentPage)
+        }
+    }
+    Log.d("HomeSensorGraphPager", "pager 1: $pagerState ${activeSensorStateList.value.size}")
     HorizontalPager(
 //        count = 3,
         state = pagerState,
-        count = activeSensorStateList.size,
+        count = activeSensorStateList.value.size,
         // Add 32.dp horizontal padding to 'center' the pages
         contentPadding = PaddingValues(horizontal = JlResDimens.dp32),
+        key ={
+            activeSensorStateList.value[it].type
+        } ,
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = JlResDimens.dp20),
@@ -127,9 +137,11 @@ fun HomeSensorGraphPager(
                     ), shape = RoundedCornerShape(JlResDimens.dp28)
                 )
                 .drawColoredShadow(
-                    Color.Black, offsetY = JlResDimens.dp12,
-
-                    shadowRadius = JlResDimens.dp16, borderRadius = JlResDimens.dp32, alpha = 0.1f
+                    Color.Black,
+                    offsetY = JlResDimens.dp12,
+                    shadowRadius = JlResDimens.dp16,
+                    borderRadius = JlResDimens.dp32,
+                    alpha = 0.1f
                 ),
             shape = RoundedCornerShape(JlResDimens.dp28),
             border = BorderStroke(
@@ -158,11 +170,11 @@ fun HomeSensorGraphPager(
                 ) {
                 Log.d(
                     "HomeSensorGraphPager",
-                    "Chart model: size: ${activeSensorStateList.size} ${page} ${activeSensorStateList[page]}"
+                    "Chart model: size: ${activeSensorStateList.value.size} ${page} ${activeSensorStateList.value[page]}"
                 )
                 HomeSensorChart(
-                    activeSensorStateList[page],
-                    viewModel.getChartDataManager(activeSensorStateList[page].type)
+                    activeSensorStateList.value[page],
+                    viewModel.getChartDataManager(activeSensorStateList.value[page].type)
                 )
 
 //                Text(text = "Graph $page", modifier = Modifier.align(alignment = Alignment.Center))

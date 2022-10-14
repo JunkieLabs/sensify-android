@@ -1,5 +1,6 @@
 package io.sensify.sensor.ui.pages.sensor.sections
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,6 +20,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.sensify.sensor.domains.sensors.provider.SensorsProvider
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
@@ -29,12 +31,20 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 //@Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
 fun SensorDetail(
-    keyValues: List<Pair<String, String>> = listOf(
+    keyValues: Map<String, Any> = mutableMapOf(
         Pair("Name", "MN26005 ALS"),
         Pair("Max Range", "655365 lx"),
         Pair("Version", "1")
     )
+ /*           keyValues: List<Pair<String, String>> = listOf(
+Pair("Name", "MN26005 ALS"),
+Pair("Max Range", "655365 lx"),
+Pair("Version", "1")
+)*/
 ) {
+
+    Log.d("SensorDetail", "1: ${keyValues}")
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -91,19 +101,21 @@ fun SensorDetail(
             }
             Spacer(modifier = Modifier.height(JlResDimens.dp20))
 
-            keyValues.forEachIndexed { index, pair ->
-
-                Row(Modifier.fillMaxWidth().padding(start = JlResDimens.dp32)) {
+            for (item in keyValues){
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(start = JlResDimens.dp32)) {
                     Text(
                         modifier = Modifier.weight(1f),
-                        text = "${pair.first}:",
+                        text = "${item.key}:",
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.34f),
                         textAlign = TextAlign.Start,
                         style = JlResTxtStyles.h4,
                     )
                     Text(
                         modifier = Modifier.weight(1f),
-                        text = "${pair.second}",
+                        text = "${item.value}",
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                         textAlign = TextAlign.Start,
                         style = JlResTxtStyles.h4,
@@ -111,8 +123,8 @@ fun SensorDetail(
                 }
                 Spacer(modifier = Modifier.height(JlResDimens.dp12))
 
-
             }
+
 
         }
 

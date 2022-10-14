@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.SharedFlow
 class MpChartViewManager(
     var sensorType: Int,
     var mSensorDelayType: Int = SensorManager.SENSOR_DELAY_NORMAL,
-    var chart: IMpChartLineView = MpChartLineView()
+    var chart: IMpChartLineView = MpChartLineView(sensorType)
 ) {
 
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)

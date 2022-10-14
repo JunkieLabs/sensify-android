@@ -2,6 +2,7 @@ package io.sensify.sensor.ui.pages.home
 
 import android.hardware.Sensor
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
@@ -28,23 +29,34 @@ class HomeViewModel : ViewModel() {
     val mUiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
 
-    private val _uiPagerState = MutableStateFlow(HomeUiState())
-
+   /* private val _uiPagerState = MutableStateFlow(HomeUiState())
     // Backing property to avoid state updates from other classes
     val mUiPagerState: StateFlow<HomeUiState> = _uiPagerState.asStateFlow()
-
+*/
 
     private val _mSensorsList = mutableStateListOf<ModelHomeSensor>()
     val mSensorsList: SnapshotStateList<ModelHomeSensor> = _mSensorsList
 
+    private val _mUiCurrentSensorState = MutableStateFlow<ModelHomeSensor?>(null)
+    val mUiCurrentSensorState: StateFlow<ModelHomeSensor?> = _mUiCurrentSensorState.asStateFlow()
 
+
+    /*
+    TODO remove not consistent
     private val _mActiveSensorStateList = mutableStateListOf<ModelHomeSensor>()
-    val mActiveSensorStateList: SnapshotStateList<ModelHomeSensor> = _mActiveSensorStateList
+     val mActiveSensorStateList: SnapshotStateList<ModelHomeSensor> = _mActiveSensorStateList
+ */
 
+    private val _mActiveSensorListFlow = MutableStateFlow<MutableList<ModelHomeSensor>>(
+        mutableListOf())
+    val mActiveSensorListFlow: StateFlow<MutableList<ModelHomeSensor>> = _mActiveSensorListFlow
+    private val _mActiveSensorList = mutableListOf<ModelHomeSensor>()
 
-    private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_LIGHT, true))
+        private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_GYROSCOPE, true), Pair(Sensor.TYPE_ACCELEROMETER, true))
     private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
     private val mChartDataManagerMap = mutableMapOf<Int, MpChartDataManager>()
+
+
 
     init {
         Log.d("HomeViewModel", "viewmodel init")
@@ -68,7 +80,9 @@ class HomeViewModel : ViewModel() {
                 if (_mSensorsList.size == 0) {
                     _mSensorsList.addAll(mSensors)
                     var activeSensors = it.filter { modelHomeSensor -> modelHomeSensor.isActive }
-                    _mActiveSensorStateList.addAll(activeSensors)
+//                     _mActiveSensorStateList.addAll(activeSensors)
+                    _mActiveSensorList.addAll(activeSensors)
+                    _mActiveSensorListFlow.emit(_mActiveSensorList)
                 }
 //                mSensorsList.emit(_mSensorsList)
 
@@ -113,15 +127,27 @@ class HomeViewModel : ViewModel() {
     }
 
     fun updateActiveSensor(sensor: ModelHomeSensor, isChecked: Boolean = false) {
-        var index = _mActiveSensorStateList.indexOfFirst { it.type == sensor.type }
+        var index = _mActiveSensorList.indexOfFirst { it.type == sensor.type }
 
         if (!isChecked && index >= 0) {
-            _mActiveSensorStateList.removeAt(index)
-            var manager = mChartDataManagerMap.remove(sensor.type)
+             var manager = mChartDataManagerMap.remove(sensor.type)
             manager?.destroy()
+//            _mActiveSensorStateList.removeAt(index)
+
+            _mActiveSensorList.removeAt(index)
+            viewModelScope.launch {
+
+                _mActiveSensorListFlow.emit(_mActiveSensorList)
+            }
 
         } else if (isChecked && index < 0) {
-            _mActiveSensorStateList.add(sensor)
+//            _mActiveSensorStateList.add(sensor)
+
+            _mActiveSensorList.add(sensor)
+            viewModelScope.launch {
+
+                _mActiveSensorListFlow.emit(_mActiveSensorList)
+            }
         }
     }
 
@@ -146,10 +172,28 @@ class HomeViewModel : ViewModel() {
         return chartDataManager
     }
 
+    fun setActivePage(page: Int?) {
+
+        viewModelScope.launch {
+            Log.d("HomeViewModel", "page: $page")
+            if(page!=null && _mActiveSensorList.size > 0){
+                var sensor = _mActiveSensorList[page]
+                _mUiCurrentSensorState.emit(sensor)
+
+            }else{
+                _mUiCurrentSensorState.emit(null)
+
+            }
+        }
+
+    }
+
     override fun onCleared() {
         super.onCleared()
 
 
         mChartDataManagerMap.forEach { i, mpChartDataManager -> mpChartDataManager.destroy() }
     }
+
+
 }

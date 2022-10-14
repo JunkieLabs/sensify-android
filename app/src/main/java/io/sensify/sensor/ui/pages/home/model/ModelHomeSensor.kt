@@ -9,7 +9,7 @@ import io.sensify.sensor.domains.sensors.SensorsConstants
 data class ModelHomeSensor(
     var type: Int = -1,
     var sensor: Sensor? = null,
-    var info: MutableMap<String, Any> = mutableMapOf(),
+    var info: Map<String, Any> = mutableMapOf(),
     var valueRms: Float? = 0.0f,
     var isActive:  Boolean =  false,
 var name: String = ""

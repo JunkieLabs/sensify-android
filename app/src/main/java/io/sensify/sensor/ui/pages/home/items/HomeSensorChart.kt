@@ -52,7 +52,6 @@ fun HomeSensorChart(
     val sensorUiUpdate =
         rememberChartUiUpdateEvent(mpChartDataManager, SensorManager.SENSOR_DELAY_NORMAL)
 
-    val context = remember {  }
 
 //    var counter = 0
 //    Log.d("DefaultChartTesting", "Linechart isUpdating ${isUpdating.value}")
@@ -82,17 +81,21 @@ fun HomeSensorChart(
 //            .height(JlResDimens.dp168)
                 .fillMaxSize(),
 
+
             factory = { ctx ->
 
                 Log.v("HomeSensorChart", "factory: ${mpChartDataManager.sensorType}")
 
-                val lineChart = MpChartViewBinder(ctx, MpChartLineView()).prepareDataSets(mpChartDataManager.getModel())
+                var view = MpChartLineView(modelSensor.type);
+                view
+                val lineChart = MpChartViewBinder(ctx, view).prepareDataSets(mpChartDataManager.getModel())
                     .invalidate()
                 return@AndroidView lineChart
 //                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)
             },
             update = {
-//                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType}")
+//                Log.v("HomeSensorChart", "update:${sensorUiUpdate.value.sensorType} ${it.tag}  ${sensorUiUpdate.value.timestamp} ${sensorUiUpdate.value.size}")
+
                 mpChartViewUpdater.update(it, sensorUiUpdate.value, mpChartDataManager.getModel())
 //                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType} ${isUpdated}")
 
