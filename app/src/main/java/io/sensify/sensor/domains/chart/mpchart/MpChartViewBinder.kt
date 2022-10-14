@@ -1,6 +1,7 @@
 package io.sensify.sensor.domains.chart.mpchart
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -115,6 +116,8 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
 
         var datasets = modelLineChart.getDataSets()
 
+        Log.d("MpChartViewBinder", " prepareDataSets: ${datasets.size}")
+
         for (dataSet in datasets){
             lineData = prepareDataSet(dataSet,  lineData)
         }
@@ -138,6 +141,8 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
         if (index != -1) {
             chartLineData?.removeDataSet(index)
         }*/
+        Log.d("MpChartViewBinder", " prepareDataSet: ${modelDataSet.getData()?.size()}")
+
         var chartLineData = pLineData
 
         var dataSet = createDataSet(modelDataSet)
@@ -146,16 +151,18 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
             val sets = java.util.ArrayList<ILineDataSet>()
             sets.add(dataSet)
             chartLineData = LineData(sets)
-            chart.setData(pLineData)
+            chart.setData(chartLineData)
+            Log.d("MpChartViewBinder", " prepareDataSet 1: ")
         } else {
             val sets: MutableList<ILineDataSet> = pLineData.getDataSets()
             sets.add(dataSet)
 
             //LOGV(TAG, "addDataSet: size:"+ sets.size());
             //lineData.getDataSets().add(dataSet);
-            chart.setData(pLineData)
+            chart.setData(chartLineData)
             //lineData.addDataSet(dataSet);
             //lineData.notifyDataChanged();
+            Log.d("MpChartViewBinder", " prepareDataSet 2: ")
         }
 
         return chartLineData;

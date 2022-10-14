@@ -26,7 +26,7 @@ class MpChartViewUpdater {
         //        value.packets[0].
 //        modelLineChart.
         var datasets = modelLineChart.getDataSets()
-//        Log.d("MpChartViewManager ", "update status 1: size: ${value.size} ")
+//        Log.d("MpChartViewManager ", "update status 1: size: ${value.size} ${datasets.size} ")
 
         for (i in datasets.indices) {
             lineData = updateDataSet(i, value, datasets[i], lineData!!)

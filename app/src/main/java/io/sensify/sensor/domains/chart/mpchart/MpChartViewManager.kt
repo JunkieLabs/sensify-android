@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.SharedFlow
 /**
  * Created by Niraj on 13-09-2022.
  */
+@Deprecated("replaced with chart data manager")
 class MpChartViewManager(
     var sensorType: Int,
     var mSensorDelayType: Int = SensorManager.SENSOR_DELAY_NORMAL,

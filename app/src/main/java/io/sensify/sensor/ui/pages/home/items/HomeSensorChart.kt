@@ -92,7 +92,8 @@ fun HomeSensorChart(
 //                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)
             },
             update = {
-              mpChartViewUpdater.update(it, sensorUiUpdate.value, mpChartDataManager.getModel())
+//                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType}")
+                mpChartViewUpdater.update(it, sensorUiUpdate.value, mpChartDataManager.getModel())
 //                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType} ${isUpdated}")
 
 //                mpChartDataManager.runPeriodically()

@@ -38,6 +38,28 @@ object SensorsConstants {
         }
     }*/
 
+    val SENSORS = arrayOf(Sensor.TYPE_ACCELEROMETER,
+        Sensor.TYPE_MAGNETIC_FIELD,
+        Sensor.TYPE_ORIENTATION,
+        Sensor.TYPE_GYROSCOPE,
+        Sensor.TYPE_LIGHT,
+        Sensor.TYPE_PRESSURE,
+        Sensor.TYPE_TEMPERATURE,
+        Sensor.TYPE_PROXIMITY,
+        Sensor.TYPE_GRAVITY,
+        Sensor.TYPE_LINEAR_ACCELERATION,
+        Sensor.TYPE_ROTATION_VECTOR,
+        Sensor.TYPE_RELATIVE_HUMIDITY,
+        Sensor.TYPE_AMBIENT_TEMPERATURE,
+        Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED,
+        Sensor.TYPE_GAME_ROTATION_VECTOR,
+        Sensor.TYPE_GYROSCOPE_UNCALIBRATED,
+        Sensor.TYPE_SIGNIFICANT_MOTION,
+        Sensor.TYPE_STEP_DETECTOR,
+        Sensor.TYPE_STEP_COUNTER,
+        Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR,
+        Sensor.TYPE_HEART_RATE)
+
     val MAP_DELAY_TYPE_TO_DELAY: SparseIntArray = object : SparseIntArray() {
         init {
             put(SensorManager.SENSOR_DELAY_NORMAL, 200)

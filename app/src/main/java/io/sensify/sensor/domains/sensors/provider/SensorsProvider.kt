@@ -3,6 +3,8 @@ package io.sensify.sensor.domains.sensors.provider
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.util.Log
+import androidx.core.util.keyIterator
+import io.sensify.sensor.domains.sensors.SensorsConstants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -48,9 +50,14 @@ class SensorsProvider {
     fun listenSensors(): SensorsProvider {
 
 
+        ;
         Log.d("SensorsProvider","listenSensors: ")
         if(mSensors.size<=0){
-            val sensorList = mSensorManager!!.getSensorList(Sensor.TYPE_ALL)
+            val sensorList = mSensorManager!!.getSensorList(Sensor.TYPE_ALL).filter {
+//               SensorsConstants.MAP_TYPE_TO_AXIS_COUNT
+                SensorsConstants.SENSORS.contains(it.type)
+
+            }.distinctBy { it.type }.toList()
             mSensors = sensorList.map { ModelSensor(it.type, it) }.toList()
 
         }

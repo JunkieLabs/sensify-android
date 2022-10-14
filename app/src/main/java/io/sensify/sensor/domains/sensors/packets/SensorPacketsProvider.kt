@@ -161,6 +161,7 @@ mSensorEvents.put(
                     sensorConfig.sensorDelay,
                     System.currentTimeMillis()
                 )
+//                Log.d("SensorPacketsProvider", "$sensorPacket")
                 mDefaultScope.launch {
 //                    Log.d("SensorPacketsProvider", "sa: ${Arrays.toString(sensorEvent.values)}")
                     _mSensorPacketFlow.emit(

@@ -42,7 +42,7 @@ class HomeViewModel : ViewModel() {
     val mActiveSensorStateList: SnapshotStateList<ModelHomeSensor> = _mActiveSensorStateList
 
 
-    private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_GYROSCOPE, true))
+    private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_LIGHT, true))
     private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
     private val mChartDataManagerMap = mutableMapOf<Int, MpChartDataManager>()
 

@@ -17,6 +17,8 @@ import kotlinx.coroutines.launch
 /**
  * Created by Niraj on 19-09-2022.
  */
+
+@Deprecated("repalce with chart data manager")
 @Composable
 fun rememberChartUiUpdateEvent(
     mpChartViewManager: MpChartViewManager,
