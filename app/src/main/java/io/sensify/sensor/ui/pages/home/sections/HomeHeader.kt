@@ -1,5 +1,6 @@
 package io.sensify.sensor.ui.pages.home.sections
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.pages.home.HomeViewModel
 import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
@@ -43,117 +45,123 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @Composable
 fun HomeHeader(
     sensor: ModelHomeSensor? = null, totalActive: Int = 0
-){
-    if(sensor==null){
-        Spacer(modifier = JlResShapes.Space.H18)
-    }else {
+) {
+
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+
+            .clip(RoundedCornerShape(JlResDimens.dp18))
+            .background(
+                brush = Brush.linearGradient(
+
+                    listOf(
+                        JLThemeBase.colorPrimary,
+//                            MaterialTheme.colorScheme.primary,
+//                    JLThemeBase.colorPrimary30,
+                        JLThemeBase.colorPrimary40,
+//                    JLThemeBase.colorPrimary20,
+                    ),
+
+                    start = Offset(0f, 0f),
+                    end = Offset(0f, Float.POSITIVE_INFINITY)
+                )
+            )
+            .border(
+                brush = Brush.verticalGradient(
+                    listOf(
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f),
+                    )
+                ),
+                width = JlResDimens.dp1,
+                shape = RoundedCornerShape(JlResDimens.dp18)
+            )
+    ) {
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-
-                .clip(RoundedCornerShape(JlResDimens.dp18))
-                .background(
-                    brush = Brush.linearGradient(
-
-                        listOf(
-                            JLThemeBase.colorPrimary,
-//                            MaterialTheme.colorScheme.primary,
-//                    JLThemeBase.colorPrimary30,
-                            JLThemeBase.colorPrimary40,
-//                    JLThemeBase.colorPrimary20,
-                        ),
-
-                        start = Offset(0f, 0f),
-                        end = Offset(0f, Float.POSITIVE_INFINITY)
-                    )
-                )
                 .border(
+                    width = JlResDimens.dp5,
+                    color = JlThemeM3.md_theme_dark_error,
+                    shape = RoundedCornerShape(JlResDimens.dp1)
+                )
+                .blur(
+                    JlResDimens.dp4,
+                    BlurredEdgeTreatment(RoundedCornerShape(JlResDimens.dp5))
+                )
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = JlResDimens.dp6),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            var labelModifier = Modifier.clip(RoundedCornerShape(JlResDimens.dp18))
+                .background(
+                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f)
+                ).border(
                     brush = Brush.verticalGradient(
                         listOf(
+
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f),
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
                         )
                     ),
                     width = JlResDimens.dp1,
                     shape = RoundedCornerShape(JlResDimens.dp18)
                 )
-        ) {
+            if (totalActive <= 0) {
+                Log.d("HomeHeader", "totalActive")
+                labelModifier = labelModifier.then(Modifier.weight(1f))
+//                fillMaxWidth()
+            }else {
+//                weight(1f)
+            }
 
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(
-                        width = JlResDimens.dp5,
-                        color = JlThemeM3.md_theme_dark_error,
-                        shape = RoundedCornerShape(JlResDimens.dp1)
-                    )
-                    .blur(
-                        JlResDimens.dp4,
-                        BlurredEdgeTreatment(RoundedCornerShape(JlResDimens.dp5))
-                    )
-            )
+                contentAlignment = Alignment.Center,
+                modifier = labelModifier
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = JlResDimens.dp6),
-                verticalAlignment = Alignment.CenterVertically
+
+
             ) {
 
-
                 Box(
-                    contentAlignment = Alignment.Center,
+                    modifier =
+                    Modifier
+                        .blur(
+                            JlResDimens.dp4,
+                            BlurredEdgeTreatment(RoundedCornerShape(JlResDimens.dp18))
+                        )
+                )
+                Text(
+                    text = if (totalActive > 0) {
+                        "$totalActive Active"
+                    } else {
+                        "No Active Device"
+                    },
+                    style = JlResTxtStyles.h4,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
-                        .clip(RoundedCornerShape(JlResDimens.dp18))
-                        .background(
-                            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f)
+
+                        .padding(
+                            start = JlResDimens.dp12,
+                            top = JlResDimens.dp16,
+                            end = JlResDimens.dp18,
+                            bottom = JlResDimens.dp18,
                         )
+                )
+            }
+//            Spacer(modifier = Modifier.width(0.dp))
 
-                        .border(
-                            brush = Brush.verticalGradient(
-                                listOf(
 
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-                                )
-                            ),
-                            width = JlResDimens.dp1,
-                            shape = RoundedCornerShape(JlResDimens.dp18)
-                        )
+            if (sensor != null && totalActive > 0) {
 
-                ) {
-
-                    Box(
-                        modifier = Modifier
-                            .blur(
-                                JlResDimens.dp4,
-                                BlurredEdgeTreatment(RoundedCornerShape(JlResDimens.dp18))
-                            )
-                    )
-                    Text(
-                        text = "$totalActive Active",
-                        style = JlResTxtStyles.h4,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier
-                            .padding(
-                                start = JlResDimens.dp12,
-                                top = JlResDimens.dp16,
-                                end = JlResDimens.dp18,
-                                bottom = JlResDimens.dp18,
-                            )
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(JlResDimens.dp18))
-
-                /*Image(
-                painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
-                contentDescription = "slide to left",
-                colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-            )*/
-
-//            FlexCh
                 Row(
                     modifier = Modifier
                         .weight(1f)
@@ -211,7 +219,7 @@ fun HomeHeader(
                         Spacer(modifier = Modifier.width(JlResDimens.dp12))
 
                         Text(
-                            text = "Gyroscope",
+                            text = "${sensor.name}",
                             style = JlResTxtStyles.h5,
                             color = MaterialTheme.colorScheme.onSurface,
                             maxLines = 1,

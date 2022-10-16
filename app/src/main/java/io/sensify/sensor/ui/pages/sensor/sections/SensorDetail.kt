@@ -93,7 +93,7 @@ Pair("Version", "1")
                     tint = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.width(JlResDimens.dp20))
                 Text(
-                    text = "Current Value",
+                    text = "Sensor Details",
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                     textAlign = TextAlign.Center,
                     style = JlResTxtStyles.h4,

@@ -1,5 +1,6 @@
 package io.sensify.sensor.ui.pages.home
 
+import android.hardware.Sensor
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,6 +28,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
+import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.pages.home.items.HomeSensorItem
 import io.sensify.sensor.ui.pages.home.sections.HomeHeader
 import io.sensify.sensor.ui.pages.home.sections.HomeSensorGraphPager
@@ -51,8 +53,8 @@ fun HomePage(
 //    val sensorsProvider = SensorsProviderComposable()
 //    val sensors = remember { sensorsProvider }
 
-    val sensorsUiState = viewModel.mUiState.collectAsState()
-    var sensorUiState = viewModel.mUiCurrentSensorState.collectAsState()
+    val sensorUiState = viewModel.mUiState.collectAsState()
+//    var sensorUiState = viewModel.mUiCurrentSensorState.collectAsState()
 
     val isAtTop = remember {
         derivedStateOf {
@@ -60,7 +62,7 @@ fun HomePage(
         }
     }
 
-    Log.d("HomePage", "sensor ${sensorsUiState.value.sensors}");
+//    Log.d("HomePage", "sensor ${sensorsUiState.value.sensors}");
 
     Scaffold(topBar = {
 
@@ -146,7 +148,7 @@ fun HomePage(
                         end = JlResDimens.dp32
                     ),
                 ) {
-                    HomeHeader(sensorUiState.value)
+                    HomeHeader(sensorUiState.value.currentSensor, totalActive = sensorUiState.value.activeSensorCounts)
                 }
             }
             // Plotting area
@@ -214,6 +216,9 @@ fun HomePage(
                                     onCheckChange = { type: Int, isChecked: Boolean ->
                                         viewModel.onSensorChecked(type, isChecked)
 
+                                    },
+                                    onClick = {
+                                        navController?.navigate("${NavDirectionsApp.SensorDetailPage.route}/${it}")
                                     }
                                 )
 

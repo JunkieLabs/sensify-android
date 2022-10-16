@@ -3,15 +3,12 @@ package io.sensify.sensor.ui.pages.home.sections
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -27,9 +24,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
 import io.sensify.sensor.ui.pages.home.HomeViewModel
-import io.sensify.sensor.ui.pages.home.items.HomeSensorChart
+import io.sensify.sensor.ui.pages.home.items.HomeSensorChartItem
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
-import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import kotlin.math.absoluteValue
 
@@ -55,7 +51,6 @@ fun HomeSensorGraphPager(
     LaunchedEffect(pagerState) {
         snapshotFlow { "${pagerState.currentPage} ${pagerState.pageCount}" }.collect { page ->
             Log.d("HomeSensorGraphPager", "pager 2: $page")
-
             viewModel.setActivePage(pagerState.currentPage)
         }
     }
@@ -74,6 +69,7 @@ fun HomeSensorGraphPager(
             .padding(vertical = JlResDimens.dp20),
 
         ) { page ->
+
         Card(
             Modifier
                 .graphicsLayer {
@@ -172,7 +168,7 @@ fun HomeSensorGraphPager(
                     "HomeSensorGraphPager",
                     "Chart model: size: ${activeSensorStateList.value.size} ${page} ${activeSensorStateList.value[page]}"
                 )
-                HomeSensorChart(
+                HomeSensorChartItem(
                     activeSensorStateList.value[page],
                     viewModel.getChartDataManager(activeSensorStateList.value[page].type)
                 )

@@ -53,7 +53,7 @@ class HomeViewModel : ViewModel() {
     private val _mActiveSensorList = mutableListOf<ModelHomeSensor>()
 
         private val mIsActiveMap = mutableMapOf<Int, Boolean>(Pair(Sensor.TYPE_GYROSCOPE, true), Pair(Sensor.TYPE_ACCELEROMETER, true))
-    private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
+//    TODO use this in future private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
     private val mChartDataManagerMap = mutableMapOf<Int, MpChartDataManager>()
 
 
@@ -86,7 +86,7 @@ class HomeViewModel : ViewModel() {
                 }
 //                mSensorsList.emit(_mSensorsList)
 
-                emitUiState()
+               /* emitUiState()*/
 
             }
 
@@ -95,9 +95,11 @@ class HomeViewModel : ViewModel() {
         SensorsProvider.getInstance().listenSensors()
 
 
+        /*
+        TODO use this for packets
         SensorPacketsProvider.getInstance().mSensorPacketFlow.map { value ->
             mSensorPacketsMap.put(value.type, value)
-        }
+        }*/
     }
 
     fun onSensorChecked(type: Int, isChecked: Boolean) {
@@ -119,10 +121,10 @@ class HomeViewModel : ViewModel() {
             updateActiveSensor(updatedSensor, isChecked)
 
         }
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             emitUiState()
 
-        }
+        }*/
 
     }
 
@@ -156,13 +158,13 @@ class HomeViewModel : ViewModel() {
 
     }
 
-    suspend fun emitUiState() {
-        /* if(_mSensorsList.size==0){
+    /*suspend fun emitUiState() {
+        *//* if(_mSensorsList.size==0){
              _mSensorsList.addAll(mSensors)
          }
-         _uiListState.emit()*/
+         _uiListState.emit()*//*
         _uiState.emit(HomeUiState(sensors = mSensors))
-    }
+    }*/
 
     fun getChartDataManager(type: Int): MpChartDataManager {
         var chartDataManager = mChartDataManagerMap.getOrPut(type, defaultValue = {
@@ -179,9 +181,10 @@ class HomeViewModel : ViewModel() {
             if(page!=null && _mActiveSensorList.size > 0){
                 var sensor = _mActiveSensorList[page]
                 _mUiCurrentSensorState.emit(sensor)
-
+                _uiState.emit(_uiState.value.copy(currentSensor = sensor, activeSensorCounts = _mActiveSensorList.size))
             }else{
                 _mUiCurrentSensorState.emit(null)
+                _uiState.emit(_uiState.value.copy(currentSensor = null, activeSensorCounts = _mActiveSensorList.size))
 
             }
         }

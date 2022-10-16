@@ -44,7 +44,9 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 fun HomeSensorItem(
     modelSensor: ModelHomeSensor = ModelHomeSensor(-1,null),
 
-    onClick : () -> Unit =  { },
+    onClick : (sensorType: Int) -> Unit =  {
+
+    },
     onCheckChange: (Int, Boolean) -> Unit =  { type: Int, isChecked: Boolean -> }
     //(type: Int, false){},
 ) {
@@ -64,7 +66,7 @@ fun HomeSensorItem(
             enabled = true,
             onClickLabel = "Card Click",
             onClick = {
-                onClick.invoke()
+                onClick.invoke(modelSensor.type)
             })
         .background(
             brush = Brush.radialGradient(

@@ -1,51 +1,46 @@
-package io.sensify.sensor.ui.pages.home.items
+package io.sensify.sensor.ui.pages.sensor.sections
 
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
 import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.chart.rememberChartUiUpdateEvent
-import io.sensify.sensor.domains.sensors.SensorsConstants
+import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
 /**
- * Created by Niraj on 30-09-2022.
+ * Created by Niraj on 16-10-2022.
  */
 @Composable
-fun HomeSensorChart(
-    modelSensor: ModelHomeSensor = ModelHomeSensor(
+fun  SensorChart(
+    modelSensor: ModelSensor = ModelSensor(
         type = Sensor.TYPE_LIGHT
     ),
     mpChartDataManager : MpChartDataManager = MpChartDataManager(modelSensor.type),
     mpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater(),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-) {
-
-//    var sensorType = Sensor.TYPE_GRAVITY
-//    val sensorData = rememberSensorPackets(sensorType = sensorType, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
-
+){
 
     Log.d("HomeSensorChart", "Chart model: ${modelSensor.name} ${modelSensor.type}  ${mpChartDataManager.sensorType}")
 //    var mpChartViewManager = MpChartViewManager(modelSensor.type)
@@ -100,7 +95,7 @@ fun HomeSensorChart(
 //                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType} ${isUpdated}")
 
 //                mpChartDataManager.runPeriodically()
-            //updateData(it, sensorUiUpdate.value)
+                //updateData(it, sensorUiUpdate.value)
             }
         )
         Spacer(modifier = JlResShapes.Space.H18)
@@ -108,18 +103,18 @@ fun HomeSensorChart(
     }
 
     DisposableEffect(mpChartDataManager.sensorType) {
-      /*  val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_START) {
-//                currentOnStart()
-            } else if (event == Lifecycle.Event.ON_DESTROY) {
-//                currentOnStop()
-                Log.v("HomeSensorChart", "destroy: ${mpChartDataManager.sensorType}")
-                mpChartDataManager.destroy()
-            }
-        }
+        /*  val observer = LifecycleEventObserver { _, event ->
+              if (event == Lifecycle.Event.ON_START) {
+  //                currentOnStart()
+              } else if (event == Lifecycle.Event.ON_DESTROY) {
+  //                currentOnStop()
+                  Log.v("HomeSensorChart", "destroy: ${mpChartDataManager.sensorType}")
+                  mpChartDataManager.destroy()
+              }
+          }
 
-        // Add the observer to the lifecycle
-        lifecycleOwner.lifecycle.addObserver(observer)*/
+          // Add the observer to the lifecycle
+          lifecycleOwner.lifecycle.addObserver(observer)*/
         onDispose {
 
             Log.v("HomeSensorChart", "dispose: ${mpChartDataManager.sensorType}")

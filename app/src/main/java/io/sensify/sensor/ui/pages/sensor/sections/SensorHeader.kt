@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 fun SensorDetailHeader(
     pagerState: PagerState,
     coroutineScope: CoroutineScope,
-    tabItems: List<String> = listOf("Visual", "Graph")
+    tabItems: List<String> = listOf( "Graph")
 ) {
 
 

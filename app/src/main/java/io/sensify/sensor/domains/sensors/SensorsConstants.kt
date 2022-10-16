@@ -54,9 +54,9 @@ object SensorsConstants {
         Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED,
         Sensor.TYPE_GAME_ROTATION_VECTOR,
         Sensor.TYPE_GYROSCOPE_UNCALIBRATED,
-        Sensor.TYPE_SIGNIFICANT_MOTION,
-        Sensor.TYPE_STEP_DETECTOR,
-        Sensor.TYPE_STEP_COUNTER,
+//        Sensor.TYPE_SIGNIFICANT_MOTION,
+//        Sensor.TYPE_STEP_DETECTOR,
+//        Sensor.TYPE_STEP_COUNTER,
         Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR,
         Sensor.TYPE_HEART_RATE)
 

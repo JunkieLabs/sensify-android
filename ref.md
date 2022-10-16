@@ -150,3 +150,7 @@
 
 - https://stackoverflow.com/questions/70376897/jetpack-compose-detect-when-lazycolumns-scroll-position-is-at-the-first-index
 - https://stackoverflow.com/questions/67252538/jetpack-compose-update-composable-when-list-changes
+
+# conditional modifier
+
+- https://stackoverflow.com/questions/67768746/chaining-modifier-based-on-certain-conditions-in-android-compose

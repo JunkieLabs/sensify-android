@@ -38,6 +38,9 @@ import com.google.accompanist.pager.rememberPagerState
 import io.sensify.sensor.R
 import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.domains.sensors.provider.SensorsProvider
+import io.sensify.sensor.ui.pages.home.HomeViewModel
+import io.sensify.sensor.ui.pages.sensor.SensorViewModel
+import io.sensify.sensor.ui.pages.sensor.sections.SensorChart
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetail
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailCurrentValue
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailHeader
@@ -54,15 +57,19 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 )
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = null,
-               type: Int =  Sensor.TYPE_GYROSCOPE) {
+fun SensorPage(
+    modifier: Modifier = Modifier, navController: NavController? = null,
+    type: Int = Sensor.TYPE_GYROSCOPE,
+    viewModel: SensorViewModel = SensorViewModel()
+) {
     val lazyListState = rememberLazyListState()
     val pagerState = rememberPagerState(initialPage = 0)
     val coroutineScope = rememberCoroutineScope()
-    val tabItems = listOf("Visual", "Graph")
+    val tabItems = listOf("Graph")//"Visual",
 
-    var sensorFlowState = SensorsProvider.getInstance().listenSensor(type).collectAsState(initial = SensorsProvider.getInstance().getSensor(type));
-    var sensorState = remember{
+    var sensorFlowState = SensorsProvider.getInstance().listenSensor(type)
+        .collectAsState(initial = SensorsProvider.getInstance().getSensor(type));
+    var sensorState = remember {
         sensorFlowState
     }
     Log.d("SensorPage", "$type")
@@ -112,7 +119,7 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
                     fontWeight = FontWeight(400),
                     modifier = modifier.fillMaxWidth(),
                 )
-            },actions = {
+            }, actions = {
                 Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
                     Image(
 
@@ -196,6 +203,13 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
                         .fillMaxSize()
                         .background(color = Color.Transparent)
                 ) { page ->
+
+                    if (page == 0 && sensorState.value != null) {
+                        SensorChart(
+                            sensorState.value!!,
+                            viewModel.getChartDataManager(sensorState.value!!.type)
+                        )
+                    }
                     Text(
                         text = tabItems[page],
                         modifier = Modifier.padding(JlResDimens.dp64),
@@ -218,7 +232,7 @@ fun SensorPage(modifier: Modifier = Modifier, navController: NavController? = nu
             }
 
             item {
-                SensorDetail(sensorState.value?.info?: mutableMapOf())
+                SensorDetail(sensorState.value?.info ?: mutableMapOf())
             }
 
             item {
