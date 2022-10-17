@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.sensify.sensor.R
+import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
+import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.resource.values.JlResColors
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -51,9 +53,10 @@ fun SplashPage(navController: NavController) {
             )
         )*/
 
-        delay(timeMillis = 3000)
+        delay(timeMillis = 2000)
 
         navController.popBackStack()
+        navController.navigate(NavDirectionsApp.HomePage.route)
 
         /*navController.navigate(route = DestinationScreen.MainScreenDest.route) {
             popUpTo(route = DestinationScreen.SplashScreenDest.route) {

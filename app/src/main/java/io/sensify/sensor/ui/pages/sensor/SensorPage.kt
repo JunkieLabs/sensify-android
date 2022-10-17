@@ -13,10 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -73,71 +70,79 @@ fun SensorPage(
         sensorFlowState
     }
     Log.d("SensorPage", "$type")
-    Scaffold(topBar = {
 
-        SmallTopAppBar(
+    LaunchedEffect(type) {
+        viewModel.setSensorType(type)
+    }
+
+    Scaffold(
+        topBar = {
+
+            SmallTopAppBar(
 
 //            backgroundColor = Color.Transparent,
-            colors = if (lazyListState.firstVisibleItemIndex > 0) TopAppBarDefaults.mediumTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
-            ) else TopAppBarDefaults.mediumTopAppBarColors(
-                containerColor = Color.Transparent //Add your own color here, just to clarify.
-            ),
+                colors = if (lazyListState.firstVisibleItemIndex > 0) TopAppBarDefaults.mediumTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
+                ) else TopAppBarDefaults.mediumTopAppBarColors(
+                    containerColor = Color.Transparent //Add your own color here, just to clarify.
+                ),
 
-            modifier = Modifier.padding(horizontal = JlResDimens.dp16),
+                modifier = Modifier.padding(horizontal = JlResDimens.dp16),
 
-            navigationIcon = {
+                navigationIcon = {
 
-                /*AppBarIcon(
-                    icon = imageResource(
-                        id = R.drawable.ic_menu_black_24dp)
-                ) {
-                    // Open nav drawer
-                }*/
+                    /*AppBarIcon(
+                        icon = imageResource(
+                            id = R.drawable.ic_menu_black_24dp)
+                    ) {
+                        // Open nav drawer
+                    }*/
 
-                IconButton(
-                    onClick = { navController?.navigateUp() },
+                    IconButton(
+                        onClick = { navController?.navigateUp() },
 //                    modifier = Modifier.fillMaxHeight()
-                ) {
-                    Icon(Icons.Rounded.KeyboardArrowLeft, "back")
+                    ) {
+                        Icon(Icons.Rounded.KeyboardArrowLeft, "back")
 
-                    /* Image(
-                         painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
-                         contentDescription = "slide to left",
-                         colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-                         alignment = Alignment.Center,
-                     )*/
-                }
+                        /* Image(
+                             painterResource(id = R.drawable.ic_round_keyboard_arrow_left_24),
+                             contentDescription = "slide to left",
+                             colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
+                             alignment = Alignment.Center,
+                         )*/
+                    }
 
-            },
-            title = {
-                Text(
-                    text = "${sensorState.value?.name}",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center,
-                    style = JlResTxtStyles.h4,
-                    fontWeight = FontWeight(400),
-                    modifier = modifier.fillMaxWidth(),
-                )
-            }, actions = {
-                Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
-                    Image(
-
-                        painterResource(id = R.drawable.pic_sensify_logo),
-                        modifier = Modifier
-                            .alpha(0f)
-                            .width(JlResDimens.dp32)
-                            .height(JlResDimens.dp36),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillBounds
+                },
+                title = {
+                    Text(
+                        text = "${sensorState.value?.name}",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.Center,
+                        style = JlResTxtStyles.h4,
+                        fontWeight = FontWeight(400),
+                        modifier = modifier.fillMaxWidth(),
                     )
+                }, actions = {
+                    Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
+                        Image(
+
+                            painterResource(id = R.drawable.pic_sensify_logo),
+                            modifier = Modifier
+                                .alpha(0f)
+                                .width(JlResDimens.dp32)
+                                .height(JlResDimens.dp36),
+                            contentDescription = null,
+                            contentScale = ContentScale.FillBounds
+                        )
+                    }
                 }
-            }
-        )
-    },
+            )
+        },
+        /*
+        TODO use in future, don't remove
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = { *//*TODO*//* },
                 shape = RoundedCornerShape(50),
                 containerColor = Color.Transparent,
 
@@ -168,7 +173,7 @@ fun SensorPage(
                 Icon(Icons.Rounded.Settings, "settings")
 
             }
-        }
+        }*/
     ) {
         LazyColumn(
 
@@ -182,25 +187,32 @@ fun SensorPage(
                             MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
                         )
                     )
-                )
+                ),
 //                .fillMaxSize()
 //                .background(JLThemeBase.colorPrimary10)
 //                .consumedWindowInsets
 
-                .padding(start = JlResDimens.dp32, end = JlResDimens.dp32),
+//                .padding(start = JlResDimens.dp32, end = JlResDimens.dp32),
             contentPadding = it,
             state = lazyListState
         ) {
             // Header
             item {
-                SensorDetailHeader(pagerState, coroutineScope)
+                Box(
+                    modifier = Modifier.padding(
+                        start = JlResDimens.dp32,
+                        end = JlResDimens.dp32
+                    ),
+                ) {
+                    SensorDetailHeader(pagerState, coroutineScope)
+                }
             }
             item {
                 HorizontalPager(
                     count = tabItems.size,
                     state = pagerState,
                     modifier = Modifier
-                        .fillMaxSize()
+                        .height(JlResDimens.dp350)
                         .background(color = Color.Transparent)
                 ) { page ->
 
@@ -210,21 +222,26 @@ fun SensorPage(
                             viewModel.getChartDataManager(sensorState.value!!.type)
                         )
                     }
-                    Text(
-                        text = tabItems[page],
-                        modifier = Modifier.padding(JlResDimens.dp64),
-                        color = Color.White
-                    )
+                    /* Text(
+                         text = tabItems[page],
+                         modifier = Modifier.padding(JlResDimens.dp64),
+                         color = Color.White
+                     )*/
                 }
             }
 
             // Plotting area
             item {
-                Spacer(modifier = Modifier.height(JlResDimens.dp350))
+                Spacer(modifier = Modifier.height(JlResDimens.dp16))
             }
 
             item {
-                SensorDetailCurrentValue()
+                Box(
+                    modifier = Modifier.padding(
+                        start = JlResDimens.dp32,
+                        end = JlResDimens.dp32
+                    ),
+                ) { SensorDetailCurrentValue() }
             }
 
             item {
@@ -232,7 +249,14 @@ fun SensorPage(
             }
 
             item {
-                SensorDetail(sensorState.value?.info ?: mutableMapOf())
+                Box(
+                    modifier = Modifier.padding(
+                        start = JlResDimens.dp32,
+                        end = JlResDimens.dp32
+                    ),
+                ) {
+                    SensorDetail(sensorState.value?.info ?: mutableMapOf())
+                }
             }
 
             item {

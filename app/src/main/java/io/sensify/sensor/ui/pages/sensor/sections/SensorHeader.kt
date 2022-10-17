@@ -56,6 +56,7 @@ fun SensorDetailHeader(
     Box(
         modifier = Modifier
             .fillMaxWidth()
+
             .clip(
                 RoundedCornerShape(
                     topStart = JlResDimens.dp32, topEnd = JlResDimens.dp32,

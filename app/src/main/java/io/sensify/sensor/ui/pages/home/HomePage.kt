@@ -4,11 +4,15 @@ import android.hardware.Sensor
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,6 +28,7 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.R
@@ -32,6 +37,7 @@ import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.pages.home.items.HomeSensorItem
 import io.sensify.sensor.ui.pages.home.sections.HomeHeader
 import io.sensify.sensor.ui.pages.home.sections.HomeSensorGraphPager
+import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -39,7 +45,8 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 /**
  * Created by Niraj on 26-09-2022.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class,
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class,
     ExperimentalPagerApi::class
 )
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
@@ -112,9 +119,46 @@ fun HomePage(
                         contentScale = ContentScale.FillBounds
                     )
                 }
+            },
+
+            )
+    },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navController?.navigate(NavDirectionsApp.AboutPage.route) },
+                shape = RoundedCornerShape(50),
+                containerColor = Color.Transparent,
+
+                modifier = Modifier
+                    .background(
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                JLThemeBase.colorPrimary.copy(alpha = 0.3f),
+                                JLThemeBase.colorPrimary.copy(alpha = 0.1f),
+                            )
+                        ),
+                        shape = RoundedCornerShape(50.dp)
+                    )
+                    .border(
+                        brush = Brush.verticalGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+                            )
+                        ),
+                        width = JlResDimens.dp1,
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+                elevation = FloatingActionButtonDefaults.elevation(JlResDimens.dp0)
+
+            ) {
+
+                Icon(Icons.Rounded.Info, "about")
+
             }
-        )
-    }) {
+        }
+
+    ) {
 
         LazyColumn(
 
@@ -148,7 +192,10 @@ fun HomePage(
                         end = JlResDimens.dp32
                     ),
                 ) {
-                    HomeHeader(sensorUiState.value.currentSensor, totalActive = sensorUiState.value.activeSensorCounts)
+                    HomeHeader(
+                        sensorUiState.value.currentSensor,
+                        totalActive = sensorUiState.value.activeSensorCounts
+                    )
                 }
             }
             // Plotting area
