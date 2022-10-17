@@ -2,6 +2,10 @@ package io.sensify.sensor.ui.pages.home
 
 import android.hardware.Sensor
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,10 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
@@ -31,7 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import io.sensify.sensor.R
+import io.sensify.sensor.ui.composables.isScrollingUp
 import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
 import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.pages.home.items.HomeSensorItem
@@ -41,13 +44,14 @@ import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
+import kotlinx.coroutines.launch
 
 /**
  * Created by Niraj on 26-09-2022.
  */
 @OptIn(
     ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalTextApi::class,
-    ExperimentalPagerApi::class
+    ExperimentalPagerApi::class, ExperimentalAnimationApi::class
 )
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
@@ -63,11 +67,16 @@ fun HomePage(
     val sensorUiState = viewModel.mUiState.collectAsState()
 //    var sensorUiState = viewModel.mUiCurrentSensorState.collectAsState()
 
+    val coroutineScope = rememberCoroutineScope()
     val isAtTop = remember {
         derivedStateOf {
             lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
         }
     }
+
+    val pagerState = rememberPagerState(
+//        pageCount = 3,
+    )
 
 //    Log.d("HomePage", "sensor ${sensorsUiState.value.sensors}");
 
@@ -124,37 +133,45 @@ fun HomePage(
             )
     },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController?.navigate(NavDirectionsApp.AboutPage.route) },
-                shape = RoundedCornerShape(50),
-                containerColor = Color.Transparent,
 
-                modifier = Modifier
-                    .background(
-                        brush = Brush.linearGradient(
-                            colors = listOf(
-                                JLThemeBase.colorPrimary.copy(alpha = 0.3f),
-                                JLThemeBase.colorPrimary.copy(alpha = 0.1f),
-                            )
-                        ),
-                        shape = RoundedCornerShape(50.dp)
-                    )
-                    .border(
-                        brush = Brush.verticalGradient(
-                            listOf(
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
-                            )
-                        ),
-                        width = JlResDimens.dp1,
-                        shape = RoundedCornerShape(50.dp)
-                    ),
-                elevation = FloatingActionButtonDefaults.elevation(JlResDimens.dp0)
-
+            AnimatedVisibility(
+                visible = lazyListState.isScrollingUp(),
+//                modifier = Modifier.fillMaxSize(),
+                enter = scaleIn(),
+                exit = scaleOut()
             ) {
+                FloatingActionButton(
+                    onClick = { navController?.navigate(NavDirectionsApp.AboutPage.route) },
+                    shape = RoundedCornerShape(50),
+                    containerColor = Color.Transparent,
 
-                Icon(Icons.Rounded.Info, "about")
+                    modifier = Modifier
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    JLThemeBase.colorPrimary.copy(alpha = 0.3f),
+                                    JLThemeBase.colorPrimary.copy(alpha = 0.1f),
+                                )
+                            ),
+                            shape = RoundedCornerShape(50.dp)
+                        )
+                        .border(
+                            brush = Brush.verticalGradient(
+                                listOf(
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+                                )
+                            ),
+                            width = JlResDimens.dp1,
+                            shape = RoundedCornerShape(50.dp)
+                        ),
+                    elevation = FloatingActionButtonDefaults.elevation(JlResDimens.dp0)
 
+                ) {
+
+                    Icon(Icons.Rounded.Info, "about")
+
+                }
             }
         }
 
@@ -194,7 +211,23 @@ fun HomePage(
                 ) {
                     HomeHeader(
                         sensorUiState.value.currentSensor,
-                        totalActive = sensorUiState.value.activeSensorCounts
+                        totalActive = sensorUiState.value.activeSensorCounts,
+                        onClickArrow = { isLeft ->
+
+
+                            var currentPage = pagerState.currentPage
+                            var totalPage = pagerState.pageCount
+
+                            if (!isLeft && currentPage + 1 < totalPage) {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(currentPage + 1)
+                                }
+                            } else if (isLeft && currentPage > 0 && totalPage > 0) {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(currentPage - 1)
+                                }
+                            }
+                        }
                     )
                 }
             }
@@ -202,7 +235,7 @@ fun HomePage(
             item {
 //                Spacer(modifier = Modifier.height(JlResDimens.dp350))
 
-                HomeSensorGraphPager(viewModel = viewModel)
+                HomeSensorGraphPager(viewModel = viewModel, pagerState = pagerState)
 
             }
 

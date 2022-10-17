@@ -44,7 +44,9 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
 fun HomeHeader(
-    sensor: ModelHomeSensor? = null, totalActive: Int = 0
+    sensor: ModelHomeSensor? = null, totalActive: Int = 0, onClickArrow : (isLeft: Boolean) -> Unit = {
+
+    }
 ) {
 
 
@@ -172,7 +174,9 @@ fun HomeHeader(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    IconButton(onClick = { /* doSomething() */ }) {
+                    IconButton(onClick = { /* doSomething() */
+                        onClickArrow.invoke(true)
+                    }) {
                         Icon(
                             Icons.Outlined.KeyboardArrowLeft,
                             tint = MaterialTheme.colorScheme.onSurface,
@@ -231,7 +235,9 @@ fun HomeHeader(
 //                Spacer(modifier = Modifier.width(JlResDimens.dp12))
 
 
-                    IconButton(onClick = { /* doSomething() */ }) {
+                    IconButton(onClick = { /* doSomething() */
+                        onClickArrow.invoke(false)
+                    }) {
                         Icon(
                             Icons.Outlined.KeyboardArrowRight,
                             tint = MaterialTheme.colorScheme.onSurface,

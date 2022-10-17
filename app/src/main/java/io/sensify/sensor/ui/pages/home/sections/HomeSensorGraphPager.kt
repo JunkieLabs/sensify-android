@@ -19,10 +19,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.*
 import io.sensify.sensor.ui.pages.home.HomeViewModel
 import io.sensify.sensor.ui.pages.home.items.HomeSensorChartItem
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
@@ -37,16 +34,19 @@ import kotlin.math.absoluteValue
 @Composable
 fun HomeSensorGraphPager(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = HomeViewModel()
+    viewModel: HomeViewModel = HomeViewModel(),
+    pagerState: PagerState = rememberPagerState(
+//        pageCount = 3,
+    )
 ) {
 //    pagerState.
 //    TODO uncomment val activeSensorStateList = remember { viewModel.mActiveSensorStateList }
 
     var sd =  viewModel.mActiveSensorListFlow.collectAsState(initial = mutableListOf())
     val activeSensorStateList = remember { sd }
-    val pagerState = rememberPagerState(
+    /*val pagerState = rememberPagerState(
 //        pageCount = 3,
-    )
+    )*/
 
     LaunchedEffect(pagerState) {
         snapshotFlow { "${pagerState.currentPage} ${pagerState.pageCount}" }.collect { page ->
