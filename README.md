@@ -8,9 +8,8 @@
 
 
 
-<p align="center">
-<img src="sensorbox_preview.png" width="1000">
-</p>
+![](images/sensify-all.png)
+
 
 ## [Download it on Google Play here](https://play.google.com/store/apps/details?id=io.sensify.sensor)
 [![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
