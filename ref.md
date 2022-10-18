@@ -1,3 +1,5 @@
+# h1 data
+
 # hilt
 
 - https://github.com/skydoves/DisneyCompose
@@ -154,3 +156,20 @@
 # conditional modifier
 
 - https://stackoverflow.com/questions/67768746/chaining-modifier-based-on-certain-conditions-in-android-compose
+
+# Readme
+
+- https://github.com/Foxpace/SensorBox
+- https://github.com/Ibrahim-Mushtaha/Accelerometer-Sensor
+- https://github.com/AkshayAshokCode/AndroidSensors
+- https://github.com/jemshit/SensorLogger
+
+- https://github.com/Ibrahim-Mushtaha/Step_Counter_background_service
+
+<!--  -->
+
+-  https://github.com/kylecorry31/Trail-Sense
+
+<!-- jetpack -->
+
+- https://github.com/MindorksOpenSource/Jetpack-Compose-Android-Examples
