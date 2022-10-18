@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/JunkieLabs/sensify-android/image/sensify-logo.png" width="250">
+<img src="https://github.com/JunkieLabs/sensify-android/images/sensify-logo.png" width="250">
 </p>
 
 # Sensify : Android Sensor Visualizer
