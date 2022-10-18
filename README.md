@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https:///icon.png" width="250">
+<img src="https://github.com/JunkieLabs/sensify-android/image/sensify-logo.png" width="250">
 </p>
 
 # Sensify : Android Sensor Visualizer
@@ -47,7 +47,7 @@ Whole sensors functionality is implemented inside domain folder, where SensorPro
 
 <br>
 
-## Show your love :heart: by giving a :star: on this project :v:
+## Show your love :heart: by giving a :star: on this project.
 
 <br>
 
