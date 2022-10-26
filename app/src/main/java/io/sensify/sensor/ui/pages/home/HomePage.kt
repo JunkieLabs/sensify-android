@@ -66,6 +66,7 @@ fun HomePage(
 
     ) {
 
+    val coroutineScope = rememberCoroutineScope()
         val lazyListState = rememberLazyListState()
 //    val sensorsProvider = SensorsProviderComposable()
 //    val sensors = remember { sensorsProvider }
@@ -73,7 +74,6 @@ fun HomePage(
         val sensorUiState = viewModel.mUiState.collectAsState()
 //    var sensorUiState = viewModel.mUiCurrentSensorState.collectAsState()
 
-        val coroutineScope = rememberCoroutineScope()
         val isAtTop = remember {
             derivedStateOf {
                 lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
@@ -284,12 +284,13 @@ fun HomePage(
                                         .weight(1f)
 //                                    .fillParentMaxWidth(0.5f)
 //                                    .padding(bottom = JlResDimens.dp8)
-                                        .clickable(
+                                        /*.clickable(
                                             enabled = true,
                                             onClickLabel = "Card Click",
                                             onClick = {
                                                 navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                                            })
+                                            }
+                                        )*/
 
                                 ) {
                                     HomeSensorItem(

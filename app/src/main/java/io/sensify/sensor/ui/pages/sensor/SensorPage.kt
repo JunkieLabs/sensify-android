@@ -78,9 +78,9 @@ fun SensorPage(
     }
     Log.d("SensorPage", "$type")
 
-    LaunchedEffect(type) {
+    /*LaunchedEffect(type) {
         viewModel.setSensorType(type)
-    }
+    }*/
 
     Scaffold(
         topBar = {
@@ -226,7 +226,8 @@ fun SensorPage(
                     if (page == 0 && sensorState.value != null) {
                         SensorChart(
                             sensorState.value!!,
-                            viewModel.getChartDataManager(sensorState.value!!.type)
+                            mpChartDataManager= viewModel.getChartDataManager(sensorState.value!!.type),
+                            sensorPacketFlow= viewModel.mSensorPacketFlow
                         )
                     }
                     /* Text(

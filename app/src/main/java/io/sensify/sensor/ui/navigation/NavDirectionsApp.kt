@@ -49,7 +49,7 @@ fun NavGraphApp() {
         })) {
             SensorPage(
                 navController = navController,
-//                type = it.arguments?.getInt("type") ?: Sensor.TYPE_GYROSCOPE,
+                type = it.arguments?.getInt("type") ?: Sensor.TYPE_GYROSCOPE,
 
             )
         }
