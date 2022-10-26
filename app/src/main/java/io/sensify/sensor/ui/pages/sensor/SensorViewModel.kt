@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 /**
  * Created by Niraj on 16-10-2022.
  */
-class SensorViewModel : ViewModel() {
+class SensorViewModel(var mSensorType: Int) : ViewModel() {
 
     private var mSensorPacket: ModelSensorPacket? = null
     private var mChartDataManager : MpChartDataManager? = null
 
-    private var mSensorType: Int = -1
+//    private var mSensorType: Int = -1
 
 /*    init {
         SensorsProvider.getInstance().getSensor(sensorType = )

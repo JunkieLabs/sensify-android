@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -37,6 +38,7 @@ import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.domains.sensors.provider.SensorsProvider
 import io.sensify.sensor.ui.pages.home.HomeViewModel
 import io.sensify.sensor.ui.pages.sensor.SensorViewModel
+import io.sensify.sensor.ui.pages.sensor.SensorViewModelFactory
 import io.sensify.sensor.ui.pages.sensor.sections.SensorChart
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetail
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailCurrentValue
@@ -57,7 +59,12 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 fun SensorPage(
     modifier: Modifier = Modifier, navController: NavController? = null,
     type: Int = Sensor.TYPE_GYROSCOPE,
-    viewModel: SensorViewModel = SensorViewModel()
+    viewModel: SensorViewModel = viewModel(
+        factory = SensorViewModelFactory(
+            type
+        )// viewModelSensor
+    )
+//    viewModel: SensorViewModel = SensorViewModel()
 ) {
     val lazyListState = rememberLazyListState()
     val pagerState = rememberPagerState(initialPage = 0)

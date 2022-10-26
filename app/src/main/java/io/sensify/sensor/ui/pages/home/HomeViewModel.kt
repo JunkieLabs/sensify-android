@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.sensors.packets.ModelSensorPacket
@@ -20,6 +21,8 @@ import kotlinx.coroutines.launch
  * Created by Niraj on 08-10-2022.
  */
 class HomeViewModel : ViewModel() {
+
+
     private var mSensors: MutableList<ModelHomeSensor> = mutableListOf()
 
     // Game UI state
@@ -74,9 +77,9 @@ class HomeViewModel : ViewModel() {
                 }.toMutableList()
             }.collectLatest {
                 mSensors = it
-                Log.d("HomeViewModel", "sensors 1: $mIsActiveMap")
+                Log.d("HomeViewModel", "${this@HomeViewModel} init sensors active  1: $mIsActiveMap")
 
-                Log.d("HomeViewModel", "sensors 2: $it")
+//                Log.d("HomeViewModel", "sensors 2: $it")
                 if (_mSensorsList.size == 0) {
                     _mSensorsList.addAll(mSensors)
                     var activeSensors = it.filter { modelHomeSensor -> modelHomeSensor.isActive }
@@ -194,8 +197,17 @@ class HomeViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
 
+        Log.d("HomeViewModel", "onCleared")
+
 
         mChartDataManagerMap.forEach { i, mpChartDataManager -> mpChartDataManager.destroy() }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    class Factory() : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return HomeViewModel() as T
+        }
     }
 
 

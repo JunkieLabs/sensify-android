@@ -173,3 +173,8 @@
 <!-- jetpack -->
 
 - https://github.com/MindorksOpenSource/Jetpack-Compose-Android-Examples
+
+
+<!-- side effect -->
+
+- https://developer.android.com/jetpack/compose/mental-model

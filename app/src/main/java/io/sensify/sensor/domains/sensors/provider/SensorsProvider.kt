@@ -41,6 +41,7 @@ class SensorsProvider {
 
     var mDefaultScope = CoroutineScope(Job() + Dispatchers.Default)
 
+    var _mIsListening = false
     fun setSensorManager(manager: SensorManager): SensorsProvider {
         mSensorManager = manager
         return this
@@ -50,7 +51,9 @@ class SensorsProvider {
     fun listenSensors(): SensorsProvider {
 
 
-        ;
+        /*if(_mIsListening){
+            return ;
+        }*/
         Log.d("SensorsProvider","listenSensors: ")
         if(mSensors.size<=0){
             val sensorList = mSensorManager!!.getSensorList(Sensor.TYPE_ALL).filter {

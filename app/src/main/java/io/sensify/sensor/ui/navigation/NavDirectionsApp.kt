@@ -2,6 +2,7 @@ package io.sensify.sensor.ui.navigation
 
 import android.hardware.Sensor
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +14,7 @@ import io.sensify.sensor.ui.pages.about.AboutPage
 import io.sensify.sensor.ui.pages.home.HomePage
 import io.sensify.sensor.ui.pages.home.HomeViewModel
 import io.sensify.sensor.ui.pages.sensor.SensorViewModel
+import io.sensify.sensor.ui.pages.sensor.SensorViewModelFactory
 import io.sensify.sensor.ui.pages.sensor.details.SensorPage
 
 
@@ -31,16 +33,15 @@ sealed class NavDirectionsApp(val route: String) {
 fun NavGraphApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavDirectionsApp.Splash.route ) {
+    NavHost(navController = navController, startDestination = NavDirectionsApp.Splash.route) {
         // startDestination "labs1"
-        val viewModelHome: HomeViewModel = HomeViewModel()
-        val viewModelSensor: SensorViewModel = SensorViewModel()
+//        val viewModelHome: HomeViewModel = HomeViewModel()
+//        val viewModelSensor: SensorViewModel = SensorViewModel()
         labsGraph(navController)
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
         composable(NavDirectionsApp.HomePage.route) {
             HomePage(
-                navController = navController,
-                viewModel = viewModelHome
+                navController = navController
             )
         }
         composable("${NavDirectionsApp.SensorDetailPage.route}/{type}", listOf(navArgument("type") {
@@ -48,8 +49,8 @@ fun NavGraphApp() {
         })) {
             SensorPage(
                 navController = navController,
-                type = it.arguments?.getInt("type") ?: Sensor.TYPE_GYROSCOPE,
-                viewModel = viewModelSensor
+//                type = it.arguments?.getInt("type") ?: Sensor.TYPE_GYROSCOPE,
+
             )
         }
         composable(NavDirectionsApp.AboutPage.route) { AboutPage(navController = navController) }
