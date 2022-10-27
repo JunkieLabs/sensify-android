@@ -1,6 +1,7 @@
 package io.sensify.sensor.domains.chart
 
 import android.hardware.SensorManager
+import android.util.Log
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
 import io.sensify.sensor.domains.sensors.SensorsConstants
@@ -67,7 +68,9 @@ class ChartDataHandler(var sensorType: Int) {
 
     fun addEntry(sensorPacket: ModelSensorPacket) {
 
+
         synchronized(mLockDataAdd) {
+
 
             mPre.add(sensorPacket)
 
@@ -84,7 +87,7 @@ class ChartDataHandler(var sensorType: Int) {
                 // TODO should I periodic shift
 
                 var items = addPreEntry()
-//                Log.d("MpChartViewManager ", "runPeriodicTask : ")
+//                Log.d("MpChartViewManager ", "runPeriodicTask : $sensorType")
                 _mSensorPacketFlow.emit(
                     ModelChartUiUpdate(
 //                    mModelLineChart

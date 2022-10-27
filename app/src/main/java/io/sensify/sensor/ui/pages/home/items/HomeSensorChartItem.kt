@@ -9,12 +9,15 @@ import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
+import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
@@ -24,6 +27,8 @@ import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 /**
  * Created by Niraj on 30-09-2022.
@@ -35,18 +40,28 @@ fun HomeSensorChartItem(
     ),
     mpChartDataManager : MpChartDataManager = MpChartDataManager(modelSensor.type),
     mpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater(),
+//    sensorPacketFlow: SharedFlow<ModelChartUiUpdate> = MutableSharedFlow<ModelChartUiUpdate>(replay = 0),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
 
 //    var sensorType = Sensor.TYPE_GRAVITY
 //    val sensorData = rememberSensorPackets(sensorType = sensorType, sensorDelay = SensorManager.SENSOR_DELAY_NORMAL)
-
+    var state = mpChartDataManager.mSensorPacketFlow.collectAsState(
+        initial = ModelChartUiUpdate(
+            sensorType = modelSensor.type,
+            0,
+            listOf()
+        )
+    )
+    val sensorUiUpdate = remember {
+        state
+    };
 
     Log.d("HomeSensorChart", "Chart model: ${modelSensor.name} ${modelSensor.type}  ${mpChartDataManager.sensorType}")
 //    var mpChartViewManager = MpChartViewManager(modelSensor.type)
-    val sensorUiUpdate =
+  /*  val sensorUiUpdate =
         rememberChartUiUpdateEvent(mpChartDataManager, SensorManager.SENSOR_DELAY_NORMAL)
-
+*/
 
 //    var counter = 0
 //    Log.d("DefaultChartTesting", "Linechart isUpdating ${isUpdating.value}")
@@ -82,7 +97,7 @@ fun HomeSensorChartItem(
                 Log.v("HomeSensorChart", "factory: ${mpChartDataManager.sensorType}")
 
                 var view = MpChartLineView(modelSensor.type);
-                view
+//                view
                 val lineChart = MpChartViewBinder(ctx, view).prepareDataSets(mpChartDataManager.getModel())
                     .invalidate()
                 return@AndroidView lineChart

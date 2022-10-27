@@ -25,9 +25,7 @@ import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
 import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
-import io.sensify.sensor.domains.chart.rememberChartUiUpdateEvent
 import io.sensify.sensor.domains.sensors.provider.ModelSensor
-import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -101,7 +99,7 @@ fun  SensorChart(
 //                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)
             },
             update = {
-                Log.v("HomeSensorChart", "update aa: ${sensorUiUpdate.value.sensorType} ${it.tag}  ${sensorUiUpdate.value.timestamp} ${sensorUiUpdate.value.size}")
+//                Log.v("HomeSensorChart", "update aa: ${sensorUiUpdate.value.sensorType} ${it.tag}  ${sensorUiUpdate.value.timestamp} ${sensorUiUpdate.value.size}")
 
                 mpChartViewUpdater.update(it, sensorUiUpdate.value, mpChartDataManager.getModel())
 //                Log.v("HomeSensorChart", "update: ${mpChartDataManager.sensorType} ${isUpdated}")

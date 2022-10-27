@@ -93,10 +93,10 @@ class SensorsProvider {
             modelSensor.type == sensorType }
     }
 
+    fun clearAll() {
 
 
-
-
+    }
 
 
 }

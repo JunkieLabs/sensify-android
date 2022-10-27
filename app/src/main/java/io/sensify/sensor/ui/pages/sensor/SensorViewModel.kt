@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
  */
 class SensorViewModel(var mSensorType: Int) : ViewModel() {
 
+    private var mLogTimestamp: Long = 0
     private var mSensorPacket: ModelSensorPacket? = null
     private var mChartDataManager : MpChartDataManager? = null
     private val _mSensorPacketFlow = MutableSharedFlow<ModelChartUiUpdate>(replay = 0)
@@ -84,6 +85,14 @@ class SensorViewModel(var mSensorType: Int) : ViewModel() {
             viewModelScope.launch {
                 sensorPacketFilteredFlow.collect {
 //                    Log.d("SensorViewModel", "init mSensorPacketFlow 2: ")
+//                    Log.d("SensorViewModel", "addEntry: ${it.timestamp}")
+
+                    if( it.timestamp - mLogTimestamp < 50){
+                        Log.d("SensorViewModel", "addEntry: ${it.timestamp} ${it.type}")
+
+                    }
+
+                    mLogTimestamp = it.timestamp
                     mChartDataManager?.addEntry(it)
                 }
             }
@@ -93,7 +102,7 @@ class SensorViewModel(var mSensorType: Int) : ViewModel() {
 
             mChartDataManager?.mSensorPacketFlow?.collect{
 
-//                Log.d("SensorViewModel", "init mSensorPacketFlow: ${it.size}")
+//                Log.d("SensorViewModel", "init mSensorPacketFlow: ${it.timestamp} ${it.size} ")
                 _mSensorPacketFlow.emit(it)
             }
         }

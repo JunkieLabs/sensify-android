@@ -92,7 +92,7 @@ class MpChartDataManager(
 
         mDataComputationScope.launch {
             delay(100)
-            Log.d("MpChartViewManager ", "createChart periodic Task: ")
+            Log.d("MpChartViewManager ", "createChart periodic Task: $sensorType")
             mChartDataHandler.runPeriodicTask()
         }
 

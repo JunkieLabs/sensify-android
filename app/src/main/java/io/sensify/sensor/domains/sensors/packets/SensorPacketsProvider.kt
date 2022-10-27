@@ -6,6 +6,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.util.Log
 import android.util.SparseArray
+import androidx.core.util.valueIterator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -174,6 +175,19 @@ mSensorEvents.put(
 
         }
 
+    }
+
+    fun clearAll() {
+
+        Log.d("SensorPacketsProvider","clearAll")
+        if(mSensorConfigs.size() > 0 ){
+            for (sensorConfig in mSensorConfigs.valueIterator()){
+                Log.d("SensorPacketsProvider","clearAll unregisterSensor")
+                unregisterSensor(sensorConfig)
+            }
+        }
+        mSensorConfigs.clear()
+        mSensorManager = null
     }
 
 
