@@ -198,7 +198,9 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
         ds.lineWidth = 1.4f
         ds.axisDependency = YAxis.AxisDependency.RIGHT
         ds.setDrawCircles(false)
-        ds.setDrawValues(false)
+        ds.setDrawValues(true)
+//        ds.isHighlightEnabled = true
+//        ds.setDrawHorizontalHighlightIndicator(true)
         ds.color = dataSet.getColor()
         //LOGV(TAG, "create: dataType: "+ dataTypes+", color: "+ mModelLineChart.getColor(dataTypes));
         return ds

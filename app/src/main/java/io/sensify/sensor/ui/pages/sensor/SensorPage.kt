@@ -4,46 +4,36 @@ import android.hardware.Sensor
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
-import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import io.sensify.sensor.R
-import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.domains.sensors.provider.SensorsProvider
-import io.sensify.sensor.ui.pages.home.HomeViewModel
 import io.sensify.sensor.ui.pages.sensor.SensorViewModel
 import io.sensify.sensor.ui.pages.sensor.SensorViewModelFactory
 import io.sensify.sensor.ui.pages.sensor.sections.SensorChart
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetail
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailCurrentValue
 import io.sensify.sensor.ui.pages.sensor.sections.SensorDetailHeader
-import io.sensify.sensor.ui.resource.themes.JLThemeBase
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
@@ -76,6 +66,10 @@ fun SensorPage(
     var sensorState = remember {
         sensorFlowState
     }
+
+    var sensorRms = viewModel.mSensorModulus.collectAsState(initial = 0.0f)
+
+   var sensorRmsState = remember {sensorRms}
     Log.d("SensorPage", "$type")
 
     /*LaunchedEffect(type) {
@@ -227,7 +221,7 @@ fun SensorPage(
                         SensorChart(
                             sensorState.value!!,
                             mpChartDataManager= viewModel.getChartDataManager(sensorState.value!!.type),
-                            sensorPacketFlow= viewModel.mSensorPacketFlow
+                            sensorPacketFlow = viewModel.mSensorPacketFlow
                         )
                     }
                     /* Text(
@@ -249,7 +243,7 @@ fun SensorPage(
                         start = JlResDimens.dp32,
                         end = JlResDimens.dp32
                     ),
-                ) { SensorDetailCurrentValue() }
+                ) { SensorDetailCurrentValue(sensorRmsState.value) }
             }
 
             item {

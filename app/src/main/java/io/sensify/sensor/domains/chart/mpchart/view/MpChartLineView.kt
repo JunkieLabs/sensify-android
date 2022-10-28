@@ -34,6 +34,7 @@ open class MpChartLineView(var mKey: Int) : IMpChartLineView {
             setBackgroundColor(colorSurface.toArgb())
             setDrawGridBackground(false)
             setDrawBorders(false)
+//            setDrawMarkers(true)
 
 
             description.isEnabled = false
@@ -46,6 +47,7 @@ open class MpChartLineView(var mKey: Int) : IMpChartLineView {
     private fun applyAxis(lineChart: LineChart, colorSurface: Color, colorOnSurface: Color) {
         lineChart.apply {
             //Formatting
+
             xAxis.valueFormatter = MpChartTimestampAxisFormatter()
             xAxis.granularity = 1f
             xAxis.setDrawAxisLine(true)
@@ -66,7 +68,7 @@ open class MpChartLineView(var mKey: Int) : IMpChartLineView {
 //           axisRight.setDrawLabels(false)
             axisLeft.setDrawGridLines(false)
 //           axisRight.setDrawGridLines(false)
-            axisLeft.axisMinimum = 8f
+//            axisLeft.axisMinimum = 0f
             axisLeft.textColor = colorOnSurface.toArgb()
         }
 

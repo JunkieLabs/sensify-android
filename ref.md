@@ -178,3 +178,21 @@
 <!-- side effect -->
 
 - https://developer.android.com/jetpack/compose/mental-model
+
+
+# todo
+- timeperiod based data pickup
+- aggregate sensor detail
+- add units in sensor
+- add y axis
+
+
+# fix
+- package io.sensify.sensor.ui.pages.home.items.HomeSensorChartItem
+- E:  java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+  at java.util.ArrayList.get(ArrayList.java:437)
+  at com.github.mikephil.charting.data.DataSet.getEntryForIndex(DataSet.java:294)
+  at com.github.mikephil.charting.data.BaseDataSet.removeEntry(BaseDataSet.java:513)
+  at io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater.updateDataSet(MpChartViewUpdater.kt:75)
+  at io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater.update(MpChartViewUpdater.kt:32)
+  at io.sensify.sensor.ui.pages.home.items.HomeSensorChartItemKt$HomeSensorChartItem$1$2.invoke(HomeSensorChartItem.kt:109)

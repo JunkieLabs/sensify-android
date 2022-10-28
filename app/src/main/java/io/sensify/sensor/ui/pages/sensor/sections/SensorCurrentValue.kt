@@ -9,14 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
-import io.sensify.sensor.ui.resource.themes.JlThemeM3
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
@@ -26,7 +23,7 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @OptIn(ExperimentalPagerApi::class)
 //@Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun SensorDetailCurrentValue() {
+fun SensorDetailCurrentValue(value: Float) {
 
     Row(
         modifier = Modifier
@@ -76,7 +73,7 @@ fun SensorDetailCurrentValue() {
                 style = JlResTxtStyles.h4,
             )
             Text(
-                text = "50%",
+                text = "${value}",
                 fontSize = JlResDimens.sp48,
                 color = MaterialTheme.colorScheme.onSurface,
             )

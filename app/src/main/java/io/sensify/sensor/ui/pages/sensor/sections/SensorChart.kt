@@ -26,6 +26,7 @@ import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
 import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.sensors.provider.ModelSensor
+import io.sensify.sensor.ui.components.chart.mpchart.MpChartLineAxis
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -71,7 +72,7 @@ fun  SensorChart(
             .fillMaxSize(),
     ) {
 
-        Text(
+     /*   Text(
             modifier = Modifier.padding(horizontal = JlResDimens.dp12),
             text = "${modelSensor.name}",
 
@@ -79,7 +80,8 @@ fun  SensorChart(
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Start,
             style = JlResTxtStyles.h5,
-        )
+        )*/
+
         AndroidView(
             modifier = Modifier
                 .background(color = Color.Transparent)
@@ -91,7 +93,7 @@ fun  SensorChart(
 
                 Log.v("HomeSensorChart", "factory: ${mpChartDataManager.sensorType}")
 
-                var view = MpChartLineView(modelSensor.type);
+                var view = MpChartLineAxis(modelSensor.type);
 //                view
                 val lineChart = MpChartViewBinder(ctx, view).prepareDataSets(mpChartDataManager.getModel())
                     .invalidate()
