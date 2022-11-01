@@ -156,15 +156,15 @@ fun HomeSensorItem(
                     Column(modifier = Modifier,
                     ) {
                         Text(
-                            text = "in sensorUnit",
+                            text = "Currently Running",
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                             fontSize = 12.sp
                         )
-                        Text(
+                       /* Text(
                             text = "sensorValue",
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                             fontSize = 14.sp
-                        )
+                        )*/
                     }
                 }
 

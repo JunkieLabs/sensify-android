@@ -77,20 +77,24 @@ fun SensorDetailCurrentValue(sensorType: Int = -1, value: Float= 0.0f) {
         ) {
 
             Row(   modifier = Modifier
-                .fillMaxWidth()) {
-                Text(
-                    text = "Current Value ",
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    textAlign = TextAlign.Center,
-                    style = JlResTxtStyles.h4,
-                )
+                .fillMaxWidth()
+                ,verticalAlignment = Alignment.CenterVertically,) {
+
 
                 if(hasUnit){
                     Text(
                         text = buildAnnotatedString {
-                            append("in ")
+                            append("Current Value in ")
+
                            SensorsConstants.getUnit(this, sensorType)
                         },
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                        textAlign = TextAlign.Center,
+                        style = JlResTxtStyles.h4,
+                    )
+                }else{
+                    Text(
+                        text = "Current Value ",
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                         textAlign = TextAlign.Center,
                         style = JlResTxtStyles.h4,

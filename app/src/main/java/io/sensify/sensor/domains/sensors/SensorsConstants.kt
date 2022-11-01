@@ -9,8 +9,11 @@ import android.util.SparseArray
 import android.util.SparseIntArray
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
+import io.sensify.sensor.ui.resource.values.JlResDimens
+import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 
 
 /**
@@ -200,12 +203,17 @@ object SensorsConstants {
 
         val superscript = SpanStyle(
             baselineShift = BaselineShift.Superscript, // font size of superscript
+//            fontFamily = JlResTxtStyles.fontsJost,
+            fontWeight = FontWeight.Normal,
+            fontSize = JlResDimens.sp20
         )
         // create a variable subScript
         // enter the baselineShift to
         // BaselineShift.Subscript for subscript
         val subscript = SpanStyle(
             baselineShift = BaselineShift.Subscript,// font size of subscript
+            fontWeight = FontWeight.Normal,
+            fontSize = JlResDimens.sp20
         )
 
         builder.apply {
