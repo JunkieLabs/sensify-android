@@ -2,8 +2,15 @@ package io.sensify.sensor.domains.sensors
 
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.util.SparseArray
 import android.util.SparseIntArray
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.style.BaselineShift
+import androidx.compose.ui.text.withStyle
 
 
 /**
@@ -58,7 +65,9 @@ object SensorsConstants {
 //        Sensor.TYPE_STEP_DETECTOR,
 //        Sensor.TYPE_STEP_COUNTER,
         Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR,
-        Sensor.TYPE_HEART_RATE)
+        Sensor.TYPE_HEART_RATE,
+        Sensor.TYPE_RELATIVE_HUMIDITY
+    )
 
     val MAP_DELAY_TYPE_TO_DELAY: SparseIntArray = object : SparseIntArray() {
         init {
@@ -92,6 +101,8 @@ object SensorsConstants {
             put(Sensor.TYPE_STEP_COUNTER, 1) //19
             put(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR, 3) //20
             put(Sensor.TYPE_HEART_RATE, 1) //21
+            put(
+                Sensor.TYPE_RELATIVE_HUMIDITY, 1)// 12
 
         }
     }
@@ -119,11 +130,93 @@ object SensorsConstants {
             put(Sensor.TYPE_STEP_COUNTER, "Step counter") //19
             put(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR, "Compass") //20
             put(Sensor.TYPE_HEART_RATE, "Heart rate") //21
+            put(Sensor.TYPE_RELATIVE_HUMIDITY, "Relative Humidity") //21
 
 //            put(Sensor.TYPE_STATIONARY_DETECT, R.color.md_amber_500);//29
 //            put(Sensor.TYPE_MOTION_DETECT, R.color.md_amber_500);//30
 //            put(Sensor.TYPE_HEART_BEAT, R.color.md_amber_500);//31
         }
+    }
+
+    fun hasUnit( sensorType: Int): Boolean {
+       val hasUnitValue =
+            when (sensorType) {
+                Sensor.TYPE_ACCELEROMETER -> true
+                Sensor.TYPE_MAGNETIC_FIELD -> true
+                Sensor.TYPE_ORIENTATION -> true
+                Sensor.TYPE_GYROSCOPE -> true
+                Sensor.TYPE_LIGHT -> true
+                Sensor.TYPE_PRESSURE -> true
+                Sensor.TYPE_TEMPERATURE -> true
+                Sensor.TYPE_PROXIMITY -> true
+                Sensor.TYPE_GRAVITY -> true
+                Sensor.TYPE_LINEAR_ACCELERATION -> true
+                Sensor.TYPE_RELATIVE_HUMIDITY -> true
+                Sensor.TYPE_AMBIENT_TEMPERATURE -> true
+                Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED -> true
+                Sensor.TYPE_GYROSCOPE_UNCALIBRATED -> true
+                else -> false
+            }
+
+
+        return hasUnitValue;
+    }
+
+    fun getUnit(builder: AnnotatedString.Builder, sensorType: Int): AnnotatedString.Builder {
+        builder.apply {
+            when (sensorType) {
+                Sensor.TYPE_ACCELEROMETER -> getSquaredText(this," m/s", "2")
+                Sensor.TYPE_MAGNETIC_FIELD -> append(" \u00B5T")
+                Sensor.TYPE_ORIENTATION -> append(" \u00b0")
+                Sensor.TYPE_GYROSCOPE -> append(" rad/s")
+                Sensor.TYPE_LIGHT -> append(" lx")
+                Sensor.TYPE_PRESSURE -> append(" hPa")
+                Sensor.TYPE_TEMPERATURE -> append(" \u00b0C")
+                Sensor.TYPE_PROXIMITY -> append(" cm")
+                Sensor.TYPE_GRAVITY -> getSquaredText(this," m/s", "2")
+                Sensor.TYPE_LINEAR_ACCELERATION -> getSquaredText(this," m/s", "2")
+                Sensor.TYPE_RELATIVE_HUMIDITY -> append(" %")
+                Sensor.TYPE_AMBIENT_TEMPERATURE -> append(" \u00b0C")
+                Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED -> append(" \u00B5T")
+                Sensor.TYPE_GYROSCOPE_UNCALIBRATED -> append(" rad/s")
+                else -> append("")
+            }
+        }
+
+        return builder;
+    }
+
+    private fun getSquaredText(text: String, supText: String): Spanned {
+        val result: Spanned
+        result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml("$text<sup><small>$supText</small></sup>", Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            Html.fromHtml("$text<sup><small>$supText</small></sup>")
+        }
+        return result
+    }
+
+    private fun getSquaredText(builder: AnnotatedString.Builder, text: String, supText: String): AnnotatedString.Builder {
+
+        val superscript = SpanStyle(
+            baselineShift = BaselineShift.Superscript, // font size of superscript
+        )
+        // create a variable subScript
+        // enter the baselineShift to
+        // BaselineShift.Subscript for subscript
+        val subscript = SpanStyle(
+            baselineShift = BaselineShift.Subscript,// font size of subscript
+        )
+
+        builder.apply {
+            append(text)
+            withStyle(superscript){
+                append(supText)
+            }
+        }
+
+
+        return builder
     }
 
 

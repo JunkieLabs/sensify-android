@@ -243,7 +243,7 @@ fun SensorPage(
                         start = JlResDimens.dp32,
                         end = JlResDimens.dp32
                     ),
-                ) { SensorDetailCurrentValue(sensorRmsState.value) }
+                ) { SensorDetailCurrentValue(sensorType = type , value = sensorRmsState.value) }
             }
 
             item {

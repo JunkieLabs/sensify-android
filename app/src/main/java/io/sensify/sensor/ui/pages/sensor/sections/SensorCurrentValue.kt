@@ -11,8 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.ui.resource.effects.drawColoredShadow
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
@@ -23,7 +26,9 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @OptIn(ExperimentalPagerApi::class)
 //@Preview(showBackground = true, backgroundColor = 0xFF041B11)
 @Composable
-fun SensorDetailCurrentValue(value: Float) {
+fun SensorDetailCurrentValue(sensorType: Int = -1, value: Float= 0.0f) {
+    var hasUnit = SensorsConstants.hasUnit(sensorType)
+
 
     Row(
         modifier = Modifier
@@ -54,7 +59,11 @@ fun SensorDetailCurrentValue(value: Float) {
             Box(
                 modifier = Modifier
                     .size(JlResDimens.dp12)
-                    .border(width = JlResDimens.dp2, color = MaterialTheme.colorScheme.onSurface, shape = CircleShape)
+                    .border(
+                        width = JlResDimens.dp2,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        shape = CircleShape
+                    )
             )
 
         }
@@ -66,12 +75,31 @@ fun SensorDetailCurrentValue(value: Float) {
                 .fillMaxWidth()
                 .padding(start = JlResDimens.dp12, end = JlResDimens.dp28)
         ) {
-            Text(
-                text = "Current Value",
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                textAlign = TextAlign.Center,
-                style = JlResTxtStyles.h4,
-            )
+
+            Row(   modifier = Modifier
+                .fillMaxWidth()) {
+                Text(
+                    text = "Current Value ",
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                    textAlign = TextAlign.Center,
+                    style = JlResTxtStyles.h4,
+                )
+
+                if(hasUnit){
+                    Text(
+                        text = buildAnnotatedString {
+                            append("in ")
+                           SensorsConstants.getUnit(this, sensorType)
+                        },
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                        textAlign = TextAlign.Center,
+                        style = JlResTxtStyles.h4,
+                    )
+                }
+
+
+            }
+
             Text(
                 text = "${value}",
                 fontSize = JlResDimens.sp48,
