@@ -13,8 +13,8 @@ android {
         applicationId "io.sensify.sensor"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "3.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -112,10 +112,6 @@ dependencies {
     implementation "io.coil-kt:coil-compose:2.0.0-rc01"
 
     //Firebase
-    implementation "com.google.firebase:firebase-auth-ktx:21.0.6"
-    implementation "com.google.android.gms:play-services-auth:20.2.0"
-    implementation "com.google.firebase:firebase-database-ktx:20.0.5"
-    implementation "com.google.firebase:firebase-storage-ktx:20.0.1"
     implementation "com.google.firebase:firebase-crashlytics-ktx:18.2.12"
     implementation "com.google.firebase:firebase-analytics-ktx:21.1.0"
 
