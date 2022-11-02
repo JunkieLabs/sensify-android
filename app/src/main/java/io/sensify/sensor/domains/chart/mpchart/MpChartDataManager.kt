@@ -1,16 +1,11 @@
 package io.sensify.sensor.domains.chart.mpchart
 
-import android.content.Context
 import android.hardware.SensorManager
 import android.util.Log
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import com.github.mikephil.charting.charts.LineChart
 import io.sensify.sensor.domains.chart.ChartDataHandler
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
-import io.sensify.sensor.domains.chart.mpchart.view.IMpChartLineView
-import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.sensors.SensorsConstants
 import io.sensify.sensor.domains.sensors.packets.ModelSensorPacket
 import io.sensify.sensor.ui.resource.values.JlResColors
@@ -29,17 +24,12 @@ class MpChartDataManager(
     private var mIsRunningPeriod: Boolean =  false
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
 
-    var mChartDataHandler: ChartDataHandler
-
-//    var mMpChartViewUpdater: MpChartViewUpdater = MpChartViewUpdater()
+    private var mChartDataHandler: ChartDataHandler
 
     val mSensorPacketFlow :SharedFlow<ModelChartUiUpdate>
 
     init {
-       /*
-       TODO remove in future
-       mChartDataHandler = ChartDataHandler(sensorType)
-*/
+
         mChartDataHandler = ChartDataHandler(sensorType)
         var axisCount = SensorsConstants.MAP_TYPE_TO_AXIS_COUNT.get(sensorType)
 

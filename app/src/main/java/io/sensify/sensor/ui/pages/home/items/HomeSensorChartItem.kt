@@ -1,7 +1,6 @@
 package io.sensify.sensor.ui.pages.home.items
 
 import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,13 +20,11 @@ import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
-import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
+import io.sensify.sensor.ui.components.chart.mpchart.base.MpChartLineView
 import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
 import io.sensify.sensor.ui.resource.values.JlResTxtStyles
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 
 /**
  * Created by Niraj on 30-09-2022.

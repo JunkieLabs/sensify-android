@@ -1,35 +1,28 @@
 package io.sensify.sensor.ui.pages.sensor.sections
 
 import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
 import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
-import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
 import io.sensify.sensor.domains.sensors.provider.ModelSensor
 import io.sensify.sensor.ui.components.chart.mpchart.MpChartLineAxis
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
-import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 

@@ -1,13 +1,8 @@
 package io.sensify.sensor.domains.chart.mpchart
 
 import android.content.Context
-import android.util.Log
-import android.view.View
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -15,8 +10,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import io.sensify.sensor.domains.chart.entity.ModelChartDataSet
 import io.sensify.sensor.domains.chart.entity.ModelLineChart
-import io.sensify.sensor.domains.chart.mpchart.axis.MpChartTimestampAxisFormatter
-import io.sensify.sensor.domains.chart.mpchart.view.IMpChartLineView
+import io.sensify.sensor.ui.components.chart.mpchart.base.IMpChartLineView
 import io.sensify.util.QueueFixedLength
 
 /**
@@ -34,76 +28,7 @@ class MpChartViewBinder (var context: Context, var chartView: IMpChartLineView,
     private val chart : LineChart by lazy {
         chartView.create(context, colorSurface, colorOnSurface)
     }
-    private val oldChart : LineChart by lazy {
-        LineChart(context).apply {
-            // set properties until it looks like you want it to look like
-//                layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
-//                val lineChart = LineChart(context)
-           /* var entrieOne =
-                mutableListOf(
-                    Entry(0f, 10f),
-                    Entry(1f, 14f),
-                    Entry(2f, 12f),
-                    Entry(3f, 14f)
-                )
-            var entrieTwo =
-                mutableListOf(Entry(0f, 13f), Entry(1f, 11f), Entry(2f, 9f), Entry(3f, 10f))
-
-            val dataSetOne =
-                LineDataSet(entrieOne, "Company 1").apply { color = Color.Red.toArgb() }
-            dataSetOne.axisDependency = YAxis.AxisDependency.LEFT
-            dataSetOne.setDrawValues(true)
-
-            val dataSetTwo =
-                LineDataSet(entrieTwo, "Company 2").apply { color = Color.Green.toArgb() }
-            dataSetTwo.axisDependency = YAxis.AxisDependency.LEFT
-            dataSetTwo.setDrawValues(true)
-
-            val dataSets = mutableListOf<ILineDataSet>(dataSetOne, dataSetTwo)
-            val lineData = LineData(dataSets)*/
-//
-//            lineChart.axisLeft.mAxisMaximum = 1f
-//            lineChart.axisLeft.mAxisMinimum = -1f
-//            lineChart.axisLeft.mAxisRange = 2f
-
-            //Set shadow
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            renderer.paintRender.setShadowLayer(3F, 5F, 3F, Color.Gray.toArgb());
-
-            //Formatting
-            xAxis.valueFormatter = MpChartTimestampAxisFormatter()
-            xAxis.granularity = 1f
-            xAxis.setDrawAxisLine(false)
-            xAxis.setDrawGridLines(false)
-//            lineChart.xAxis.setDrawLabels(false)
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-
-            legend.isEnabled = true
-            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-            legend.orientation = Legend.LegendOrientation.HORIZONTAL
-            legend.setDrawInside(false)
-
-            setDrawGridBackground(false)
-            setDrawBorders(false)
-
-            axisLeft.setDrawZeroLine(false)
-            axisRight.setDrawZeroLine(false)
-            axisLeft.isEnabled = true
-            axisRight.isEnabled = false
-            axisLeft.setDrawAxisLine(false)
-//           axisRight.setDrawAxisLine(false)
-            axisLeft.setDrawLabels(false)
-//           axisRight.setDrawLabels(false)
-            axisLeft.setDrawGridLines(false)
-//           axisRight.setDrawGridLines(false)
-            axisLeft.axisMinimum = 8f
-
-            description.isEnabled = false
-
-        }
-    }
 
     /*fun attachLineChart(modelLineChart: ModelLineChart){
 //        var dataType

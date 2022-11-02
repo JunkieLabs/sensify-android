@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asSharedFlow
  */
 class ChartDataHandler(var sensorType: Int) {
 
+    private var mCurrentPacket: ModelSensorPacket? =null
     private var mVisibleNum = -1
     private var mLengthSample = 100
 
@@ -27,12 +28,14 @@ class ChartDataHandler(var sensorType: Int) {
     var mPre = mutableListOf<ModelSensorPacket>()
 
     var mUIRefreshDelay = SensorManager.SENSOR_DELAY_UI
+    var mDataRefreshDelay = SensorManager.SENSOR_DELAY_UI
 
     var mDataTypesIndexed = mutableListOf<Int>()
 
 //    var mPre
 
     var mDataComputationScope = CoroutineScope(Job() + Dispatchers.Default)
+    var mDataAddScope = CoroutineScope(Job() + Dispatchers.Default)
 
     private val _mSensorPacketFlow = MutableSharedFlow<ModelChartUiUpdate>(replay = 0)
     val mSensorPacketFlow = _mSensorPacketFlow.asSharedFlow()
@@ -47,6 +50,7 @@ class ChartDataHandler(var sensorType: Int) {
     fun destroy() {
 
         mDataComputationScope.cancel()
+        mDataAddScope.cancel()
 
 
     }
@@ -71,8 +75,9 @@ class ChartDataHandler(var sensorType: Int) {
 
         synchronized(mLockDataAdd) {
 
+            mCurrentPacket = sensorPacket.copy()
 
-            mPre.add(sensorPacket)
+            // TODO do in periodic place mPre.add(sensorPacket)
 
         }
 //        mModelLineChart.
@@ -104,6 +109,27 @@ class ChartDataHandler(var sensorType: Int) {
 
         }
 
+
+        mDataAddScope.launch {
+            while (mDataAddScope.isActive) {
+                // TODO should I periodic shift
+
+                synchronized(mLockDataAdd) {
+                    if(mCurrentPacket!=null){
+                        mPre.add(mCurrentPacket!!)
+                    }
+                }
+
+
+
+
+                delay(SensorsConstants.MAP_DELAY_TYPE_TO_DELAY.get(mDataRefreshDelay).toLong())
+
+//                Log.d("MpChartViewManager ", "runPeriodicTask : ")
+
+            }
+
+        }
 
     }
 

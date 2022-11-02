@@ -3,7 +3,7 @@ package io.sensify.sensor.ui.components.chart.mpchart
 import android.content.Context
 import androidx.compose.ui.graphics.Color
 import com.github.mikephil.charting.charts.LineChart
-import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
+import io.sensify.sensor.ui.components.chart.mpchart.base.MpChartLineView
 
 /**
  * Created by Niraj on 30-09-2022.

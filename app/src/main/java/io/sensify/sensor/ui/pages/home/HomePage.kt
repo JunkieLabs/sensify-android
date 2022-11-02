@@ -38,7 +38,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import io.sensify.sensor.R
 import io.sensify.sensor.ui.composables.isScrollingUp
-import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
 import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.pages.home.items.HomeSensorItem
 import io.sensify.sensor.ui.pages.home.sections.HomeHeader

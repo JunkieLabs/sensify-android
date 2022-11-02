@@ -1,4 +1,4 @@
-package io.sensify.sensor.domains.chart.mpchart.view
+package io.sensify.sensor.ui.components.chart.mpchart.base
 
 import android.content.Context
 import androidx.compose.ui.graphics.Color

@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.sensify.sensor.R
-import io.sensify.sensor.ui.labs.navigations.NavDirectionsLabs
 import io.sensify.sensor.ui.navigation.NavDirectionsApp
 import io.sensify.sensor.ui.resource.values.JlResColors
 import io.sensify.sensor.ui.resource.values.JlResShapes

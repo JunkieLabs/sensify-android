@@ -2,19 +2,14 @@ package io.sensify.sensor.ui.navigation
 
 import android.hardware.Sensor
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import io.sensify.sensor.ui.labs.navigations.labsGraph
 import io.sensify.sensor.ui.pages.SplashPage
 import io.sensify.sensor.ui.pages.about.AboutPage
 import io.sensify.sensor.ui.pages.home.HomePage
-import io.sensify.sensor.ui.pages.home.HomeViewModel
-import io.sensify.sensor.ui.pages.sensor.SensorViewModel
-import io.sensify.sensor.ui.pages.sensor.SensorViewModelFactory
 import io.sensify.sensor.ui.pages.sensor.details.SensorPage
 
 
@@ -37,7 +32,6 @@ fun NavGraphApp() {
         // startDestination "labs1"
 //        val viewModelHome: HomeViewModel = HomeViewModel()
 //        val viewModelSensor: SensorViewModel = SensorViewModel()
-        labsGraph(navController)
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
         composable(NavDirectionsApp.HomePage.route) {
             HomePage(
