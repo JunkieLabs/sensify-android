@@ -22,7 +22,6 @@ import io.sensify.sensor.domains.chart.mpchart.MpChartDataManager
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewBinder
 import io.sensify.sensor.domains.chart.mpchart.MpChartViewUpdater
 import io.sensify.sensor.domains.chart.mpchart.view.MpChartLineView
-import io.sensify.sensor.domains.chart.rememberChartUiUpdateEvent
 import io.sensify.sensor.ui.pages.home.model.ModelHomeSensor
 import io.sensify.sensor.ui.resource.values.JlResDimens
 import io.sensify.sensor.ui.resource.values.JlResShapes
