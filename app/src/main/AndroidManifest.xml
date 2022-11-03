@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <uses-feature
+    <!--<uses-feature
         android:name="android.permission.sensor.accelerometer"
         android:required="true" />
     <uses-feature
@@ -20,7 +20,7 @@
         android:required="true" />
     <uses-feature
         android:name="android.permission.sensor.proximity"
-        android:required="true" />
+        android:required="true" />-->
 
     <application
         android:allowBackup="true"

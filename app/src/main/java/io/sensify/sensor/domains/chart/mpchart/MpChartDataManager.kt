@@ -96,6 +96,7 @@ class MpChartDataManager(
 
     fun addEntry(sensorPacket: ModelSensorPacket) {
 //        Log.d("MpChartViewManager ", "addEntry ")
+//        Log.d("MpChartViewManager ", "sdsdew dsdsd ")
 
         mChartDataHandler.addEntry(sensorPacket)
     }
