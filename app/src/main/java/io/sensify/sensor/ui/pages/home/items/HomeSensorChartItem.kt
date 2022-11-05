@@ -94,7 +94,7 @@ fun HomeSensorChartItem(
 
                 var view = MpChartLineView(modelSensor.type);
 //                view
-                val lineChart = MpChartViewBinder(ctx, view).prepareDataSets(mpChartDataManager.getModel())
+                val lineChart = MpChartViewBinder(ctx, view, colorOnSurface= colorOnSurface).prepareDataSets(mpChartDataManager.getModel())
                     .invalidate()
                 return@AndroidView lineChart
 //                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)

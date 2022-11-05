@@ -7,7 +7,12 @@
 
     <!-- Base application theme. -->
 
-    <style name="Theme.SensifyAndroid" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Theme.SensifyAndroid" parent="Theme.Material3.DayNight.NoActionBar" >
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
 
     <style name="Theme.SensifyAndroid.Splash">
         <item name="android:statusBarColor">@color/background_color</item>

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -56,7 +57,8 @@ fun  SensorChart(
 
 //    var counter = 0
 //    Log.d("DefaultChartTesting", "Linechart isUpdating ${isUpdating.value}")
-
+    var colorSurface = MaterialTheme.colorScheme.surface
+    var colorOnSurface = MaterialTheme.colorScheme.onSurface
     Column(
         modifier = Modifier
             .background(color = Color.Transparent)
@@ -88,7 +90,7 @@ fun  SensorChart(
 
                 var view = MpChartLineAxis(modelSensor.type);
 //                view
-                val lineChart = MpChartViewBinder(ctx, view).prepareDataSets(mpChartDataManager.getModel())
+                val lineChart = MpChartViewBinder(ctx, view, colorOnSurface= colorOnSurface).prepareDataSets(mpChartDataManager.getModel())
                     .invalidate()
                 return@AndroidView lineChart
 //                mpChartViewManager.createChart(ctx, colorSurface, colorOnSurface)

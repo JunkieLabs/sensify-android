@@ -156,7 +156,7 @@ fun HomeSensorItem(
                     Column(modifier = Modifier,
                     ) {
                         Text(
-                            text = "Currently Running",
+                            text = "Running",
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                             fontSize = 12.sp
                         )

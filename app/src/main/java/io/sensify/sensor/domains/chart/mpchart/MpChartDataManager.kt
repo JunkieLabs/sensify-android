@@ -48,12 +48,12 @@ class MpChartDataManager(
             )
             mChartDataHandler.addDataSet(
                 SensorsConstants.DATA_AXIS_Y,
-                JlResColors.NoteGreen.toArgb(),
+                JlResColors.SensifyGreen40.toArgb(),
                 SensorsConstants.DATA_AXIS_Y_STRING, emptyArray(), false
             )
             mChartDataHandler.addDataSet(
                 SensorsConstants.DATA_AXIS_Z,
-                JlResColors.NoteBlue.toArgb(),
+                JlResColors.CHART_3.toArgb(),
                 SensorsConstants.DATA_AXIS_Z_STRING, emptyArray(), false
             )
         }

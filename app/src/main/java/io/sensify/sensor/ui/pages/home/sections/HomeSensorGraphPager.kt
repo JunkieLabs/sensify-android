@@ -107,7 +107,7 @@ fun HomeSensorGraphPager(
                                 ColorUtils.blendARGB(
                                     MaterialTheme.colorScheme.onSurface.toArgb(),
                                     MaterialTheme.colorScheme.surface.toArgb(),
-                                    0.65f
+                                    0.8f
                                 )
                             ),
 //                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
@@ -117,7 +117,7 @@ fun HomeSensorGraphPager(
                                 ColorUtils.blendARGB(
                                     MaterialTheme.colorScheme.onSurface.toArgb(),
                                     MaterialTheme.colorScheme.surface.toArgb(),
-                                    0.95f
+                                    0.97f
                                 )
                             ),
 //                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.07f),
