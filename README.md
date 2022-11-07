@@ -1,6 +1,9 @@
 
 
-# Sensify : Android Sensor Visualizer
+# Sensify : Sensor Visualizer in Jetpack Compose
+
+
+[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24) ![Compose Version](https://img.shields.io/badge/Compose-1.2.0-brightgreen)
 
 > Help in analysing your Android phone's sensors with graphs and visuals.
 
@@ -10,7 +13,6 @@
 
 
 ## [Download it on Google Play here](https://play.google.com/store/apps/details?id=io.sensify.sensor)
-[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
 
 
 
