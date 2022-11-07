@@ -27,6 +27,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
         android:theme="@style/Theme.SensifyAndroid">
         <activity
             android:name=".ui.MainActivity"

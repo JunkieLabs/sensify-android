@@ -41,7 +41,7 @@ class SensorsProvider {
 
     var mDefaultScope = CoroutineScope(Job() + Dispatchers.Default)
 
-    var _mIsListening = false
+
     fun setSensorManager(manager: SensorManager): SensorsProvider {
         mSensorManager = manager
         return this
@@ -51,22 +51,20 @@ class SensorsProvider {
     fun listenSensors(): SensorsProvider {
 
 
-        /*if(_mIsListening){
-            return ;
-        }*/
-        Log.d("SensorsProvider","listenSensors: ")
-        if(mSensors.size<=0){
+//        Log.d("SensorsProvider","listenSensors: ")
+        if(mSensors.isEmpty()){
             val sensorList = mSensorManager!!.getSensorList(Sensor.TYPE_ALL).filter {
 //               SensorsConstants.MAP_TYPE_TO_AXIS_COUNT
                 SensorsConstants.SENSORS.contains(it.type)
 
             }.distinctBy { it.type }.toList()
+//            Log.d("SensorProvider", "$sensorList")
             mSensors = sensorList.map { ModelSensor(it.type, it) }.toList()
 
         }
 
         mDefaultScope.launch {
-            Log.d("SensorsProvider","listenSensors 2: ${mSensors.size}")
+//            Log.d("SensorsProvider","listenSensors 2: ${mSensors.size}")
             _mSensorsFlow.emit(mSensors)
 
         }
@@ -85,9 +83,6 @@ class SensorsProvider {
     }
 
     fun getSensor(sensorType: Int): ModelSensor? {
-        if(mSensors.size==0){
-
-        }
 
         return mSensors.singleOrNull { modelSensor ->
             modelSensor.type == sensorType }
@@ -95,8 +90,6 @@ class SensorsProvider {
 
     fun clearAll() {
 
-
     }
-
 
 }

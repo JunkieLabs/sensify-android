@@ -63,274 +63,274 @@ fun HomePage(
         factory = HomeViewModel.Factory()
     )
 
-    ) {
+) {
 
     val coroutineScope = rememberCoroutineScope()
-        val lazyListState = rememberLazyListState()
+    val lazyListState = rememberLazyListState()
 //    val sensorsProvider = SensorsProviderComposable()
 //    val sensors = remember { sensorsProvider }
 
-        val sensorUiState = viewModel.mUiState.collectAsState()
+    val sensorUiState = viewModel.mUiState.collectAsState()
 //    var sensorUiState = viewModel.mUiCurrentSensorState.collectAsState()
 
-        val isAtTop = remember {
-            derivedStateOf {
-                lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
-            }
+    val isAtTop = remember {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
         }
+    }
 
-        val pagerState = rememberPagerState(
+    val pagerState = rememberPagerState(
 //        pageCount = 3,
-        )
+    )
 
 //    Log.d("HomePage", "sensor ${sensorsUiState.value.sensors}");
 
-        Scaffold(topBar = {
+    Scaffold(topBar = {
 
-            SmallTopAppBar(
+        SmallTopAppBar(
 
 //            backgroundColor = Color.Transparent,
-                colors = if (!isAtTop.value) TopAppBarDefaults.mediumTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
-                ) else TopAppBarDefaults.mediumTopAppBarColors(
-                    containerColor = Color.Transparent //Add your own color here, just to clarify.
-                ),
+            colors = if (!isAtTop.value) TopAppBarDefaults.mediumTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), //Add your own color here, just to clarify.
+            ) else TopAppBarDefaults.mediumTopAppBarColors(
+                containerColor = Color.Transparent //Add your own color here, just to clarify.
+            ),
 
 
-                navigationIcon = {
-                    Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
-                        Image(
-                            painterResource(id = R.drawable.pic_sensify_logo),
-                            modifier = Modifier
-                                .width(JlResDimens.dp32)
-                                .height(JlResDimens.dp36),
-                            contentDescription = null,
-                            contentScale = ContentScale.FillBounds
-                        )
-                    }
-
-                },
-                title = {
-                    Text(
-                        text = "Sensify",
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.Center,
-                        style = JlResTxtStyles.h4,
-                        fontWeight = FontWeight(400),
-                        modifier = modifier.fillMaxWidth(),
-                    )
-                },
-                actions = {
-                    Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
-                        Image(
-
-                            painterResource(id = R.drawable.pic_sensify_logo),
-                            modifier = Modifier
-                                .alpha(0f)
-                                .width(JlResDimens.dp32)
-                                .height(JlResDimens.dp36),
-                            contentDescription = null,
-                            contentScale = ContentScale.FillBounds
-                        )
-                    }
-                },
-
-                )
-        },
-            floatingActionButton = {
-
-                AnimatedVisibility(
-                    visible = lazyListState.isScrollingUp(),
-//                modifier = Modifier.fillMaxSize(),
-                    enter = scaleIn(),
-                    exit = scaleOut()
-                ) {
-                    FloatingActionButton(
-                        onClick = { navController?.navigate(NavDirectionsApp.AboutPage.route) },
-                        shape = RoundedCornerShape(50),
-                        containerColor = Color.Transparent,
-
+            navigationIcon = {
+                Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
+                    Image(
+                        painterResource(id = R.drawable.pic_sensify_logo),
                         modifier = Modifier
-                            .background(
-                                brush = Brush.linearGradient(
-                                    colors = listOf(
-                                        JLThemeBase.colorPrimary.copy(alpha = 0.3f),
-                                        JLThemeBase.colorPrimary.copy(alpha = 0.1f),
-                                    )
-                                ),
-                                shape = RoundedCornerShape(50.dp)
-                            )
-                            .border(
-                                brush = Brush.verticalGradient(
-                                    listOf(
-                                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-                                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
-                                    )
-                                ),
-                                width = JlResDimens.dp1,
-                                shape = RoundedCornerShape(50.dp)
+                            .width(JlResDimens.dp32)
+                            .height(JlResDimens.dp36),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds
+                    )
+                }
+
+            },
+            title = {
+                Text(
+                    text = "Sensify",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center,
+                    style = JlResTxtStyles.h4,
+                    fontWeight = FontWeight(400),
+                    modifier = modifier.fillMaxWidth(),
+                )
+            },
+            actions = {
+                Box(Modifier.padding(horizontal = JlResDimens.dp20)) {
+                    Image(
+
+                        painterResource(id = R.drawable.pic_sensify_logo),
+                        modifier = Modifier
+                            .alpha(0f)
+                            .width(JlResDimens.dp32)
+                            .height(JlResDimens.dp36),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds
+                    )
+                }
+            },
+
+            )
+    },
+        floatingActionButton = {
+
+            AnimatedVisibility(
+                visible = lazyListState.isScrollingUp(),
+//                modifier = Modifier.fillMaxSize(),
+                enter = scaleIn(),
+                exit = scaleOut()
+            ) {
+                FloatingActionButton(
+                    onClick = { navController?.navigate(NavDirectionsApp.AboutPage.route) },
+                    shape = RoundedCornerShape(50),
+                    containerColor = Color.Transparent,
+
+                    modifier = Modifier
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    JLThemeBase.colorPrimary.copy(alpha = 0.3f),
+                                    JLThemeBase.colorPrimary.copy(alpha = 0.1f),
+                                )
                             ),
-                        elevation = FloatingActionButtonDefaults.elevation(JlResDimens.dp0)
+                            shape = RoundedCornerShape(50.dp)
+                        )
+                        .border(
+                            brush = Brush.verticalGradient(
+                                listOf(
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+                                )
+                            ),
+                            width = JlResDimens.dp1,
+                            shape = RoundedCornerShape(50.dp)
+                        ),
+                    elevation = FloatingActionButtonDefaults.elevation(JlResDimens.dp0)
 
-                    ) {
+                ) {
 
-                        Icon(Icons.Rounded.Info, "about")
+                    Icon(Icons.Rounded.Info, "about")
 
-                    }
                 }
             }
+        }
 
-        ) {
+    ) {
 
-            LazyColumn(
+        LazyColumn(
 
-                modifier = Modifier
-                    .consumedWindowInsets(it)
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
+            modifier = Modifier
+                .consumedWindowInsets(it)
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
 
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
-                            )
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.02f),
                         )
-                    ),
+                    )
+                ),
 //                .fillMaxSize()
 //                .background(JLThemeBase.colorPrimary10)
 //                .consumedWindowInsets ,
-                contentPadding = it,
-                state = lazyListState
-            ) {
+            contentPadding = it,
+            state = lazyListState
+        ) {
 
-                item {
-                    Spacer(modifier = JlResShapes.Space.H24)
+            item {
+                Spacer(modifier = JlResShapes.Space.H24)
 
-                }
-                // Header
-                item {
-                    Box(
-                        modifier = Modifier.padding(
-                            start = JlResDimens.dp32,
-                            end = JlResDimens.dp32
-                        ),
-                    ) {
-                        HomeHeader(
-                            sensorUiState.value.currentSensor,
-                            totalActive = sensorUiState.value.activeSensorCounts,
-                            onClickArrow = { isLeft ->
+            }
+            // Header
+            item {
+                Box(
+                    modifier = Modifier.padding(
+                        start = JlResDimens.dp32,
+                        end = JlResDimens.dp32
+                    ),
+                ) {
+                    HomeHeader(
+                        sensorUiState.value.currentSensor,
+                        totalActive = sensorUiState.value.activeSensorCounts,
+                        onClickArrow = { isLeft ->
 
 
-                                var currentPage = pagerState.currentPage
-                                var totalPage = pagerState.pageCount
+                            var currentPage = pagerState.currentPage
+                            var totalPage = pagerState.pageCount
 
-                                if (!isLeft && currentPage + 1 < totalPage) {
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(currentPage + 1)
-                                    }
-                                } else if (isLeft && currentPage > 0 && totalPage > 0) {
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(currentPage - 1)
-                                    }
+                            if (!isLeft && currentPage + 1 < totalPage) {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(currentPage + 1)
+                                }
+                            } else if (isLeft && currentPage > 0 && totalPage > 0) {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(currentPage - 1)
                                 }
                             }
-                        )
-                    }
+                        }
+                    )
                 }
-                // Plotting area
-                item {
+            }
+            // Plotting area
+            item {
 //                Spacer(modifier = Modifier.height(JlResDimens.dp350))
 
-                    HomeSensorGraphPager(viewModel = viewModel, pagerState = pagerState)
+                HomeSensorGraphPager(viewModel = viewModel, pagerState = pagerState)
 
+            }
+
+            // Available Sensors
+            item {
+                Box(
+                    modifier = Modifier
+                        .padding(
+                            start = JlResDimens.dp40, end = JlResDimens.dp32,
+                            top = JlResDimens.dp12, bottom = JlResDimens.dp16
+                        ),
+                ) {
+                    Text(
+                        text = "Available Sensors",
+                        fontSize = JlResDimens.sp16,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
                 }
+            }
 
-                // Available Sensors
-                item {
-                    Box(
+
+            items(viewModel.mSensorsList.windowed(2, 2, true)) { item ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = JlResDimens.dp32)
+                ) {
+
+                    Row(
                         modifier = Modifier
-                            .padding(
-                                start = JlResDimens.dp40, end = JlResDimens.dp32,
-                                top = JlResDimens.dp12, bottom = JlResDimens.dp16
-                            ),
-                    ) {
-                        Text(
-                            text = "Available Sensors",
-                            fontSize = JlResDimens.sp16,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                }
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
 
 
-                items(viewModel.mSensorsList.windowed(2, 2, true)) { item ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = JlResDimens.dp32)
-                    ) {
+                        ) {
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-
-
-                            ) {
-
-                            for (i in item.indices) {
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
+                        for (i in item.indices) {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
 //                                    .fillParentMaxWidth(0.5f)
 //                                    .padding(bottom = JlResDimens.dp8)
-                                        /*.clickable(
-                                            enabled = true,
-                                            onClickLabel = "Card Click",
-                                            onClick = {
-                                                navController?.navigate(NavDirectionsLabs.DetailPage.route)
-                                            }
-                                        )*/
+                                /*.clickable(
+                                    enabled = true,
+                                    onClickLabel = "Card Click",
+                                    onClick = {
+                                        navController?.navigate(NavDirectionsLabs.DetailPage.route)
+                                    }
+                                )*/
 
-                                ) {
-                                    HomeSensorItem(
-                                        modelSensor = item[i],
-                                        /* se = item[i].sensorName,
-                                         sensorValue = item[i].sensorValue,
-                                         sensorUnit = item[i].sensorUnit,
-                                         sensorIcon = item[i].sensorIcon*/
+                            ) {
+                                HomeSensorItem(
+                                    modelSensor = item[i],
+                                    /* se = item[i].sensorName,
+                                     sensorValue = item[i].sensorValue,
+                                     sensorUnit = item[i].sensorUnit,
+                                     sensorIcon = item[i].sensorIcon*/
 
-                                        onCheckChange = { type: Int, isChecked: Boolean ->
-                                            viewModel.onSensorChecked(type, isChecked)
+                                    onCheckChange = { type: Int, isChecked: Boolean ->
+                                        viewModel.onSensorChecked(type, isChecked)
 
-                                        },
-                                        onClick = {
-                                            navController?.navigate("${NavDirectionsApp.SensorDetailPage.route}/${it}")
-                                        }
-                                    )
-
-                                }
-
-                                if (i < item.size - 1) {
-                                    Spacer(modifier = Modifier.width(JlResDimens.dp8))
-                                }
-                            }
-                            if (item.size % 2 != 0) {
-                                Spacer(modifier = Modifier.width(JlResDimens.dp8))
-
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
+                                    },
+                                    onClick = {
+                                        navController?.navigate("${NavDirectionsApp.SensorDetailPage.route}/${it}")
+                                    }
                                 )
+
                             }
 
+                            if (i < item.size - 1) {
+                                Spacer(modifier = Modifier.width(JlResDimens.dp8))
+                            }
                         }
+                        if (item.size % 2 != 0) {
+                            Spacer(modifier = Modifier.width(JlResDimens.dp8))
+
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                            )
+                        }
+
                     }
-                    Spacer(modifier = Modifier.height(JlResDimens.dp8))
-
                 }
+                Spacer(modifier = Modifier.height(JlResDimens.dp8))
 
-                item { Spacer(modifier = Modifier.height(JlResDimens.dp16)) }
-//            }
             }
+
+            item { Spacer(modifier = Modifier.height(JlResDimens.dp16)) }
+//            }
         }
     }
+}

@@ -61,7 +61,7 @@ class SensorPacketsProvider : SensorEventListener {
 
     fun attachSensor(config: SensorPacketConfig): SensorPacketsProvider {
 
-        Log.d("SensorPacketsProvider", "attachSensor")
+//        Log.d("SensorPacketsProvider", "attachSensor")
         var prevConfig = mSensorConfigs.get(config.sensorType)
         var shouldRegister = true
         if (prevConfig != null) {
@@ -72,7 +72,7 @@ class SensorPacketsProvider : SensorEventListener {
             }
         }
         if (shouldRegister) {
-            Log.d("SensorPacketsProvider", "attachSensor 2")
+//            Log.d("SensorPacketsProvider", "attachSensor 2")
 
             mSensorConfigs.set(config.sensorType, config)
             registerSensor(config)
@@ -82,12 +82,12 @@ class SensorPacketsProvider : SensorEventListener {
 
 
     fun detachSensor(sensorType: Int): SensorPacketsProvider {
-        Log.d("SensorPacketsProvider", "detachSensor 1")
+//        Log.d("SensorPacketsProvider", "detachSensor 1")
 
         var sensorConfig = mSensorConfigs.get(sensorType)
         if (sensorConfig != null) {
 
-            Log.d("SensorPacketsProvider", "detachSensor 2")
+//            Log.d("SensorPacketsProvider", "detachSensor 2")
             unregisterSensor(sensorConfig)
             mSensorConfigs.remove(sensorType)
 
@@ -114,26 +114,7 @@ class SensorPacketsProvider : SensorEventListener {
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
-/*        //TODO("Not yet implemented")*/
 
-/*
-        val sensorId: Int = event.sensor.getType()
-        val time: Long = Calendar.getInstance().getTimeInMillis()
-        val value: Float = event.values.get(0)
-        */
-/*LOGV(TAG, "service event  id: " + Integer.toString(sensorId)
-                + ",| time: " + Long.toString(time)
-                + ", | values: " + Float.toString(value));*//*
-
-        */
-/*LOGV(TAG, "service event  id: " + Integer.toString(sensorId)
-                + ",| time: " + Long.toString(time)
-                + ", | values: " + Float.toString(value));*//*
-mSensorEvents.put(
-            event.sensor.getType(),
-            event
-        )
-*/
         if (p0 != null) {
             mDefaultScope.launch {
                 onSensorEvent(p0)
@@ -179,10 +160,10 @@ mSensorEvents.put(
 
     fun clearAll() {
 
-        Log.d("SensorPacketsProvider","clearAll")
+//        Log.d("SensorPacketsProvider","clearAll")
         if(mSensorConfigs.size() > 0 ){
             for (sensorConfig in mSensorConfigs.valueIterator()){
-                Log.d("SensorPacketsProvider","clearAll unregisterSensor")
+//                Log.d("SensorPacketsProvider","clearAll unregisterSensor")
                 unregisterSensor(sensorConfig)
             }
         }

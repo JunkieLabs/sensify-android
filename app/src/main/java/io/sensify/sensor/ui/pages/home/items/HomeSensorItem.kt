@@ -42,12 +42,12 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 @Preview(showBackground = true, backgroundColor = 0xFFf5f5f5)
 @Composable
 fun HomeSensorItem(
-    modelSensor: ModelHomeSensor = ModelHomeSensor(-1,null),
+    modelSensor: ModelHomeSensor = ModelHomeSensor(-1, null),
 
-    onClick : (sensorType: Int) -> Unit =  {
+    onClick: (sensorType: Int) -> Unit = {
 
     },
-    onCheckChange: (Int, Boolean) -> Unit =  { type: Int, isChecked: Boolean -> }
+    onCheckChange: (Int, Boolean) -> Unit = { type: Int, isChecked: Boolean -> }
     //(type: Int, false){},
 ) {
 
@@ -57,51 +57,54 @@ fun HomeSensorItem(
     */
 //    val mCheckedState = remember{ mutableStateOf(false)}
 
-    var cardColor = if(modelSensor.isActive)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
-    var borderColor = if(modelSensor.isActive)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(JlResDimens.dp18))
-        .clickable(
-            enabled = true,
-            onClickLabel = "Card Click",
-            onClick = {
-                onClick.invoke(modelSensor.type)
-            })
-        .background(
-            brush = Brush.radialGradient(
+    var cardColor =
+        if (modelSensor.isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
+    var borderColor =
+        if (modelSensor.isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface;
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(JlResDimens.dp18))
+            .clickable(
+                enabled = true,
+                onClickLabel = "Card Click",
+                onClick = {
+                    onClick.invoke(modelSensor.type)
+                })
+            .background(
+                brush = Brush.radialGradient(
 
-                listOf(
-                    cardColor.copy(alpha = 0.1f),
+                    listOf(
+                        cardColor.copy(alpha = 0.1f),
 //                            MaterialTheme.colorScheme.primary,
 //                    JLThemeBase.colorPrimary30,
-                    cardColor.copy(alpha = 0.03f),
+                        cardColor.copy(alpha = 0.03f),
 //                    Color.Transparent,
-                ),
-                center = Offset(30f, -30f),
+                    ),
+                    center = Offset(30f, -30f),
 
-                radius = 200.0f
+                    radius = 200.0f
 
 
 //                start = Offset(0f, 0f),
 //                end = Offset(0f, Float.POSITIVE_INFINITY)
+                )
             )
-        )
-        .border(
-            brush = Brush.verticalGradient(
-                listOf(
-                    borderColor.copy(alpha = 0.0f),
-                    borderColor.copy(alpha = 0.15f),
+            .border(
+                brush = Brush.verticalGradient(
+                    listOf(
+                        borderColor.copy(alpha = 0.0f),
+                        borderColor.copy(alpha = 0.15f),
 //                    Color(0x00FFFFFF),
-                ),
-                startY = 0f,
-                endY = Float.POSITIVE_INFINITY,
+                    ),
+                    startY = 0f,
+                    endY = Float.POSITIVE_INFINITY,
 
-                ),
+                    ),
 
-            width = JlResDimens.dp1,
-            shape = RoundedCornerShape(JlResDimens.dp18)
-        )
+                width = JlResDimens.dp1,
+                shape = RoundedCornerShape(JlResDimens.dp18)
+            )
     ) {
 
 //    }
@@ -125,7 +128,12 @@ fun HomeSensorItem(
 
             ) {
                 Image(
-                    painterResource(SensorsIcons.MAP_TYPE_TO_ICON.get(modelSensor.type, R.drawable.ic_sensor_unknown)),
+                    painterResource(
+                        SensorsIcons.MAP_TYPE_TO_ICON.get(
+                            modelSensor.type,
+                            R.drawable.ic_sensor_unknown
+                        )
+                    ),
                     contentDescription = modelSensor.sensor?.name,
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
 
@@ -137,7 +145,10 @@ fun HomeSensorItem(
             }
             Spacer(modifier = JlResShapes.Space.H4)
             Text(
-                text = SensorsConstants.MAP_TYPE_TO_NAME.get( modelSensor.type,modelSensor.sensor?.name?:""),
+                text = SensorsConstants.MAP_TYPE_TO_NAME.get(
+                    modelSensor.type,
+                    modelSensor.sensor?.name ?: ""
+                ),
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 style = JlResTxtStyles.h5,
@@ -152,19 +163,20 @@ fun HomeSensorItem(
                 verticalAlignment = Alignment.Bottom
             ) {
 
-                if(modelSensor.isActive){
-                    Column(modifier = Modifier,
+                if (modelSensor.isActive) {
+                    Column(
+                        modifier = Modifier,
                     ) {
                         Text(
                             text = "Running",
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                             fontSize = 12.sp
                         )
-                       /* Text(
-                            text = "sensorValue",
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
-                            fontSize = 14.sp
-                        )*/
+                        /* Text(
+                             text = "sensorValue",
+                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
+                             fontSize = 14.sp
+                         )*/
                     }
                 }
 
@@ -174,9 +186,10 @@ fun HomeSensorItem(
                     checked = modelSensor.isActive,
                     onCheckedChange = {
 //                        mCheckedState.value = it;
-                        onCheckChange.invoke(modelSensor.type, it)} ,
+                        onCheckChange.invoke(modelSensor.type, it)
+                    },
 //                    interactionSource = interactionSource,
-                    colors= SwitchDefaults.colors(
+                    colors = SwitchDefaults.colors(
                         checkedThumbColor = Color(0xFF13ED6A),
                         uncheckedThumbColor = Color(0xFF898989),
                         checkedTrackColor = Color(0x4D00FF66),
@@ -187,7 +200,7 @@ fun HomeSensorItem(
                         .height(16.dp)
                         .padding(end = 1.dp, bottom = 1.dp),
 
-                )
+                    )
 
 
             }

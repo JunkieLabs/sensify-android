@@ -1,6 +1,4 @@
-<p align="center">
-<img src="https://github.com/JunkieLabs/sensify-android/blob/main/images/sensify-logo.png" width="250">
-</p>
+
 
 # Sensify : Android Sensor Visualizer
 

@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel : ViewModel() {
 
-    private var mLogTimestamp: Long = 0
+//    private var mLogTimestamp: Long = 0
 
     private var mSensors: MutableList<ModelHomeSensor> = mutableListOf()
 
@@ -42,15 +42,11 @@ class HomeViewModel : ViewModel() {
     private val _mSensorsList = mutableStateListOf<ModelHomeSensor>()
     val mSensorsList: SnapshotStateList<ModelHomeSensor> = _mSensorsList
 
-    private val _mUiCurrentSensorState = MutableStateFlow<ModelHomeSensor?>(null)
+  /*  private val _mUiCurrentSensorState = MutableStateFlow<ModelHomeSensor?>(null)
     val mUiCurrentSensorState: StateFlow<ModelHomeSensor?> = _mUiCurrentSensorState.asStateFlow()
+*/
 
 
-    /*
-    TODO remove not consistent
-    private val _mActiveSensorStateList = mutableStateListOf<ModelHomeSensor>()
-     val mActiveSensorStateList: SnapshotStateList<ModelHomeSensor> = _mActiveSensorStateList
- */
 
     private val _mActiveSensorListFlow = MutableStateFlow<MutableList<ModelHomeSensor>>(
         mutableListOf()
@@ -66,12 +62,12 @@ class HomeViewModel : ViewModel() {
     //    TODO use this in future private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()
     private val mChartDataManagerMap = mutableMapOf<Int, MpChartDataManager>()
 
-    private val _mSensorPacketFlow = MutableSharedFlow<ModelChartUiUpdate>(replay = 0)
+  /*  private val _mSensorPacketFlow = MutableSharedFlow<ModelChartUiUpdate>(replay = 0)
     val mSensorPacketFlow = _mSensorPacketFlow.asSharedFlow()
-
+*/
 
     init {
-        Log.d("HomeViewModel", "viewmodel init")
+//        Log.d("HomeViewModel", "viewmodel init")
 
         viewModelScope.launch {
             SensorsProvider.getInstance().mSensorsFlow.map { value ->
@@ -86,10 +82,7 @@ class HomeViewModel : ViewModel() {
                 }.toMutableList()
             }.collectLatest {
                 mSensors = it
-                Log.d(
-                    "HomeViewModel",
-                    "${this@HomeViewModel} init sensors active  1: $mIsActiveMap"
-                )
+//                Log.d("HomeViewModel","${this@HomeViewModel} init sensors active  1: $mIsActiveMap")
 
 //                Log.d("HomeViewModel", "sensors 2: $it")
                 if (_mSensorsList.size == 0) {
@@ -108,7 +101,7 @@ class HomeViewModel : ViewModel() {
             }
 
         }
-        Log.d("HomeViewModel", "viewmodel init 2")
+//        Log.d("HomeViewModel", "viewmodel init 2")
         SensorsProvider.getInstance().listenSensors()
 
 
@@ -121,7 +114,7 @@ class HomeViewModel : ViewModel() {
 
     private fun getInitialChartData() {
         for (sensor in _mActiveSensorList) {
-            Log.d("HomeViewModel", "getInitialChartData")
+//            Log.d("HomeViewModel", "getInitialChartData")
             getChartDataManager(sensor.type)
         }
 
@@ -154,34 +147,36 @@ class HomeViewModel : ViewModel() {
         }
 
 
-            Log.d("HomeViewModel", "map size: ${mChartDataManagerMap.size}")
-            mChartDataManagerMap.forEach { i, mpChartDataManager ->
-                viewModelScope.launch {
-                    mpChartDataManager.runPeriodically()
-                Log.d("HomeViewModel", "map size 2222: ${mChartDataManagerMap.size}")
+//        Log.d("HomeViewModel", "map size: ${mChartDataManagerMap.size}")
+        mChartDataManagerMap.forEach { (_, mpChartDataManager) ->
+            viewModelScope.launch {
+                mpChartDataManager.runPeriodically()
+//                Log.d("HomeViewModel", "map size 2222: ${mChartDataManagerMap.size}")
 
-                mpChartDataManager.mSensorPacketFlow.collect {
+                /*   mpChartDataManager.mSensorPacketFlow.collect {
 
-//                Log.d("SensorViewModel", "init mSensorPacketFlow: ${it.timestamp} ${it.size} ")
-                    _mSensorPacketFlow.emit(it)
-                }
+   //                Log.d("SensorViewModel", "init mSensorPacketFlow: ${it.timestamp} ${it.size} ")
+                       _mSensorPacketFlow.emit(it)
+                   }*/
             }
-           /* for (chartDataManager in mChartDataManagerMap.values.iterator()) {
+            /* for (chartDataManager in mChartDataManagerMap.values.iterator()) {
 
-            }*/
+             }*/
 
         }
     }
 
     private fun attachPacketListener(sensor: ModelHomeSensor) {
 
-        Log.d("HomeViewModel","attachPacketListener: $sensor")
+//        Log.d("HomeViewModel", "attachPacketListener: $sensor")
         SensorPacketsProvider.getInstance().attachSensor(
             SensorPacketConfig(sensor.type, SensorManager.SENSOR_DELAY_NORMAL)
         )
     }
+
     private fun detachPacketListener(sensor: ModelHomeSensor) {
-        SensorPacketsProvider.getInstance().detachSensor(sensor.type
+        SensorPacketsProvider.getInstance().detachSensor(
+            sensor.type
         )
     }
 
@@ -194,7 +189,7 @@ class HomeViewModel : ViewModel() {
 
         var index = mSensors.indexOfFirst { it.type == type }
         if (index >= 0) {
-            Log.d("HomeViewModel", "onSensorChecked: Index: $index $isChecked")
+//            Log.d("HomeViewModel", "onSensorChecked: Index: $index $isChecked")
             var sensor = mSensors[index]
             var updatedSensor =
                 ModelHomeSensor(sensor.type, sensor.sensor, sensor.info, sensor.valueRms, isChecked)
@@ -251,10 +246,10 @@ class HomeViewModel : ViewModel() {
     fun setActivePage(page: Int?) {
 
         viewModelScope.launch {
-            Log.d("HomeViewModel", "page: $page")
+//            Log.d("HomeViewModel", "page: $page")
             if (page != null && _mActiveSensorList.size > 0) {
                 var sensor = _mActiveSensorList[page]
-                _mUiCurrentSensorState.emit(sensor)
+//                _mUiCurrentSensorState.emit(sensor)
                 _uiState.emit(
                     _uiState.value.copy(
                         currentSensor = sensor,
@@ -262,7 +257,7 @@ class HomeViewModel : ViewModel() {
                     )
                 )
             } else {
-                _mUiCurrentSensorState.emit(null)
+//                _mUiCurrentSensorState.emit(null)
                 _uiState.emit(
                     _uiState.value.copy(
                         currentSensor = null,
@@ -278,10 +273,8 @@ class HomeViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
 
-        Log.d("HomeViewModel", "onCleared")
-
-
-        mChartDataManagerMap.forEach { i, mpChartDataManager -> mpChartDataManager.destroy() }
+//        Log.d("HomeViewModel", "onCleared")
+        mChartDataManagerMap.forEach { (_, mpChartDataManager) -> mpChartDataManager.destroy() }
     }
 
     @Suppress("UNCHECKED_CAST")
