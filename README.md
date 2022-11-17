@@ -35,7 +35,6 @@ Whole sensors functionality is implemented inside domain folder, where SensorPro
 * MVVM Architecture used for this App.
 * Usage of Kotlin Flow, Jetpack State, Singletons etc.
 * Theming in M3 for Light and Dark.
-* compatible with **Wear Os** with similar features
 
 ## Organization of code and the libraries:
 
