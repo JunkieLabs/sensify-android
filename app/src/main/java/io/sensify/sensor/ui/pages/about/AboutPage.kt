@@ -19,6 +19,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +46,7 @@ import io.sensify.sensor.ui.resource.values.JlResTxtStyles
 fun AboutPage(modifier: Modifier = Modifier, navController: NavController? = null) {
     val lazyListState = rememberLazyListState()
 
+    val uriHandler = LocalUriHandler.current
     Scaffold(topBar = {
 
         SmallTopAppBar(
@@ -198,7 +200,9 @@ fun AboutPage(modifier: Modifier = Modifier, navController: NavController? = nul
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF030303)),
                     modifier = Modifier.height(JlResDimens.dp56),
                     shape = RoundedCornerShape(JlResDimens.dp16),
-                    onClick = { /*TODO*/ }) {
+                    onClick = {
+                        uriHandler.openUri("https://github.com/JunkieLabs/sensify-android")
+                    }) {
                     Icon(
                         modifier = Modifier.size(size = JlResDimens.dp24),
                         tint = Color.White,
@@ -218,7 +222,9 @@ fun AboutPage(modifier: Modifier = Modifier, navController: NavController? = nul
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDE1D34)),
                     modifier = Modifier.height(JlResDimens.dp56),
                     shape = RoundedCornerShape(JlResDimens.dp16),
-                    onClick = { /*TODO*/ }) {
+                    onClick = {
+                        uriHandler.openUri("https://junkielabs.in/")
+                    }) {
                     Text(
                         modifier = Modifier.weight(1f),
                         color = Color.White,
