@@ -1,5 +1,6 @@
 package io.sensify.sensor.domains.chart
 
+import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.util.Log
 import io.sensify.sensor.domains.chart.entity.ModelChartUiUpdate
@@ -92,7 +93,10 @@ class ChartDataHandler(var sensorType: Int) {
                 // TODO should I periodic shift
 
                 var items = addPreEntry()
-//                Log.d("MpChartViewManager ", "runPeriodicTask : $sensorType")
+             /*   if(sensorType == Sensor.TYPE_GYROSCOPE){
+                    Log.d("MpChartViewManager ", "runPeriodicTask : $sensorType")
+                }*/
+
                 _mSensorPacketFlow.emit(
                     ModelChartUiUpdate(
 //                    mModelLineChart

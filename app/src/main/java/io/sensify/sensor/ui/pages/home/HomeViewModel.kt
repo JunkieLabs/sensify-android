@@ -231,6 +231,7 @@ class HomeViewModel : ViewModel() {
 
                 _mActiveSensorListFlow.emit(_mActiveSensorList)
             }
+            getChartDataManager(type = sensor.type).runPeriodically()
         }
     }
 
@@ -240,22 +241,36 @@ class HomeViewModel : ViewModel() {
             MpChartDataManager(type, onDestroy = {
             })
         })
+        Log.d("HomeViewModel", "getChartDataManager: $type")
         return chartDataManager
     }
+
+
 
     fun setActivePage(page: Int?) {
 
         viewModelScope.launch {
 //            Log.d("HomeViewModel", "page: $page")
             if (page != null && _mActiveSensorList.size > 0) {
-                var sensor = _mActiveSensorList[page]
+                if(_mActiveSensorList.size > page){
+                    var sensor = _mActiveSensorList[page]
 //                _mUiCurrentSensorState.emit(sensor)
-                _uiState.emit(
-                    _uiState.value.copy(
-                        currentSensor = sensor,
-                        activeSensorCounts = _mActiveSensorList.size
+                    _uiState.emit(
+                        _uiState.value.copy(
+                            currentSensor = sensor,
+                            activeSensorCounts = _mActiveSensorList.size
+                        )
                     )
-                )
+                }else{
+                    var sensor = _mActiveSensorList[_mActiveSensorList.size-1]
+                    _uiState.emit(
+                        _uiState.value.copy(
+                            currentSensor = sensor,
+                            activeSensorCounts = _mActiveSensorList.size
+                        )
+                    )
+                }
+
             } else {
 //                _mUiCurrentSensorState.emit(null)
                 _uiState.emit(
