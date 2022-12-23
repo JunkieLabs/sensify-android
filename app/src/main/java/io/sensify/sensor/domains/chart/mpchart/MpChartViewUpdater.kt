@@ -1,5 +1,6 @@
 package io.sensify.sensor.domains.chart.mpchart
 
+import android.hardware.Sensor
 import android.util.Log
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
@@ -32,7 +33,10 @@ class MpChartViewUpdater {
             lineData = updateDataSet(i, value, datasets[i], lineData!!)
 
         }
-//        Log.d("MpChartViewManager ", "update status 2: size: ${value.size}")
+        if(value.sensorType == Sensor.TYPE_GYROSCOPE){
+
+//            Log.d("MpChartViewManager ", "update status : size: ${value.size}")
+        }
 
         notifyDataChange(chart)
 

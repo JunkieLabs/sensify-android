@@ -110,9 +110,6 @@ fun HomeSensorGraphPager(
                                     0.8f
                                 )
                             ),
-//                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
-//                            MaterialTheme.colorScheme.primary,
-//                    JLThemeBase.colorPrimary30,
                             Color(
                                 ColorUtils.blendARGB(
                                     MaterialTheme.colorScheme.onSurface.toArgb(),
@@ -120,8 +117,6 @@ fun HomeSensorGraphPager(
                                     0.97f
                                 )
                             ),
-//                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.07f),
-//                    Color.Transparent,
                         ),
                         center = Offset(200f, -30f),
 
@@ -152,11 +147,6 @@ fun HomeSensorGraphPager(
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
             )
-// HomeSensorChart
-
-//                .fillMaxSize()
-//                .height(120.dp)
-//                .aspectRatio(1f)
         ) {
 
             Box(
@@ -172,8 +162,6 @@ fun HomeSensorGraphPager(
                     activeSensorStateList.value[page],
                     viewModel.getChartDataManager(activeSensorStateList.value[page].type)
                 )
-
-//                Text(text = "Graph $page", modifier = Modifier.align(alignment = Alignment.Center))
             }
 
         }
