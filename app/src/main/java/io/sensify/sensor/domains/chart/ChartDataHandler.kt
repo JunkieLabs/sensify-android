@@ -148,7 +148,7 @@ class ChartDataHandler(var sensorType: Int) {
 
         for (item in preData) {
 
-            for (index in mDataTypesIndexed) {
+            for (index in mDataTypesIndexed.indices) {
 
                 if (item.values != null) {
                     if (item.values!!.size > index) {
