@@ -56,7 +56,8 @@ class HomeViewModel : ViewModel() {
 
     private val mIsActiveMap = mutableMapOf<Int, Boolean>(
         Pair(Sensor.TYPE_GYROSCOPE, true),
-        Pair(Sensor.TYPE_ACCELEROMETER, true)
+//        Pair(Sensor.TYPE_ACCELEROMETER, true)
+        Pair(Sensor.TYPE_MAGNETIC_FIELD, true)
     )
 
     //    TODO use this in future private val mSensorPacketsMap = mutableMapOf<Int, ModelSensorPacket>()

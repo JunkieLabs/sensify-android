@@ -52,7 +52,7 @@ fun SplashPage(navController: NavController) {
             )
         )*/
 
-        delay(timeMillis = 2000)
+        delay(timeMillis = 500)
 
         navController.popBackStack()
         navController.navigate(NavDirectionsApp.HomePage.route)
