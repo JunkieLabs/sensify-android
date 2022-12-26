@@ -62,7 +62,12 @@ fun HomeSensorGraphPager(
         // Add 32.dp horizontal padding to 'center' the pages
         contentPadding = PaddingValues(horizontal = JlResDimens.dp32),
         key ={
-            activeSensorStateList.value[it].type
+            if(it < activeSensorStateList.value.size){
+
+                activeSensorStateList.value[it].type
+            }else{
+                -1
+            }
         } ,
         modifier = modifier
             .fillMaxWidth()
