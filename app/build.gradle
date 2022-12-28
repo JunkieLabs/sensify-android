@@ -15,8 +15,8 @@ android {
         applicationId "io.sensify.sensor"
         minSdk 24
         targetSdk 33
-        versionCode 19
-        versionName "3.0.11"
+        versionCode 20
+        versionName "3.0.12"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
