@@ -18,6 +18,7 @@ android {
         versionCode 20
         versionName "3.0.12"
 
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
