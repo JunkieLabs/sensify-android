@@ -3,7 +3,7 @@
 # Sensify : Sensor Visualizer in Jetpack Compose
 
 
-[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24) ![Compose Version](https://img.shields.io/badge/Compose-1.2.0-brightgreen)
+[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=for-the-badge)](https://android-arsenal.com/api?level=24) ![Compose Version](https://img.shields.io/badge/Compose-1.2.0-brightgreen?style=for-the-badge)
 
 > Help in analysing your Android phone's sensors with graphs and visuals.
 
@@ -36,12 +36,20 @@ Whole sensors functionality is implemented inside domain folder, where SensorPro
 * Usage of Kotlin Flow, Jetpack State, Singletons etc.
 * Theming in M3 for Light and Dark.
 
-## Organization of code and the libraries:
+## Tech Stack
 
-### Code
-* whole code is in **Kotlin** 
-* the phone app follows **MVVM architecture** - pages -> ViewModel -> domain
-* Resource folder inside ui is dedicated to theming and styling. 
+This project takes advantage of best practices of common libraryies and tools in android.
+
+* [Kotlin](https://kotlinlang.org/)  
+* [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - for background operations  
+* [Flow](https://developer.android.com/kotlin/flow) - alternate of RxJava
+* [Jetpack Compose](https://developer.android.com/jetpack/compose)
+* [Jetpack libraries](https://developer.android.com/jetpack):
+   * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) - in-app navigation
+   * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - perform an action when lifecycle state changes
+   * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
+* [Material Design 3](https://m3.material.io/develop/android/jetpack-compose) 
+
 
 
 <br>
@@ -49,14 +57,6 @@ Whole sensors functionality is implemented inside domain folder, where SensorPro
 ## Show your love :heart: by giving a :star: on this project.
 
 <br>
-
-<br>
-
-
-# FAQ
-Please see in [the wiki](https://github.com/JunkieLabs/sensify-android/wiki/Frequently-Asked-Questions-(FAQ))
-
-
 
 
 # Open Source Credits
@@ -70,6 +70,6 @@ Please see in [the wiki](https://github.com/JunkieLabs/sensify-android/wiki/Freq
 
 # License
 
-[![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://badges.mit-license.org)
+[![License](https://img.shields.io/:license-mit-blue.svg?style=for-the-badge)](https://badges.mit-license.org)
 
 - **[MIT license](LICENSE)**
