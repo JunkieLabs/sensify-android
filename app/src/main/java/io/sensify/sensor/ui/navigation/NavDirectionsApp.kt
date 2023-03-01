@@ -44,6 +44,7 @@ fun NavGraphApp() {
             SensorPage(
                 navController = navController,
                 type = it.arguments?.getInt("type") ?: Sensor.TYPE_GYROSCOPE,
+                // TODO might be creating bug
 
             )
         }
