@@ -14,3 +14,6 @@
 
 # encode -decode
 - https://stackoverflow.com/questions/42592518/encode-decode-exe-into-base64
+
+# gradle not allowed
+- git update-index --chmod=+x gradlew
