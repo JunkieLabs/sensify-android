@@ -12,11 +12,14 @@ jobs:
       # 1
       - name: Checkout code
         uses: actions/checkout@v2
+<<<<<<< HEAD
 
       - name: Putting data
         env:
           DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
           run: echo $DATA > /home/runner/work/sensify-android/sensify-android/app/google-services.json
+=======
+>>>>>>> main
       # 2
       - name: Generate Release APK
         run: ./gradlew assembleRelease
