@@ -27,7 +27,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("D:\\our\\development\\utilities\\sensify\\sensifyAndroid\\keystore2017.jks")
+            storeFile file("SIGNING_STORE_KEYSTORE")
             storePassword System.getenv("SIGNING_STORE_PASSWORD")
             keyAlias System.getenv("SIGNING_KEY_ALIAS")
             keyPassword System.getenv("SIGNING_KEY_PASSWORD")
@@ -38,7 +38,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -135,3 +135,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.3.0-alpha01"
 }
+
+println 'dsds' + System.getenv("SIGNING_STORE_PASSWORD")
