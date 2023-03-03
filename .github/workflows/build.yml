@@ -2,9 +2,9 @@ name: Android Publish
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'floss'
+#  push:
+#    branches:
+#      - 'floss'
 jobs:
   build:
     runs-on: ubuntu-latest
