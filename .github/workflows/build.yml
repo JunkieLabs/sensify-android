@@ -17,7 +17,7 @@ jobs:
       - name: Putting data
         env:
           DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
-          run: echo $DATA > /home/runner/work/sensify-android/sensify-android/app/google-services.json
+        run: echo $DATA > /home/runner/work/sensify-android/sensify-android/app/google-services.json
 
       # 2
       - name: Generate Release APK
