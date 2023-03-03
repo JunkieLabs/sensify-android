@@ -14,3 +14,11 @@
 
 # encode -decode
 - https://stackoverflow.com/questions/42592518/encode-decode-exe-into-base64
+
+# gradle not allowed
+- git update-index --chmod=+x gradlew
+- https://stackoverflow.com/questions/17668265/gradlew-permission-denied
+
+# google services json
+- https://stackoverflow.com/questions/70568653/google-services-json-file-for-github-actions
+
