@@ -23,7 +23,7 @@ jobs:
       - name: Generate release tag
         id: tag
         run: |
-          echo "::set-output name=release_tag::UserBuild_$(date +"%Y.%m.%d_%H-%M")"
+          echo "::set-output name=release_tag::Sensify_$(date +"%Y.%m.%d_%H-%M")"
       # 3
       - name: Release
         uses: softprops/action-gh-release@v1
