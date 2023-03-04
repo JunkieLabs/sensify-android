@@ -22,3 +22,8 @@
 # google services json
 - https://stackoverflow.com/questions/70568653/google-services-json-file-for-github-actions
 
+# signing
+- https://github.com/r0adkll/sign-android-release/issues/34
+
+# openssl
+-  https://adamtheautomator.com/openssl-windows-10/
