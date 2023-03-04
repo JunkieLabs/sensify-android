@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: dawidd6/action-download-artifact@v2
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        workflow: build.yml
-        workflow_conclusion: success
-        branch: floss
-        name: release.apk
-        path: downloads
-        if_no_artifact_found: fail
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build.yml
+          workflow_conclusion: success
+          branch: floss
+          name: release.apk
+          path: downloads
+          if_no_artifact_found: fail
 
       # 8
       - name: Release
