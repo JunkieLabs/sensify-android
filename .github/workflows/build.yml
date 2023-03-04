@@ -1,4 +1,4 @@
-name: Android Publish
+name: Android Build
 
 on:
   workflow_dispatch:
@@ -13,18 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # 2
       - name: Create file
         run: cat /home/runner/work/sensify-android/sensify-android/app/google-services.json | base64
 
+      # 3
       - name: Putting data
         env:
           DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: echo $DATA > /home/runner/work/sensify-android/sensify-android/app/google-services.json
 
-      # 2
+      # 4
       - name: Generate Release APK
         run: ./gradlew assembleRelease
-      # 3
+      # 5
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         # ID used to access action output
@@ -35,13 +37,14 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-      # 4
+      # 6
       - uses: actions/upload-artifact@master
         with:
           name: release.apk
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
-      # 5
+      # 7
       - uses: actions/upload-artifact@master
         with:
           name: mapping.txt
           path: app/build/outputs/mapping/release/mapping.txt
+
