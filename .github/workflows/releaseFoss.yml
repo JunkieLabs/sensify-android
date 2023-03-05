@@ -1,0 +1,34 @@
+name: Github Publish Foss
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - 'floss'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1
+      - uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: buildFoss.yml
+          workflow_conclusion: success
+          branch: floss
+          name: release.apk
+          path: downloads
+          if_no_artifact_found: fail
+      # 2
+      - name: Generate release tag
+        id: tag
+        run: |
+          echo "::set-output name=release_tag::Sensify_FOSS_$(date +"%Y.%m.%d_%H-%M")"
+      # 3
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          files: downloads/release-signed.apk

@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-//        throw RuntimeException("Test Crash") // Force a crash
+//        throw NumberFormatException("Test Crash") // Force a crash
         lifecycleScope.launch {
             SensorsProvider.getInstance().setSensorManager(sensorManager)
             SensorPacketsProvider.getInstance().setSensorManager(sensorManager)

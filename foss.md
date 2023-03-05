@@ -26,4 +26,7 @@
 - https://github.com/r0adkll/sign-android-release/issues/34
 
 # openssl
--  https://adamtheautomator.com/openssl-windows-10/
+- https://adamtheautomator.com/openssl-windows-10/
+
+# gradle
+- http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Product-Flavor-Configuration
