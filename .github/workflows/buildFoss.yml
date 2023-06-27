@@ -12,12 +12,10 @@ jobs:
       # 1
       - name: Checkout code
         uses: actions/checkout@v2
-
-
-      # 4
+      # 2
       - name: Generate Release APK
         run: ./gradlew assembleFossRelease
-      # 5
+      # 3
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         # ID used to access action output
@@ -28,12 +26,12 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-      # 6
+      # 4
       - uses: actions/upload-artifact@master
         with:
           name: release.apk
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
-      # 7
+      # 5
       - uses: actions/upload-artifact@master
         with:
           name: mapping.txt
